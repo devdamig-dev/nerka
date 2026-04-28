@@ -10,7 +10,7 @@ type Conversation = (typeof conversations)[number];
 
 export function EntrepreneurCard({ entrepreneur, horizontal = false }: { entrepreneur: Entrepreneur; horizontal?: boolean }) {
   return (
-    <article className={`rounded-2xl border border-[#ece8f7] bg-white p-3 shadow-sm ${horizontal ? "min-w-[240px]" : ""}`}>
+    <article className={`rounded-2xl border border-[#ece8f7] bg-white p-3 shadow-sm ${horizontal ? "min-w-[240px] lg:min-w-0" : ""}`}>
       <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-34 w-full rounded-xl object-cover" />
       <div className="mt-3 space-y-2">
         <p className="font-semibold text-[#1f1833]">{entrepreneur.name}</p>
@@ -56,7 +56,7 @@ export function RequestCard({ request }: { request: Request }) {
       <p className="mt-2 text-sm text-[#433d56]">{request.description}</p>
       <div className="mt-3 flex items-center justify-between">
         <p className="text-sm text-[#2B174F]"><strong>{request.proposals}</strong> propuestas recibidas</p>
-        <Link href="/nerka/mensajes" className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver conversaciones</Link>
+        <Link href={`/nerka/solicitudes/${request.id}`} className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver detalle</Link>
       </div>
     </article>
   );

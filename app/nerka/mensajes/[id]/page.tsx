@@ -13,7 +13,7 @@ export default async function ChatPage({ params }: { params: Promise<{ id: strin
   const request = getRequestById(conversation.requestId);
 
   return (
-    <main className="space-y-4 px-4 py-5 pb-24">
+    <main className="space-y-4 px-4 py-5 pb-24 lg:px-8 lg:py-8 lg:pb-8">
       <h1 className="text-xl font-semibold text-[#2B174F]">Chat con propuesta</h1>
 
       <section className="rounded-2xl border border-[#d9cef8] bg-[#F2ECFF] p-4">
@@ -30,7 +30,7 @@ export default async function ChatPage({ params }: { params: Promise<{ id: strin
       <ChatThread />
       <StructuredProposalCard />
 
-      <div className="fixed bottom-18 left-0 right-0 mx-auto w-full max-w-md border-t border-[#ece8f7] bg-white px-4 py-3 md:bottom-6 md:rounded-b-[2rem]">
+      <div className="fixed bottom-18 left-0 right-0 border-t border-[#ece8f7] bg-white px-4 py-3 lg:static lg:rounded-2xl lg:border lg:px-3">
         <input placeholder="Escribí un mensaje..." className="w-full rounded-xl border border-[#ece8f7] px-4 py-2.5 text-sm outline-none" />
       </div>
     </main>
