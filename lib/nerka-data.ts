@@ -299,6 +299,87 @@ export const proposal = {
   ],
 };
 
+export const requestComparisons = {
+  "req-cumple-1": [
+    {
+      entrepreneurId: "decorarte-eventos",
+      price: "$165.000",
+      includes: "Backdrop temático, candy bar para 25 personas y montaje completo.",
+      eta: "Disponible para el 12 de mayo",
+      status: "Presupuesto enviado" as ConversationStatus,
+    },
+    {
+      entrepreneurId: "candy-house",
+      price: "$152.000",
+      includes: "Mesa dulce temática con cartelería personalizada y reposición.",
+      eta: "Disponible con 72 hs de anticipación",
+      status: "En conversación" as ConversationStatus,
+    },
+    {
+      entrepreneurId: "pequenos-momentos",
+      price: "$182.000",
+      includes: "Ambientación integral, coordinación del evento y sector de fotos.",
+      eta: "Fecha reservable hasta el 5 de mayo",
+      status: "Esperando respuesta" as ConversationStatus,
+    },
+  ],
+  "req-baby-shower": [
+    {
+      entrepreneurId: "flores-mia",
+      price: "$118.000",
+      includes: "Arco floral pastel, centros de mesa y rincón de bienvenida.",
+      eta: "Disponible para el 25 de mayo",
+      status: "Presupuesto enviado" as ConversationStatus,
+    },
+    {
+      entrepreneurId: "deco-alma",
+      price: "$126.000",
+      includes: "Diseño de ambientación minimalista + papelería personalizada.",
+      eta: "Confirmación dentro de 48 horas",
+      status: "En conversación" as ConversationStatus,
+    },
+    {
+      entrepreneurId: "luz-makeup",
+      price: "$96.000",
+      includes: "Makeup social para homenajeada y acompañante + retoque en evento.",
+      eta: "Disponible el día del evento",
+      status: "Esperando respuesta" as ConversationStatus,
+    },
+  ],
+  "req-torta": [
+    {
+      entrepreneurId: "dulce-tentacion",
+      price: "$78.000",
+      includes: "Torta temática de animales para 30 personas + topper personalizado.",
+      eta: "Entrega el 8 de junio por la mañana",
+      status: "Presupuesto enviado" as ConversationStatus,
+    },
+    {
+      entrepreneurId: "candy-house",
+      price: "$84.000",
+      includes: "Torta + mini mesa dulce con cupcakes y cookies temáticas.",
+      eta: "Retiro o envío coordinado",
+      status: "En conversación" as ConversationStatus,
+    },
+  ],
+  "req-foto-familiar": [
+    {
+      entrepreneurId: "click-kids-fotografia",
+      price: "$95.000",
+      includes: "Cobertura de 4 horas, edición y entrega digital en 7 días.",
+      eta: "Fecha confirmada para el 15 de junio",
+      status: "Propuesta aceptada" as ConversationStatus,
+    },
+    {
+      entrepreneurId: "pequenos-momentos",
+      price: "$102.000",
+      includes: "Cobertura foto + coordinación de cronograma familiar.",
+      eta: "Disponible con reserva previa",
+      status: "Esperando respuesta" as ConversationStatus,
+    },
+  ],
+} as const;
+
 export const getEntrepreneurById = (id: string) =>
   entrepreneurs.find((e) => e.id === id);
 
