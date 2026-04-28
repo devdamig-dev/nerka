@@ -18,6 +18,36 @@ import {
 import type { ReactNode } from "react";
 import type { ConversationStatus, RequestStatus, TrustBadge } from "@/lib/nerka-data";
 
+export function NerkaAppShell({ children }: { children: ReactNode }) {
+  return (
+    <div className="mx-auto min-h-screen w-full max-w-md bg-[#FAFAFC] pb-24 shadow-[0_0_60px_rgba(43,23,79,0.08)] md:my-6 md:rounded-[2rem] md:border md:border-[#ece8f7]">
+      {children}
+      <NerkaBottomNav />
+    </div>
+  );
+}
+
+export function NerkaHeader() {
+  return (
+    <header className="sticky top-0 z-20 border-b border-[#ece8f7] bg-[#FAFAFC]/95 px-4 pb-3 pt-5 backdrop-blur-sm">
+      <div className="flex items-start justify-between">
+        <button className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm">
+          <Menu size={18} />
+        </button>
+        <div className="text-center">
+          <p className="text-xl font-semibold tracking-tight text-[#2B174F]">nerka</p>
+          <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#6F6A7C]">
+            <MapPin size={12} /> Berazategui
+          </p>
+        </div>
+        <button className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm">
+          <Bell size={18} />
+        </button>
+      </div>
+    </header>
+  );
+}
+
 const navItems = [
   { href: "/nerka", label: "Inicio", icon: Home },
   { href: "/nerka/explorar", label: "Explorar", icon: Compass },
@@ -26,96 +56,26 @@ const navItems = [
   { href: "/nerka/perfil", label: "Perfil", icon: User },
 ];
 
-export function NerkaAppShell({ children }: { children: ReactNode }) {
-  return (
-    <div className="min-h-screen bg-[#F6F4FB] text-[#171321] lg:grid lg:grid-cols-[260px_1fr]">
-      <DesktopSidebar />
-      <div className="relative min-h-screen">
-        <div className="mx-auto w-full max-w-7xl px-0 pb-[calc(84px+env(safe-area-inset-bottom))] lg:px-8 lg:pb-8">
-          {children}
-        </div>
-        <NerkaBottomNav />
-      </div>
-    </div>
-  );
-}
-
-function DesktopSidebar() {
-  const pathname = usePathname();
-
-  return (
-    <aside className="sticky top-0 hidden h-screen border-r border-[#e9e2fb] bg-white p-5 lg:block">
-      <div className="mb-8">
-        <p className="text-2xl font-semibold tracking-tight text-[#2B174F]">nerka</p>
-        <p className="mt-1 text-sm text-[#6F6A7C]">Marketplace de emprendedores</p>
-      </div>
-      <nav className="space-y-1">
-        {navItems.map(({ href, label, icon: Icon }) => {
-          const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm ${
-                active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#6F6A7C] hover:bg-[#f8f4ff]"
-              }`}
-            >
-              <Icon size={18} /> {label}
-            </Link>
-          );
-        })}
-      </nav>
-      <div className="mt-8 rounded-2xl bg-gradient-to-br from-[#5B2EFF] to-[#2B174F] p-4 text-white">
-        <p className="text-sm font-medium">Pedí lo que necesitás</p>
-        <p className="mt-1 text-xs opacity-90">Recibí propuestas y elegí mejor.</p>
-      </div>
-    </aside>
-  );
-}
-
-export function NerkaHeader() {
-  return (
-    <header className="sticky top-0 z-20 border-b border-[#ece8f7] bg-[#FAFAFC]/95 px-4 pb-3 pt-4 backdrop-blur-sm lg:rounded-b-2xl lg:bg-white lg:px-6 lg:py-4">
-      <div className="flex items-center justify-between">
-        <button className="rounded-xl bg-white p-2 text-[#2B174F] shadow-sm lg:bg-[#F2ECFF]">
-          <Menu size={18} />
-        </button>
-        <div className="text-center lg:text-left">
-          <p className="text-lg font-semibold tracking-tight text-[#2B174F] lg:text-xl">nerka</p>
-          <p className="mt-0.5 inline-flex items-center gap-1 text-xs text-[#6F6A7C]">
-            <MapPin size={12} /> Berazategui · Zonas cercanas
-          </p>
-        </div>
-        <button className="rounded-xl bg-white p-2 text-[#2B174F] shadow-sm lg:bg-[#F2ECFF]">
-          <Bell size={18} />
-        </button>
-      </div>
-    </header>
-  );
-}
-
 export function NerkaBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-[#ddd5f1] bg-white px-2 pb-[max(env(safe-area-inset-bottom),10px)] pt-2 shadow-[0_-8px_25px_rgba(43,23,79,0.08)] lg:hidden">
-      <div className="mx-auto flex w-full max-w-lg items-center justify-around">
-        {navItems.map(({ href, label, icon: Icon }) => {
-          const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
-          return (
-            <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2">
-              <span
-                className={`rounded-xl p-2 ${
-                  active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#9088a3]"
-                }`}
-              >
-                <Icon size={18} />
-              </span>
-              <span className={`text-[11px] ${active ? "text-[#2B174F]" : "text-[#9088a3]"}`}>{label}</span>
-            </Link>
-          );
-        })}
-      </div>
+    <nav className="fixed bottom-0 left-0 right-0 z-30 mx-auto flex w-full max-w-md items-center justify-around border-t border-[#ece8f7] bg-white/95 px-2 py-3 backdrop-blur md:bottom-6 md:rounded-b-[2rem] md:border md:border-[#ece8f7]">
+      {navItems.map(({ href, label, icon: Icon }) => {
+        const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
+        return (
+          <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2">
+            <span
+              className={`rounded-xl p-2 ${
+                active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#9088a3]"
+              }`}
+            >
+              <Icon size={18} />
+            </span>
+            <span className={`text-[11px] ${active ? "text-[#2B174F]" : "text-[#9088a3]"}`}>{label}</span>
+          </Link>
+        );
+      })}
     </nav>
   );
 }
@@ -164,9 +124,9 @@ export function StatusPill({ status }: { status: RequestStatus | ConversationSta
   const color =
     status === "Recibiendo propuestas" || status === "En conversación"
       ? "bg-[#EAF3FF] text-[#225ea8]"
-      : status === "En evaluación" || status === "Propuesta recibida"
+      : status === "En evaluación" || status === "Presupuesto enviado"
         ? "bg-[#FFF4E8] text-[#9b5a00]"
-        : status === "Esperando respuesta" || status === "Ajuste solicitado"
+        : status === "Esperando respuesta"
           ? "bg-[#F2ECFF] text-[#5B2EFF]"
           : "bg-[#E7F9EE] text-[#197a43]";
 
@@ -203,7 +163,7 @@ export function EmptyState({ title, description, cta, href }: { title: string; d
 
 export function QuickActionCard({ title, description, href, tone, icon }: { title: string; description: string; href: string; tone: string; icon: ReactNode }) {
   return (
-    <Link href={href} className={`rounded-2xl p-4 transition hover:-translate-y-0.5 ${tone}`}>
+    <Link href={href} className={`rounded-2xl p-4 ${tone}`}>
       <div className="mb-3 inline-flex rounded-xl bg-white/80 p-2 text-[#2B174F]">{icon}</div>
       <p className="text-sm font-semibold text-[#1f1833]">{title}</p>
       <p className="mt-1 text-xs text-[#50486b]">{description}</p>

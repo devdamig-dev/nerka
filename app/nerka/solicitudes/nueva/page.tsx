@@ -7,12 +7,12 @@ export default function NuevaSolicitudPage() {
   const router = useRouter();
 
   return (
-    <main className="px-4 py-5 pb-24 lg:px-6 lg:pb-8">
+    <main className="px-4 py-5 pb-24">
       <h1 className="text-xl font-semibold text-[#2B174F]">Publicar una solicitud</h1>
       <p className="mt-1 text-sm text-[#6F6A7C]">Pedí lo que necesitás. Recibí propuestas. Elegí mejor.</p>
 
       <form
-        className="mt-5 space-y-3 lg:max-w-2xl"
+        className="mt-5 space-y-3"
         onSubmit={(e) => {
           e.preventDefault();
           router.push("/nerka/solicitudes?created=req-cumple-1");

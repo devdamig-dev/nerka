@@ -5,16 +5,13 @@ import { requests } from "@/lib/nerka-data";
 
 export default function SolicitudesPage() {
   return (
-    <main className="px-4 py-5 lg:px-6">
+    <main className="px-4 py-5">
       <div className="mb-4 flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold text-[#2B174F]">Mis solicitudes</h1>
-          <p className="text-sm text-[#6F6A7C]">Publicás necesidad, comparás propuestas y elegís.</p>
-        </div>
+        <h1 className="text-xl font-semibold text-[#2B174F]">Mis solicitudes</h1>
         <Link href="/nerka/solicitudes/nueva" className="rounded-xl bg-[#5B2EFF] px-3 py-2 text-sm text-white">Nueva</Link>
       </div>
 
-      <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
+      <div className="space-y-3">
         {requests.length ? (
           requests.map((request) => <RequestCard key={request.id} request={request} />)
         ) : (

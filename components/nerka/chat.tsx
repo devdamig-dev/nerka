@@ -1,13 +1,13 @@
-import { CheckCircle2, PencilLine, Sparkles } from "lucide-react";
+import { CheckCircle2, PencilLine } from "lucide-react";
 import { proposal } from "@/lib/nerka-data";
 
 export function ChatThread() {
   return (
     <div className="space-y-3">
-      <div className="max-w-[85%] rounded-2xl bg-white p-3 text-sm text-[#312b47] shadow-sm">Hola, me interesa una propuesta para el cumple de mi bebé.</div>
-      <div className="ml-auto w-fit max-w-[85%] rounded-2xl bg-[#F2ECFF] p-3 text-sm text-[#2B174F]">¡Hola! Gracias por escribirme. ¿La fecha sigue siendo 12 de mayo?</div>
-      <div className="max-w-[85%] rounded-2xl bg-white p-3 text-sm text-[#312b47] shadow-sm">Sí, en Berazategui. Quiero algo simple pero lindo.</div>
-      <div className="ml-auto w-fit max-w-[85%] rounded-2xl bg-[#F2ECFF] p-3 text-sm text-[#2B174F]">Perfecto, te envié una propuesta estructurada abajo 👇</div>
+      <div className="self-start rounded-2xl bg-white p-3 text-sm text-[#312b47] shadow-sm">Hola, me interesa una propuesta para el cumple de mi bebé.</div>
+      <div className="ml-auto w-fit rounded-2xl bg-[#F2ECFF] p-3 text-sm text-[#2B174F]">¡Hola! Gracias por escribirme. ¿La fecha sigue siendo 12 de mayo?</div>
+      <div className="self-start rounded-2xl bg-white p-3 text-sm text-[#312b47] shadow-sm">Sí, en Berazategui. Quiero algo simple pero lindo.</div>
+      <div className="ml-auto w-fit rounded-2xl bg-[#F2ECFF] p-3 text-sm text-[#2B174F]">Perfecto, te envié una propuesta estructurada abajo 👇</div>
     </div>
   );
 }
@@ -15,9 +15,8 @@ export function ChatThread() {
 export function StructuredProposalCard() {
   return (
     <section className="rounded-2xl border-2 border-[#5B2EFF] bg-white p-4 shadow-md">
-      <p className="inline-flex items-center gap-1 rounded-full bg-[#F2ECFF] px-2 py-1 text-xs font-medium text-[#5B2EFF]"><Sparkles size={13} /> Propuesta recibida</p>
-      <p className="mt-2 text-sm font-semibold text-[#2B174F]">Propuesta estructurada</p>
-      <p className="mt-1 text-2xl font-bold text-[#5B2EFF]">{proposal.estimatedPrice}</p>
+      <p className="text-sm font-semibold text-[#2B174F]">Propuesta estructurada</p>
+      <p className="mt-2 text-2xl font-bold text-[#5B2EFF]">{proposal.estimatedPrice}</p>
       <p className="text-sm text-[#6F6A7C]">{proposal.availability}</p>
       <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-[#433d56]">
         {proposal.includes.map((line) => (

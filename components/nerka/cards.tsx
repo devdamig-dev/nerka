@@ -10,16 +10,15 @@ type Conversation = (typeof conversations)[number];
 
 export function EntrepreneurCard({ entrepreneur, horizontal = false }: { entrepreneur: Entrepreneur; horizontal?: boolean }) {
   return (
-    <article className={`rounded-2xl border border-[#ece8f7] bg-white p-3 shadow-sm ${horizontal ? "min-w-[240px] lg:min-w-[280px]" : ""}`}>
-      <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-36 w-full rounded-xl object-cover" />
+    <article className={`rounded-2xl border border-[#ece8f7] bg-white p-3 shadow-sm ${horizontal ? "min-w-[240px]" : ""}`}>
+      <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-34 w-full rounded-xl object-cover" />
       <div className="mt-3 space-y-2">
         <p className="font-semibold text-[#1f1833]">{entrepreneur.name}</p>
-        <p className="text-sm text-[#6F6A7C]">{entrepreneur.subcategory} · {entrepreneur.category}</p>
+        <p className="text-sm text-[#6F6A7C]">{entrepreneur.category}</p>
         <div className="flex items-center gap-1 text-sm text-[#433d56]">
           <Star size={14} className="fill-[#ffb547] text-[#ffb547]" /> {entrepreneur.rating} ({entrepreneur.reviews})
         </div>
         <p className="inline-flex items-center gap-1 text-sm text-[#6F6A7C]"><MapPin size={13} /> {entrepreneur.zone}</p>
-        <p className="text-xs text-[#6F6A7C]">Cobertura: {entrepreneur.coverage.slice(0, 2).join(", ")} y más</p>
         <div className="flex flex-wrap gap-1.5">
           {entrepreneur.badges.slice(0, 2).map((badge) => (
             <BadgeTrust key={badge} badge={badge} />
@@ -34,15 +33,12 @@ export function EntrepreneurCard({ entrepreneur, horizontal = false }: { entrepr
 export function EventCard({ event }: { event: Event }) {
   return (
     <article className="rounded-2xl border border-[#ece8f7] bg-white p-3 shadow-sm">
-      <img src={event.image} alt={event.name} className="h-40 w-full rounded-xl object-cover" />
+      <img src={event.image} alt={event.name} className="h-36 w-full rounded-xl object-cover" />
       <div className="mt-3 space-y-1.5">
         <p className="font-semibold text-[#1f1833]">{event.name}</p>
         <p className="text-sm text-[#6F6A7C]">{event.date}</p>
         <p className="text-sm text-[#6F6A7C]">{event.location}</p>
-        <div className="flex items-center justify-between text-sm">
-          <p className="text-[#433d56]">{event.entrepreneursCount} emprendedores</p>
-          <span className="rounded-full bg-[#E7F9EE] px-2 py-1 text-xs text-[#197a43]">{event.registration}</span>
-        </div>
+        <p className="text-sm text-[#433d56]">{event.entrepreneursCount} emprendedores</p>
         <Link href={`/nerka/eventos/${event.id}`} className="mt-1 inline-flex rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver evento</Link>
       </div>
     </article>
@@ -60,10 +56,7 @@ export function RequestCard({ request }: { request: Request }) {
       <p className="mt-2 text-sm text-[#433d56]">{request.description}</p>
       <div className="mt-3 flex items-center justify-between">
         <p className="text-sm text-[#2B174F]"><strong>{request.proposals}</strong> propuestas recibidas</p>
-        <div className="flex gap-2">
-          <Link href={`/nerka/solicitudes/${request.id}`} className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Comparar</Link>
-          <Link href="/nerka/mensajes" className="rounded-xl bg-[#ede8fc] px-3 py-2 text-sm font-medium text-[#2B174F]">Chats</Link>
-        </div>
+        <Link href="/nerka/mensajes" className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver conversaciones</Link>
       </div>
     </article>
   );

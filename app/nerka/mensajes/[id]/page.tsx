@@ -13,7 +13,7 @@ export default async function ChatPage({ params }: { params: Promise<{ id: strin
   const request = getRequestById(conversation.requestId);
 
   return (
-    <main className="space-y-4 px-4 py-5 pb-24 lg:px-6 lg:pb-8">
+    <main className="space-y-4 px-4 py-5 pb-24">
       <h1 className="text-xl font-semibold text-[#2B174F]">Chat con propuesta</h1>
 
       <section className="rounded-2xl border border-[#d9cef8] bg-[#F2ECFF] p-4">
@@ -27,13 +27,11 @@ export default async function ChatPage({ params }: { params: Promise<{ id: strin
         <p className="text-sm text-[#4f4768]">Presupuesto estimado: {request?.budget}</p>
       </section>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
-        <ChatThread />
-        <StructuredProposalCard />
-      </div>
+      <ChatThread />
+      <StructuredProposalCard />
 
-      <div className="fixed inset-x-0 bottom-[72px] mx-auto w-full max-w-lg px-4 lg:static lg:max-w-none lg:px-0">
-        <input placeholder="Escribí un mensaje..." className="w-full rounded-xl border border-[#ece8f7] bg-white px-4 py-2.5 text-sm outline-none" />
+      <div className="fixed bottom-18 left-0 right-0 mx-auto w-full max-w-md border-t border-[#ece8f7] bg-white px-4 py-3 md:bottom-6 md:rounded-b-[2rem]">
+        <input placeholder="Escribí un mensaje..." className="w-full rounded-xl border border-[#ece8f7] px-4 py-2.5 text-sm outline-none" />
       </div>
     </main>
   );

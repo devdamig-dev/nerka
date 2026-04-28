@@ -6,9 +6,9 @@ export default function MensajesPage() {
   const hasConversations = conversations.length > 0;
 
   return (
-    <main className="px-4 py-5 lg:px-6">
+    <main className="px-4 py-5">
       <h1 className="mb-4 text-xl font-semibold text-[#2B174F]">Mensajes</h1>
-      <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">
+      <div className="space-y-3">
         {hasConversations ? (
           conversations.map((item) => {
             const entrepreneur = getEntrepreneurById(item.entrepreneurId) ?? entrepreneurs[0];
