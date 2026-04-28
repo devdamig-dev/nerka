@@ -1,0 +1,79 @@
+import Link from "next/link";
+import { MapPin, Star } from "lucide-react";
+import { BadgeTrust, StatusPill } from "./ui";
+import type { conversations, entrepreneurs, events, requests } from "@/lib/nerka-data";
+
+type Entrepreneur = (typeof entrepreneurs)[number];
+type Event = (typeof events)[number];
+type Request = (typeof requests)[number];
+type Conversation = (typeof conversations)[number];
+
+export function EntrepreneurCard({ entrepreneur, horizontal = false }: { entrepreneur: Entrepreneur; horizontal?: boolean }) {
+  return (
+    <article className={`rounded-2xl border border-[#ece8f7] bg-white p-3 shadow-sm ${horizontal ? "min-w-[240px]" : ""}`}>
+      <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-34 w-full rounded-xl object-cover" />
+      <div className="mt-3 space-y-2">
+        <p className="font-semibold text-[#1f1833]">{entrepreneur.name}</p>
+        <p className="text-sm text-[#6F6A7C]">{entrepreneur.category}</p>
+        <div className="flex items-center gap-1 text-sm text-[#433d56]">
+          <Star size={14} className="fill-[#ffb547] text-[#ffb547]" /> {entrepreneur.rating} ({entrepreneur.reviews})
+        </div>
+        <p className="inline-flex items-center gap-1 text-sm text-[#6F6A7C]"><MapPin size={13} /> {entrepreneur.zone}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {entrepreneur.badges.slice(0, 2).map((badge) => (
+            <BadgeTrust key={badge} badge={badge} />
+          ))}
+        </div>
+        <Link href={`/nerka/emprendedores/${entrepreneur.id}`} className="mt-1 inline-flex rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver perfil</Link>
+      </div>
+    </article>
+  );
+}
+
+export function EventCard({ event }: { event: Event }) {
+  return (
+    <article className="rounded-2xl border border-[#ece8f7] bg-white p-3 shadow-sm">
+      <img src={event.image} alt={event.name} className="h-36 w-full rounded-xl object-cover" />
+      <div className="mt-3 space-y-1.5">
+        <p className="font-semibold text-[#1f1833]">{event.name}</p>
+        <p className="text-sm text-[#6F6A7C]">{event.date}</p>
+        <p className="text-sm text-[#6F6A7C]">{event.location}</p>
+        <p className="text-sm text-[#433d56]">{event.entrepreneursCount} emprendedores</p>
+        <Link href={`/nerka/eventos/${event.id}`} className="mt-1 inline-flex rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver evento</Link>
+      </div>
+    </article>
+  );
+}
+
+export function RequestCard({ request }: { request: Request }) {
+  return (
+    <article className="rounded-2xl border border-[#ece8f7] bg-white p-4 shadow-sm">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <p className="font-semibold text-[#1f1833]">{request.title}</p>
+        <StatusPill status={request.status} />
+      </div>
+      <p className="text-sm text-[#6F6A7C]">{request.date} • {request.zone} • {request.category}</p>
+      <p className="mt-2 text-sm text-[#433d56]">{request.description}</p>
+      <div className="mt-3 flex items-center justify-between">
+        <p className="text-sm text-[#2B174F]"><strong>{request.proposals}</strong> propuestas recibidas</p>
+        <Link href="/nerka/mensajes" className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver conversaciones</Link>
+      </div>
+    </article>
+  );
+}
+
+export function ConversationCard({ item, entrepreneur }: { item: Conversation; entrepreneur: Entrepreneur }) {
+  return (
+    <Link href={`/nerka/mensajes/${item.id}`} className="block rounded-2xl border border-[#ece8f7] bg-white p-4 shadow-sm">
+      <div className="mb-2 flex items-start justify-between gap-2">
+        <div>
+          <p className="font-semibold text-[#1f1833]">{entrepreneur.name}</p>
+          <p className="text-xs text-[#6F6A7C]">{item.summary}</p>
+        </div>
+        <span className="text-xs text-[#8d86a2]">{item.timestamp}</span>
+      </div>
+      <p className="mb-2 text-sm text-[#433d56]">{item.lastMessage}</p>
+      <StatusPill status={item.status} />
+    </Link>
+  );
+}
