@@ -20,8 +20,18 @@ import type { ConversationStatus, RequestStatus, TrustBadge } from "@/lib/nerka-
 
 export function NerkaAppShell({ children }: { children: ReactNode }) {
   return (
-    <div className="mx-auto min-h-screen w-full max-w-md bg-[#FAFAFC] pb-24 shadow-[0_0_60px_rgba(43,23,79,0.08)] md:my-6 md:rounded-[2rem] md:border md:border-[#ece8f7]">
-      {children}
+    <div className="min-h-screen bg-[#F4F2FA]">
+      <div className="mx-auto w-full lg:max-w-7xl lg:px-6 lg:py-6">
+        <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-6">
+          <aside className="hidden lg:block">
+            <DesktopSidebar />
+          </aside>
+          <div className="min-h-screen bg-[#FAFAFC] pb-24 lg:min-h-[calc(100vh-3rem)] lg:rounded-3xl lg:border lg:border-[#ece8f7] lg:pb-0">
+            <DesktopTopbar />
+            {children}
+          </div>
+        </div>
+      </div>
       <NerkaBottomNav />
     </div>
   );
@@ -29,7 +39,7 @@ export function NerkaAppShell({ children }: { children: ReactNode }) {
 
 export function NerkaHeader() {
   return (
-    <header className="sticky top-0 z-20 border-b border-[#ece8f7] bg-[#FAFAFC]/95 px-4 pb-3 pt-5 backdrop-blur-sm">
+    <header className="sticky top-0 z-20 border-b border-[#ece8f7] bg-[#FAFAFC]/95 px-4 pb-3 pt-5 backdrop-blur-sm lg:hidden">
       <div className="flex items-start justify-between">
         <button className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm">
           <Menu size={18} />
@@ -53,14 +63,59 @@ const navItems = [
   { href: "/nerka/explorar", label: "Explorar", icon: Compass },
   { href: "/nerka/mensajes", label: "Mensajes", icon: MessageCircle },
   { href: "/nerka/solicitudes", label: "Solicitudes", icon: LayoutGrid },
+  { href: "/nerka/eventos", label: "Eventos", icon: CalendarDays },
   { href: "/nerka/perfil", label: "Perfil", icon: User },
 ];
+
+function DesktopSidebar() {
+  const pathname = usePathname();
+
+  return (
+    <div className="sticky top-6 rounded-3xl border border-[#ece8f7] bg-white p-4">
+      <p className="text-2xl font-semibold tracking-tight text-[#2B174F]">nerka</p>
+      <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#6F6A7C]">
+        <MapPin size={12} /> Berazategui
+      </p>
+      <nav className="mt-6 space-y-2">
+        {navItems.map(({ href, label, icon: Icon }) => {
+          const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm ${
+                active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#4b4560] hover:bg-[#f6f3ff]"
+              }`}
+            >
+              <Icon size={17} />
+              {label}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
+  );
+}
+
+function DesktopTopbar() {
+  return (
+    <header className="hidden items-center justify-between border-b border-[#ece8f7] bg-white/90 px-6 py-4 backdrop-blur lg:flex">
+      <div>
+        <p className="text-lg font-semibold text-[#2B174F]">Panel de contratación</p>
+        <p className="text-sm text-[#6F6A7C]">Encontrá, compará y contratá emprendedores locales.</p>
+      </div>
+      <button className="rounded-xl bg-[#F2ECFF] p-2.5 text-[#5B2EFF]">
+        <Bell size={18} />
+      </button>
+    </header>
+  );
+}
 
 export function NerkaBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 mx-auto flex w-full max-w-md items-center justify-around border-t border-[#ece8f7] bg-white/95 px-2 py-3 backdrop-blur md:bottom-6 md:rounded-b-[2rem] md:border md:border-[#ece8f7]">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t border-[#ece8f7] bg-white/95 px-2 py-3 backdrop-blur lg:hidden">
       {navItems.map(({ href, label, icon: Icon }) => {
         const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
         return (
@@ -82,7 +137,7 @@ export function NerkaBottomNav() {
 
 export function SearchBar({ placeholder = "¿Qué estás buscando hoy?" }: { placeholder?: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-2xl border border-[#ece8f7] bg-white px-4 py-3 shadow-sm">
+    <div className="flex items-center gap-2 rounded-2xl border border-[#ece8f7] bg-white px-4 py-3 shadow-sm lg:px-5 lg:py-4">
       <Search size={18} className="text-[#6F6A7C]" />
       <input
         className="w-full bg-transparent text-sm text-[#171321] outline-none placeholder:text-[#9b95aa]"
@@ -94,7 +149,7 @@ export function SearchBar({ placeholder = "¿Qué estás buscando hoy?" }: { pla
 
 export function CategoryChips({ items, active, onSelect }: { items: string[]; active?: string; onSelect?: (item: string) => void }) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-1">
+    <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:overflow-visible">
       {items.map((item, i) => (
         <button
           key={item}

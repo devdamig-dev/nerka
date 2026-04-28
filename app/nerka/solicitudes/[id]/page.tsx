@@ -12,7 +12,7 @@ export default async function SolicitudDetailPage({ params }: { params: Promise<
   }
 
   return (
-    <main className="space-y-4 px-4 py-5 lg:px-6">
+    <main className="space-y-4 px-4 py-5 lg:px-8 lg:py-8">
       <section className="rounded-2xl border border-[#ece8f7] bg-white p-4">
         <div className="flex items-center justify-between gap-2">
           <h1 className="text-xl font-semibold text-[#2B174F]">{request.title}</h1>
@@ -24,7 +24,7 @@ export default async function SolicitudDetailPage({ params }: { params: Promise<
 
       <section>
         <h2 className="mb-2 text-base font-semibold text-[#2B174F]">Comparar propuestas</h2>
-        <div className="space-y-2 lg:grid lg:grid-cols-3 lg:gap-3 lg:space-y-0">
+        <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0 xl:grid-cols-3">
           {proposals.map((proposal) => {
             const entrepreneur = getEntrepreneurById(proposal.entrepreneurId);
             if (!entrepreneur) return null;
