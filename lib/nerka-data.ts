@@ -1,22 +1,24 @@
-export type TrustBadge = "Verificado" | "Responde rápido" | "Top en tu zona";
-export type ConversationStatus =
-  | "Presupuesto enviado"
-  | "En conversación"
-  | "Esperando respuesta"
-  | "Propuesta aceptada";
-export type RequestStatus = "Recibiendo propuestas" | "En evaluación" | "Cerrada";
-export type CatalogItemType = "product" | "service";
+export type {
+  TrustBadge,
+  ConversationStatus,
+  RequestStatus,
+  CatalogItemType,
+  CatalogItem,
+  Product,
+  Profile,
+  Order,
+  OrderItem,
+  OrderChannel,
+  OrderStatus,
+  Modality,
+} from "./types";
 
-export type CatalogItem = {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  price?: number;
-  type: CatalogItemType;
-  available: boolean;
-  unit?: string;
-};
+import type {
+  CatalogItem,
+  ConversationStatus,
+  RequestStatus,
+  TrustBadge,
+} from "./types";
 
 export const categories = [
   "Gastronomía",
@@ -81,6 +83,7 @@ export const entrepreneurs = [
         type: "product",
         available: true,
         unit: "unidad",
+        featured: true,
       },
       {
         id: "dt-box-cookies",
@@ -129,6 +132,7 @@ export const entrepreneurs = [
         type: "product",
         available: true,
         unit: "sesión",
+        featured: true,
       },
       {
         id: "lm-pack-novia",
@@ -176,6 +180,7 @@ export const entrepreneurs = [
         price: 29500,
         type: "product",
         available: true,
+        featured: true,
       },
       {
         id: "fm-box-regalo",
@@ -240,7 +245,7 @@ export const entrepreneurs = [
     modalities: ["retiro", "envío", "online"],
     catalog: [
       { id: "ms-taza", name: "Taza esmaltada", description: "Taza de cerámica de 350ml.", image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?q=80&w=700&auto=format&fit=crop", price: 14500, type: "product", available: true },
-      { id: "ms-vajilla", name: "Set vajilla 4 piezas", description: "Plato playo + hondo + bowl + taza.", image: "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?q=80&w=700&auto=format&fit=crop", price: 68000, type: "product", available: true },
+      { id: "ms-vajilla", name: "Set vajilla 4 piezas", description: "Plato playo + hondo + bowl + taza.", image: "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?q=80&w=700&auto=format&fit=crop", price: 68000, type: "product", available: true, featured: true },
       { id: "ms-personalizado", name: "Pieza personalizada", description: "Diseño y modelado según pedido.", image: "https://images.unsplash.com/photo-1603199506016-b9aa4f85f4d5?q=80&w=700&auto=format&fit=crop", type: "service", available: true },
     ] as CatalogItem[],
   },
@@ -263,7 +268,7 @@ export const entrepreneurs = [
     contactPhone: "5491112340006",
     modalities: ["retiro", "envío"],
     catalog: [
-      { id: "hb-collar", name: "Collar ajustable premium", description: "Collar con broche reforzado.", image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=700&auto=format&fit=crop", price: 9800, type: "product", available: true },
+      { id: "hb-collar", name: "Collar ajustable premium", description: "Collar con broche reforzado.", image: "https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=700&auto=format&fit=crop", price: 9800, type: "product", available: true, featured: true },
       { id: "hb-snack", name: "Snack natural mix", description: "Bolsa de 500g sin conservantes.", image: "https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=700&auto=format&fit=crop", price: 7400, type: "product", available: true },
       { id: "hb-asesoria", name: "Asesoría nutricional canina", description: "Evaluación y plan básico.", image: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=700&auto=format&fit=crop", type: "service", available: false },
     ] as CatalogItem[],
