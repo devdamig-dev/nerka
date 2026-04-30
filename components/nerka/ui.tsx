@@ -4,19 +4,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Bell,
-  CalendarDays,
   Compass,
   Home,
   Inbox,
-  LayoutGrid,
   MapPin,
   Menu,
   MessageCircle,
   Search,
+  ShoppingBag,
+  Store,
   User,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import type { ConversationStatus, RequestStatus, TrustBadge } from "@/lib/nerka-data";
+import type { ConversationStatus, RequestStatus, TrustBadge } from "@/lib/types";
+import { useCart } from "@/lib/cart-context";
 
 export function NerkaAppShell({ children }: { children: ReactNode }) {
   return (
@@ -38,10 +39,11 @@ export function NerkaAppShell({ children }: { children: ReactNode }) {
 }
 
 export function NerkaHeader() {
+  const { totalItemsAcrossSellers } = useCart();
   return (
     <header className="sticky top-0 z-20 border-b border-[#ece8f7] bg-[#FAFAFC]/95 px-4 pb-3 pt-5 backdrop-blur-sm lg:hidden">
       <div className="flex items-start justify-between">
-        <button className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm">
+        <button className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm" aria-label="Menú">
           <Menu size={18} />
         </button>
         <div className="text-center">
@@ -50,9 +52,18 @@ export function NerkaHeader() {
             <MapPin size={12} /> Berazategui
           </p>
         </div>
-        <button className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm">
-          <Bell size={18} />
-        </button>
+        <Link
+          href="/nerka/carrito"
+          className="relative rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm"
+          aria-label="Carrito"
+        >
+          <ShoppingBag size={18} />
+          {totalItemsAcrossSellers > 0 ? (
+            <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#5B2EFF] px-1 text-[10px] font-semibold text-white">
+              {totalItemsAcrossSellers}
+            </span>
+          ) : null}
+        </Link>
       </div>
     </header>
   );
@@ -61,14 +72,19 @@ export function NerkaHeader() {
 const navItems = [
   { href: "/nerka", label: "Inicio", icon: Home },
   { href: "/nerka/explorar", label: "Explorar", icon: Compass },
+  { href: "/nerka/carrito", label: "Carrito", icon: ShoppingBag, showCartBadge: true },
   { href: "/nerka/mensajes", label: "Mensajes", icon: MessageCircle },
-  { href: "/nerka/solicitudes", label: "Solicitudes", icon: LayoutGrid },
-  { href: "/nerka/eventos", label: "Eventos", icon: CalendarDays },
-  { href: "/nerka/perfil", label: "Perfil", icon: User },
+  { href: "/nerka/perfil", label: "Mi negocio", icon: Store },
+];
+
+const sidebarExtras = [
+  { href: "/nerka/solicitudes", label: "Solicitudes", icon: Inbox },
+  { href: "/nerka/perfil", label: "Cuenta", icon: User },
 ];
 
 function DesktopSidebar() {
   const pathname = usePathname();
+  const { totalItemsAcrossSellers } = useCart();
 
   return (
     <div className="sticky top-6 rounded-3xl border border-[#ece8f7] bg-white p-4">
@@ -76,23 +92,57 @@ function DesktopSidebar() {
       <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#6F6A7C]">
         <MapPin size={12} /> Berazategui
       </p>
-      <nav className="mt-6 space-y-2">
-        {navItems.map(({ href, label, icon: Icon }) => {
+      <nav className="mt-6 space-y-1">
+        {navItems.map(({ href, label, icon: Icon, showCartBadge }) => {
           const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
           return (
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm ${
+              className={`flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm ${
                 active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#4b4560] hover:bg-[#f6f3ff]"
               }`}
             >
-              <Icon size={17} />
-              {label}
+              <span className="flex items-center gap-3">
+                <Icon size={17} />
+                {label}
+              </span>
+              {showCartBadge && totalItemsAcrossSellers > 0 ? (
+                <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#5B2EFF] px-1.5 text-[11px] font-semibold text-white">
+                  {totalItemsAcrossSellers}
+                </span>
+              ) : null}
             </Link>
           );
         })}
+        <div className="mt-4 border-t border-[#f1ecfb] pt-3">
+          {sidebarExtras.map(({ href, label, icon: Icon }) => {
+            const active = pathname === href;
+            return (
+              <Link
+                key={`${href}-${label}`}
+                href={href}
+                className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm ${
+                  active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#776f8e] hover:bg-[#f6f3ff]"
+                }`}
+              >
+                <Icon size={16} />
+                {label}
+              </Link>
+            );
+          })}
+        </div>
       </nav>
+      <Link
+        href="/nerka/perfil"
+        className="mt-6 block rounded-2xl bg-gradient-to-br from-[#5B2EFF] to-[#2B174F] p-4 text-white"
+      >
+        <p className="text-xs uppercase tracking-wide opacity-80">Sos emprendedor</p>
+        <p className="mt-1 text-sm font-semibold leading-snug">
+          Empezá a vender hoy con tu catálogo
+        </p>
+        <p className="mt-2 text-xs opacity-90">Crear mi tienda →</p>
+      </Link>
     </div>
   );
 }
@@ -101,10 +151,12 @@ function DesktopTopbar() {
   return (
     <header className="hidden items-center justify-between border-b border-[#ece8f7] bg-white/90 px-6 py-4 backdrop-blur lg:flex">
       <div>
-        <p className="text-lg font-semibold text-[#2B174F]">Panel de contratación</p>
-        <p className="text-sm text-[#6F6A7C]">Encontrá, compará y contratá emprendedores locales.</p>
+        <p className="text-lg font-semibold text-[#2B174F]">Nerka — vendé local, simple</p>
+        <p className="text-sm text-[#6F6A7C]">
+          Mostrá tu catálogo, recibí pedidos y respondé por WhatsApp en minutos.
+        </p>
       </div>
-      <button className="rounded-xl bg-[#F2ECFF] p-2.5 text-[#5B2EFF]">
+      <button className="rounded-xl bg-[#F2ECFF] p-2.5 text-[#5B2EFF]" aria-label="Notificaciones">
         <Bell size={18} />
       </button>
     </header>
@@ -113,19 +165,25 @@ function DesktopTopbar() {
 
 export function NerkaBottomNav() {
   const pathname = usePathname();
+  const { totalItemsAcrossSellers } = useCart();
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t border-[#ece8f7] bg-white/95 px-2 py-3 backdrop-blur lg:hidden">
-      {navItems.map(({ href, label, icon: Icon }) => {
+      {navItems.map(({ href, label, icon: Icon, showCartBadge }) => {
         const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
         return (
           <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2">
             <span
-              className={`rounded-xl p-2 ${
+              className={`relative rounded-xl p-2 ${
                 active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#9088a3]"
               }`}
             >
               <Icon size={18} />
+              {showCartBadge && totalItemsAcrossSellers > 0 ? (
+                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#5B2EFF] px-1 text-[10px] font-semibold text-white">
+                  {totalItemsAcrossSellers}
+                </span>
+              ) : null}
             </span>
             <span className={`text-[11px] ${active ? "text-[#2B174F]" : "text-[#9088a3]"}`}>{label}</span>
           </Link>
@@ -188,12 +246,15 @@ export function StatusPill({ status }: { status: RequestStatus | ConversationSta
   return <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${color}`}>{status}</span>;
 }
 
-export function SectionTitle({ title, cta, href }: { title: string; cta?: string; href?: string }) {
+export function SectionTitle({ title, subtitle, cta, href }: { title: string; subtitle?: string; cta?: string; href?: string }) {
   return (
-    <div className="mb-3 flex items-center justify-between">
-      <h2 className="text-base font-semibold text-[#1f1833]">{title}</h2>
+    <div className="mb-3 flex items-end justify-between gap-3">
+      <div>
+        <h2 className="text-base font-semibold text-[#1f1833] lg:text-lg">{title}</h2>
+        {subtitle ? <p className="mt-0.5 text-xs text-[#6F6A7C] lg:text-sm">{subtitle}</p> : null}
+      </div>
       {cta && href ? (
-        <Link href={href} className="text-xs font-medium text-[#5B2EFF]">
+        <Link href={href} className="shrink-0 text-xs font-medium text-[#5B2EFF]">
           {cta}
         </Link>
       ) : null}
@@ -201,14 +262,16 @@ export function SectionTitle({ title, cta, href }: { title: string; cta?: string
   );
 }
 
-export function EmptyState({ title, description, cta, href }: { title: string; description: string; cta?: string; href?: string }) {
+export function EmptyState({ title, description, cta, href, icon }: { title: string; description: string; cta?: string; href?: string; icon?: ReactNode }) {
   return (
-    <div className="rounded-2xl border border-dashed border-[#ddd5f1] bg-white p-5 text-center">
-      <Inbox className="mx-auto mb-2 text-[#8a81a3]" size={20} />
+    <div className="rounded-2xl border border-dashed border-[#ddd5f1] bg-white p-6 text-center">
+      <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#F2ECFF] text-[#5B2EFF]">
+        {icon ?? <Inbox size={20} />}
+      </div>
       <p className="font-medium text-[#2B174F]">{title}</p>
-      <p className="mt-1 text-sm text-[#6F6A7C]">{description}</p>
+      <p className="mx-auto mt-1 max-w-sm text-sm text-[#6F6A7C]">{description}</p>
       {cta && href ? (
-        <Link href={href} className="mt-3 inline-flex rounded-xl bg-[#5B2EFF] px-4 py-2 text-sm text-white">
+        <Link href={href} className="mt-4 inline-flex rounded-xl bg-[#5B2EFF] px-4 py-2 text-sm font-medium text-white">
           {cta}
         </Link>
       ) : null}
@@ -218,7 +281,7 @@ export function EmptyState({ title, description, cta, href }: { title: string; d
 
 export function QuickActionCard({ title, description, href, tone, icon }: { title: string; description: string; href: string; tone: string; icon: ReactNode }) {
   return (
-    <Link href={href} className={`rounded-2xl p-4 ${tone}`}>
+    <Link href={href} className={`block rounded-2xl p-4 transition hover:shadow-sm ${tone}`}>
       <div className="mb-3 inline-flex rounded-xl bg-white/80 p-2 text-[#2B174F]">{icon}</div>
       <p className="text-sm font-semibold text-[#1f1833]">{title}</p>
       <p className="mt-1 text-xs text-[#50486b]">{description}</p>
@@ -229,5 +292,3 @@ export function QuickActionCard({ title, description, href, tone, icon }: { titl
 export function LoadingCard() {
   return <div className="h-24 animate-pulse rounded-2xl bg-white/80" />;
 }
-
-export const Icons = { CalendarDays };

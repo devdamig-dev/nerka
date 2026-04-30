@@ -1,71 +1,147 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useParams } from "next/navigation";
-import { MapPin, ShoppingCart, Star } from "lucide-react";
-import { BadgeTrust, EmptyState } from "@/components/nerka/ui";
+import {
+  Clock,
+  MapPin,
+  MessageCircle,
+  Send,
+  Share2,
+  ShoppingBag,
+  Sparkles,
+  Star,
+  Truck,
+} from "lucide-react";
+import { BadgeTrust, EmptyState, SectionTitle } from "@/components/nerka/ui";
+import { ProductCard } from "@/components/nerka/product-card";
 import { entrepreneurs, getEntrepreneurById } from "@/lib/nerka-data";
+import { useCart, sellerCartItemCount, sellerCartTotal } from "@/lib/cart-context";
+import { buildWhatsAppLink, formatPrice } from "@/lib/orders";
 
-type CartState = Record<string, number>;
 const tabs = ["Catálogo", "Trabajos", "Reseñas", "Info"] as const;
 
 export default function EntrepreneurProfilePage() {
   const params = useParams<{ id: string }>();
   const [tab, setTab] = useState<(typeof tabs)[number]>("Catálogo");
-  const [cart, setCart] = useState<CartState>({});
   const entrepreneur = getEntrepreneurById(params.id);
+  const { getSellerCart } = useCart();
 
-  const cartItems = useMemo(() => {
-    if (!entrepreneur) return [];
-    return entrepreneur.catalog
-      .filter((item) => cart[item.id])
-      .map((item) => ({ ...item, quantity: cart[item.id] }));
-  }, [cart, entrepreneur]);
+  const cart = entrepreneur ? getSellerCart(entrepreneur.id) : undefined;
+  const cartCount = cart ? sellerCartItemCount(cart) : 0;
+  const cartTotal = cart ? sellerCartTotal(cart) : 0;
 
-  const total = useMemo(
-    () => cartItems.reduce((sum, item) => sum + (item.price ?? 0) * item.quantity, 0),
-    [cartItems],
-  );
+  const featured = entrepreneur?.catalog.filter((c) => c.featured && c.available) ?? [];
 
   if (!entrepreneur) {
-    return <main className="p-4"><EmptyState title="Perfil no encontrado" description="Este emprendimiento no existe o fue removido." cta="Explorar" href="/nerka/explorar" /></main>;
+    return (
+      <main className="p-4">
+        <EmptyState
+          title="Tienda no encontrada"
+          description="Este emprendimiento no existe o ya no está disponible."
+          cta="Explorar tiendas"
+          href="/nerka/explorar"
+        />
+      </main>
+    );
   }
 
-  const addToCart = (itemId: string) => {
-    setCart((prev) => ({ ...prev, [itemId]: (prev[itemId] ?? 0) + 1 }));
-  };
+  const productList = entrepreneur.catalog.filter((c) => c.type === "product");
+  const serviceList = entrepreneur.catalog.filter((c) => c.type === "service");
 
-  const buildWhatsAppLink = () => {
-    const lines = [
-      "Hola, vi tu perfil en NERKA y quiero consultar por este pedido:",
-      `Emprendimiento: ${entrepreneur.name}`,
-      ...cartItems.map((item) => `- ${item.name} x${item.quantity} ${item.price ? `($${(item.price * item.quantity).toLocaleString("es-AR")})` : ""}`),
-      `Total estimado: $${total.toLocaleString("es-AR")}`,
-      `Perfil: /nerka/emprendedores/${entrepreneur.id}`,
-    ];
-    return `https://wa.me/${entrepreneur.contactPhone}?text=${encodeURIComponent(lines.join("\n"))}`;
-  };
+  const directWhatsAppLink = `https://wa.me/${entrepreneur.contactPhone.replace(/\D/g, "")}?text=${encodeURIComponent(
+    `Hola ${entrepreneur.name}, te escribo desde NERKA. Quería consultarte por tu catálogo.`,
+  )}`;
 
   return (
-    <main className="pb-36 lg:px-8 lg:py-8 lg:pb-8">
+    <main className="pb-40 lg:px-8 lg:py-8 lg:pb-8">
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-6">
         <section>
-          <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-44 w-full object-cover lg:h-64 lg:rounded-3xl" />
-          <div className="relative px-4 pb-4 lg:px-0">
-            <img src={entrepreneur.avatar} alt={entrepreneur.name} className="-mt-10 h-20 w-20 rounded-2xl border-4 border-[#FAFAFC] object-cover lg:-mt-14 lg:h-24 lg:w-24" />
-            <h1 className="mt-3 text-xl font-semibold text-[#1f1833] lg:text-3xl">{entrepreneur.name}</h1>
-            <p className="text-sm text-[#6F6A7C]">{entrepreneur.category} · {entrepreneur.subcategory}</p>
-            <div className="mt-2 flex items-center gap-3 text-sm text-[#433d56]">
-              <span className="inline-flex items-center gap-1"><Star size={14} className="fill-[#ffb547] text-[#ffb547]" /> {entrepreneur.rating}</span>
-              <span className="inline-flex items-center gap-1"><MapPin size={14} /> {entrepreneur.zone}</span>
-            </div>
-            <div className="mt-3 flex flex-wrap gap-1.5">{entrepreneur.badges.map((b) => <BadgeTrust key={b} badge={b} />)}</div>
+          {/* HERO */}
+          <div className="relative">
+            <img
+              src={entrepreneur.cover}
+              alt={entrepreneur.name}
+              className="h-44 w-full object-cover lg:h-64 lg:rounded-3xl"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent lg:rounded-3xl" />
+          </div>
 
-            <div className="sticky top-0 z-20 mt-4 rounded-2xl bg-[#FAFAFC] py-2 lg:top-20">
-              <div className="grid grid-cols-4 rounded-xl bg-white p-1">
+          <div className="px-4 pb-4 lg:px-0">
+            <div className="-mt-10 flex items-end gap-3 lg:-mt-14">
+              <img
+                src={entrepreneur.avatar}
+                alt={entrepreneur.name}
+                className="h-20 w-20 rounded-2xl border-4 border-[#FAFAFC] object-cover lg:h-24 lg:w-24"
+              />
+              <button
+                type="button"
+                aria-label="Compartir"
+                className="ml-auto rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm"
+              >
+                <Share2 size={16} />
+              </button>
+            </div>
+
+            <h1 className="mt-3 text-xl font-semibold text-[#1f1833] lg:text-3xl">{entrepreneur.name}</h1>
+            <p className="mt-1 text-sm text-[#6F6A7C]">
+              {entrepreneur.category} · {entrepreneur.subcategory}
+            </p>
+            <p className="mt-2 max-w-2xl text-sm text-[#433d56]">{entrepreneur.about}</p>
+
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#433d56]">
+              <span className="inline-flex items-center gap-1">
+                <Star size={14} className="fill-[#ffb547] text-[#ffb547]" />
+                <strong className="text-[#1f1833]">{entrepreneur.rating}</strong>
+                <span className="text-[#6F6A7C]">({entrepreneur.reviews} reseñas)</span>
+              </span>
+              <span className="inline-flex items-center gap-1 text-[#6F6A7C]">
+                <MapPin size={14} /> {entrepreneur.zone}
+              </span>
+              <span className="inline-flex items-center gap-1 text-[#6F6A7C]">
+                <Clock size={14} /> {entrepreneur.responseTime}
+              </span>
+              <span className="inline-flex items-center gap-1 text-[#6F6A7C]">
+                <Truck size={14} /> {entrepreneur.modalities.join(" · ")}
+              </span>
+            </div>
+
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {entrepreneur.badges.map((b) => (
+                <BadgeTrust key={b} badge={b} />
+              ))}
+            </div>
+
+            {/* PRIMARY CTAs */}
+            <div className="mt-5 grid grid-cols-2 gap-2 lg:max-w-md">
+              <a
+                href={directWhatsAppLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-medium text-white"
+              >
+                <Send size={15} /> Escribir por WhatsApp
+              </a>
+              <Link
+                href="/nerka/mensajes"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9cef8] bg-white px-4 py-3 text-sm font-medium text-[#5B2EFF]"
+              >
+                <MessageCircle size={15} /> Mensaje interno
+              </Link>
+            </div>
+
+            {/* TABS */}
+            <div className="sticky top-0 z-20 mt-6 rounded-2xl bg-[#FAFAFC] py-2 lg:top-20">
+              <div className="grid grid-cols-4 rounded-xl bg-white p-1 shadow-sm">
                 {tabs.map((item) => (
-                  <button key={item} onClick={() => setTab(item)} className={`rounded-lg px-2 py-2 text-xs ${tab === item ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#756f89]"}`}>
+                  <button
+                    key={item}
+                    onClick={() => setTab(item)}
+                    className={`rounded-lg px-2 py-2 text-xs font-medium ${
+                      tab === item ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#756f89]"
+                    }`}
+                  >
                     {item}
                   </button>
                 ))}
@@ -74,91 +150,236 @@ export default function EntrepreneurProfilePage() {
 
             <section className="mt-4">
               {tab === "Catálogo" ? (
-                <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-                  {entrepreneur.catalog.map((item) => (
-                    <article key={item.id} className="rounded-2xl border border-[#ece8f7] bg-white p-3">
-                      <img src={item.image} alt={item.name} className="h-36 w-full rounded-xl object-cover" />
-                      <p className="mt-2 font-medium text-[#1f1833]">{item.name}</p>
-                      <p className="text-sm text-[#6F6A7C]">{item.description}</p>
-                      <div className="mt-2 flex items-center justify-between gap-2">
-                        <p className="text-sm text-[#433d56]">
-                          {item.price ? `$${item.price.toLocaleString("es-AR")}${item.unit ? ` / ${item.unit}` : ""}` : "Precio a consultar"}
-                        </p>
-                        {!item.available ? (
-                          <span className="rounded-lg bg-[#f1f1f1] px-3 py-1 text-xs text-[#8a8a8a]">No disponible</span>
-                        ) : item.type === "product" && item.price ? (
-                          <button onClick={() => addToCart(item.id)} className="rounded-xl bg-[#F2ECFF] px-3 py-1.5 text-sm text-[#5B2EFF]">Agregar al carrito</button>
-                        ) : (
-                          <Link href="/nerka/mensajes" className="rounded-xl bg-[#F2ECFF] px-3 py-1.5 text-sm text-[#5B2EFF]">Consultar</Link>
-                        )}
+                <div className="space-y-6">
+                  {featured.length ? (
+                    <div>
+                      <SectionTitle
+                        title="Productos destacados"
+                        subtitle="Los favoritos del emprendimiento"
+                      />
+                      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+                        {featured.map((item) => (
+                          <ProductCard
+                            key={item.id}
+                            product={item}
+                            profileId={entrepreneur.id}
+                            profileName={entrepreneur.name}
+                            contactPhone={entrepreneur.contactPhone}
+                          />
+                        ))}
                       </div>
-                    </article>
-                  ))}
+                    </div>
+                  ) : null}
+
+                  {productList.length ? (
+                    <div>
+                      <SectionTitle title="Productos" />
+                      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+                        {productList.map((item) => (
+                          <ProductCard
+                            key={item.id}
+                            product={item}
+                            profileId={entrepreneur.id}
+                            profileName={entrepreneur.name}
+                            contactPhone={entrepreneur.contactPhone}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {serviceList.length ? (
+                    <div>
+                      <SectionTitle
+                        title="Servicios"
+                        subtitle="Coordiná detalles y presupuesto por mensaje"
+                      />
+                      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+                        {serviceList.map((item) => (
+                          <ProductCard
+                            key={item.id}
+                            product={item}
+                            profileId={entrepreneur.id}
+                            profileName={entrepreneur.name}
+                            contactPhone={entrepreneur.contactPhone}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {!productList.length && !serviceList.length ? (
+                    <EmptyState
+                      title="Sin productos cargados"
+                      description="Este emprendimiento todavía no publicó su catálogo."
+                    />
+                  ) : null}
                 </div>
               ) : null}
 
               {tab === "Trabajos" ? (
                 <div className="grid grid-cols-3 gap-2 lg:grid-cols-4">
-                  {entrepreneurs.slice(0, 8).map((e) => <img key={e.id} src={e.cover} alt="Trabajo" className="h-24 w-full rounded-xl object-cover lg:h-32" />)}
+                  {entrepreneurs.slice(0, 8).map((e) => (
+                    <img
+                      key={e.id}
+                      src={e.cover}
+                      alt="Trabajo"
+                      className="h-24 w-full rounded-xl object-cover lg:h-32"
+                    />
+                  ))}
                 </div>
               ) : null}
+
               {tab === "Reseñas" ? (
                 <div className="space-y-3">
                   {["Sofía R.", "Carla M.", "Micaela T."].map((name, i) => (
                     <article key={name} className="rounded-2xl border border-[#ece8f7] bg-white p-3">
-                      <p className="font-medium text-[#1f1833]">{name}</p>
+                      <div className="flex items-center justify-between">
+                        <p className="font-medium text-[#1f1833]">{name}</p>
+                        <span className="inline-flex items-center gap-1 text-xs text-[#433d56]">
+                          <Star size={12} className="fill-[#ffb547] text-[#ffb547]" /> 5,0
+                        </span>
+                      </div>
                       <p className="text-xs text-[#6F6A7C]">{i + 3} de abril</p>
-                      <p className="mt-2 text-sm text-[#433d56]">Excelente servicio, súper puntual y muy buena predisposición.</p>
+                      <p className="mt-2 text-sm text-[#433d56]">
+                        Excelente servicio, súper puntual y muy buena predisposición.
+                      </p>
                     </article>
                   ))}
                 </div>
               ) : null}
+
               {tab === "Info" ? (
                 <article className="space-y-2 rounded-2xl border border-[#ece8f7] bg-white p-4 text-sm text-[#433d56]">
                   <p>{entrepreneur.about}</p>
-                  <p><strong>Qué ofrece:</strong> {entrepreneur.offers.join(", ")}</p>
-                  <p><strong>Cobertura:</strong> {entrepreneur.coverage}</p>
-                  <p><strong>Tiempos de respuesta:</strong> {entrepreneur.responseTime}</p>
-                  <p><strong>Modalidad:</strong> {entrepreneur.modality}</p>
+                  <p>
+                    <strong className="text-[#2B174F]">Qué ofrece:</strong> {entrepreneur.offers.join(", ")}
+                  </p>
+                  <p>
+                    <strong className="text-[#2B174F]">Cobertura:</strong> {entrepreneur.coverage}
+                  </p>
+                  <p>
+                    <strong className="text-[#2B174F]">Tiempos de respuesta:</strong> {entrepreneur.responseTime}
+                  </p>
+                  <p>
+                    <strong className="text-[#2B174F]">Modalidad:</strong> {entrepreneur.modality}
+                  </p>
+                  <p>
+                    <strong className="text-[#2B174F]">WhatsApp:</strong> +{entrepreneur.contactPhone}
+                  </p>
                 </article>
               ) : null}
             </section>
           </div>
         </section>
 
+        {/* DESKTOP SIDE PANEL */}
         <aside className="hidden lg:block">
-          <div className="sticky top-24 space-y-4 rounded-2xl border border-[#ece8f7] bg-white p-4">
-            <p className="text-lg font-semibold text-[#2B174F]">Resumen del perfil</p>
-            <p className="text-sm text-[#6F6A7C]">Rating {entrepreneur.rating} · {entrepreneur.reviews} reseñas</p>
-            <p className="text-sm text-[#6F6A7C]">Zona: {entrepreneur.coverage}</p>
-            <p className="text-sm text-[#6F6A7C]">WhatsApp: +{entrepreneur.contactPhone}</p>
-            {cartItems.length ? (
-              <div className="space-y-2 rounded-xl bg-[#FAFAFC] p-3">
-                <p className="text-sm font-medium text-[#2B174F]">Carrito ({cartItems.length})</p>
-                {cartItems.map((item) => (
-                  <p key={item.id} className="text-xs text-[#6F6A7C]">{item.name} x{item.quantity}</p>
-                ))}
-                <p className="text-sm font-semibold text-[#5B2EFF]">Total estimado: ${total.toLocaleString("es-AR")}</p>
-                <a href={buildWhatsAppLink()} target="_blank" className="block rounded-xl bg-[#25D366] px-3 py-2 text-center text-sm font-medium text-white">Pedir por WhatsApp</a>
-              </div>
-            ) : null}
-            <Link href="/nerka/solicitudes/nueva" className="block rounded-2xl bg-[#5B2EFF] px-4 py-3 text-center font-medium text-white">Solicitar presupuesto</Link>
+          <div className="sticky top-24 space-y-3 rounded-2xl border border-[#ece8f7] bg-white p-4">
+            <p className="text-base font-semibold text-[#2B174F]">Tu pedido</p>
+            {cart && cartCount > 0 ? (
+              <>
+                <ul className="space-y-2">
+                  {Object.values(cart.items).map((line) => (
+                    <li key={line.productId} className="flex items-center justify-between gap-2 text-sm">
+                      <span className="text-[#433d56]">
+                        {line.name} <span className="text-[#9088a3]">x{line.quantity}</span>
+                      </span>
+                      <span className="text-[#2B174F]">
+                        {line.price ? formatPrice(line.price * line.quantity) : "a coordinar"}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="border-t border-[#ece8f7] pt-2 text-sm">
+                  <p className="flex justify-between text-[#6F6A7C]">
+                    <span>Total estimado</span>
+                    <strong className="text-[#5B2EFF]">{formatPrice(cartTotal)}</strong>
+                  </p>
+                </div>
+                <a
+                  href={buildWhatsAppLink(cart)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block rounded-xl bg-[#25D366] px-3 py-2.5 text-center text-sm font-medium text-white"
+                >
+                  Pedir por WhatsApp
+                </a>
+                <Link
+                  href="/nerka/carrito"
+                  className="block rounded-xl bg-[#F2ECFF] px-3 py-2.5 text-center text-sm font-medium text-[#5B2EFF]"
+                >
+                  Ver carrito completo
+                </Link>
+              </>
+            ) : (
+              <>
+                <p className="text-sm text-[#6F6A7C]">
+                  Agregá productos del catálogo y armá tu pedido. Lo enviás directo por WhatsApp.
+                </p>
+                <a
+                  href={directWhatsAppLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block rounded-xl bg-[#25D366] px-3 py-2.5 text-center text-sm font-medium text-white"
+                >
+                  Consultar al emprendimiento
+                </a>
+              </>
+            )}
+
+            <div className="mt-2 rounded-xl bg-[#FAFAFC] p-3 text-xs text-[#6F6A7C]">
+              <p className="font-medium text-[#2B174F]">Por qué confiar</p>
+              <ul className="mt-1 space-y-1">
+                <li>· Emprendimiento local de {entrepreneur.zone}</li>
+                <li>· {entrepreneur.responseTime}</li>
+                <li>· {entrepreneur.reviews} reseñas verificadas</li>
+              </ul>
+            </div>
           </div>
         </aside>
       </div>
 
-      {cartItems.length ? (
-        <div className="fixed bottom-24 left-0 right-0 z-40 px-4 lg:hidden">
+      {/* MOBILE STICKY CART BAR */}
+      {cart && cartCount > 0 ? (
+        <div className="fixed bottom-20 left-0 right-0 z-40 px-4 lg:hidden">
           <div className="rounded-2xl border border-[#d9cef8] bg-white p-3 shadow-lg">
-            <p className="text-sm font-medium text-[#2B174F] inline-flex items-center gap-2"><ShoppingCart size={15} /> Carrito ({cartItems.length})</p>
-            <p className="text-xs text-[#6F6A7C]">Total estimado: ${total.toLocaleString("es-AR")}</p>
+            <div className="flex items-center justify-between gap-2">
+              <p className="inline-flex items-center gap-2 text-sm font-medium text-[#2B174F]">
+                <ShoppingBag size={15} /> {cartCount} {cartCount === 1 ? "producto" : "productos"}
+              </p>
+              <p className="text-sm font-semibold text-[#5B2EFF]">{formatPrice(cartTotal)}</p>
+            </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
-              <a href={buildWhatsAppLink()} target="_blank" className="rounded-xl bg-[#25D366] px-3 py-2 text-center text-sm font-medium text-white">Pedir por WhatsApp</a>
-              <Link href="/nerka/solicitudes/nueva" className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-center text-sm font-medium text-[#5B2EFF]">Solicitar presupuesto</Link>
+              <Link
+                href="/nerka/carrito"
+                className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-center text-sm font-medium text-[#5B2EFF]"
+              >
+                Ver carrito
+              </Link>
+              <a
+                href={buildWhatsAppLink(cart)}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-1 rounded-xl bg-[#25D366] px-3 py-2 text-sm font-medium text-white"
+              >
+                <Send size={14} /> Pedir
+              </a>
             </div>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="fixed bottom-20 left-0 right-0 z-40 px-4 lg:hidden">
+          <a
+            href={directWhatsAppLink}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3 text-sm font-medium text-white shadow-lg"
+          >
+            <Sparkles size={15} /> Escribir por WhatsApp
+          </a>
+        </div>
+      )}
     </main>
   );
 }
