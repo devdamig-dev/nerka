@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import {
   Clock,
+  Heart,
   MapPin,
   MessageCircle,
   Send,
@@ -19,6 +20,7 @@ import { ProductCard } from "@/components/nerka/product-card";
 import { entrepreneurs, getEntrepreneurById } from "@/lib/nerka-data";
 import { useCart, sellerCartItemCount, sellerCartTotal } from "@/lib/cart-context";
 import { buildWhatsAppLink, formatPrice } from "@/lib/orders";
+import { useRole } from "@/lib/role-context";
 
 const tabs = ["Catálogo", "Trabajos", "Reseñas", "Info"] as const;
 
@@ -27,6 +29,8 @@ export default function EntrepreneurProfilePage() {
   const [tab, setTab] = useState<(typeof tabs)[number]>("Catálogo");
   const entrepreneur = getEntrepreneurById(params.id);
   const { getSellerCart } = useCart();
+  const { isFavorite, toggleFavorite } = useRole();
+  const fav = entrepreneur ? isFavorite(entrepreneur.id) : false;
 
   const cart = entrepreneur ? getSellerCart(entrepreneur.id) : undefined;
   const cartCount = cart ? sellerCartItemCount(cart) : 0;
@@ -75,13 +79,45 @@ export default function EntrepreneurProfilePage() {
                 alt={entrepreneur.name}
                 className="h-20 w-20 rounded-2xl border-4 border-[#FAFAFC] object-cover lg:h-24 lg:w-24"
               />
-              <button
-                type="button"
-                aria-label="Compartir"
-                className="ml-auto rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm"
-              >
-                <Share2 size={16} />
-              </button>
+              <div className="ml-auto flex items-center gap-2">
+                <button
+                  type="button"
+                  aria-label={fav ? "Quitar de favoritos" : "Guardar en favoritos"}
+                  onClick={() => toggleFavorite(entrepreneur.id)}
+                  className={`rounded-xl p-2.5 shadow-sm transition ${
+                    fav
+                      ? "bg-[#FFEAF1] text-[#b8344b]"
+                      : "bg-white text-[#2B174F] hover:bg-[#FFEAF1] hover:text-[#b8344b]"
+                  }`}
+                >
+                  <Heart size={16} className={fav ? "fill-current" : ""} />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Compartir"
+                  onClick={async () => {
+                    const url = typeof window !== "undefined" ? window.location.href : "";
+                    if (typeof navigator !== "undefined" && "share" in navigator) {
+                      try {
+                        await (navigator as Navigator & { share: (data: ShareData) => Promise<void> }).share({
+                          title: entrepreneur.name,
+                          text: `Mirá la tienda de ${entrepreneur.name} en Nerka`,
+                          url,
+                        });
+                        return;
+                      } catch {
+                        // fall through to copy
+                      }
+                    }
+                    if (typeof navigator !== "undefined" && navigator.clipboard) {
+                      await navigator.clipboard.writeText(url);
+                    }
+                  }}
+                  className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm"
+                >
+                  <Share2 size={16} />
+                </button>
+              </div>
             </div>
 
             <h1 className="mt-3 text-xl font-semibold text-[#1f1833] lg:text-3xl">{entrepreneur.name}</h1>
@@ -124,7 +160,7 @@ export default function EntrepreneurProfilePage() {
                 <Send size={15} /> Escribir por WhatsApp
               </a>
               <Link
-                href="/nerka/mensajes"
+                href={`/nerka/mensajes/nuevo?to=${entrepreneur.id}`}
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9cef8] bg-white px-4 py-3 text-sm font-medium text-[#5B2EFF]"
               >
                 <MessageCircle size={15} /> Mensaje interno

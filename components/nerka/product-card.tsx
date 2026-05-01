@@ -11,6 +11,7 @@ type ProductCardProps = {
   profileId: string;
   profileName: string;
   contactPhone: string;
+  /** Si se omite, se arma con /nerka/mensajes/nuevo?to=&product=. */
   consultHref?: string;
 };
 
@@ -19,8 +20,10 @@ export function ProductCard({
   profileId,
   profileName,
   contactPhone,
-  consultHref = "/nerka/mensajes",
+  consultHref,
 }: ProductCardProps) {
+  const consultLink =
+    consultHref ?? `/nerka/mensajes/nuevo?to=${profileId}&product=${product.id}`;
   const { addItem, getSellerCart, updateQuantity } = useCart();
   const cart = getSellerCart(profileId);
   const quantity = cart?.items[product.id]?.quantity ?? 0;
@@ -100,7 +103,7 @@ export function ProductCard({
             )
           ) : product.available ? (
             <Link
-              href={consultHref}
+              href={consultLink}
               className="inline-flex rounded-xl bg-[#F2ECFF] px-3 py-2 text-xs font-medium text-[#5B2EFF]"
             >
               Consultar
