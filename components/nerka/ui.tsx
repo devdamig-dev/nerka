@@ -88,7 +88,7 @@ const visitorNav: NavItem[] = [
   { href: "/niar/explorar", label: "Explorar", icon: Compass },
   { href: "/niar/carrito", label: "Carrito", icon: ShoppingBag, showCartBadge: true },
   { href: "/niar/mensajes", label: "Mensajes", icon: MessageCircle },
-  { href: "/niar/perfil", label: "Mi cuenta", icon: UserIcon },
+  { href: "/niar/planes", label: "Vender", icon: Store },
 ];
 
 const entrepreneurNav: NavItem[] = [
@@ -136,10 +136,10 @@ function DesktopSidebar() {
         >
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-wide text-[#9088a3]">
-              Estás como
+              Modo
             </p>
             <p className="text-sm font-semibold text-[#2B174F]">
-              {isEntrepreneur ? "Emprendedor" : "Visitante"}
+              {isEntrepreneur ? "Comercio" : "Exploración pública"}
             </p>
           </div>
           <span className="rounded-lg bg-white px-2 py-1 text-[10px] font-medium text-[#5B2EFF] shadow-sm">
@@ -198,10 +198,10 @@ function DesktopSidebar() {
           className="block rounded-2xl bg-gradient-to-br from-[#5B2EFF] to-[#2B174F] p-4 text-white"
         >
           <p className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide opacity-80">
-            <Crown size={11} /> Pro · Próximamente
+            <Crown size={11} /> Plan Vender
           </p>
           <p className="mt-1 text-sm font-semibold leading-snug">Potenciá tu negocio</p>
-          <p className="mt-1 text-xs opacity-90">Más visibilidad, métricas y prioridad.</p>
+          <p className="mt-1 text-xs opacity-90">Carrito simple, destacados y métricas comerciales.</p>
           <p className="mt-2 text-xs font-medium">Ver planes →</p>
         </Link>
       ) : (
@@ -246,7 +246,7 @@ function DesktopTopbar() {
         : pathname.startsWith("/niar/mensajes")
           ? { title: "Mensajes", subtitle: "Conversá con negocios locales y coordiná pedidos." }
           : pathname.startsWith("/niar/planes")
-            ? { title: "Planes", subtitle: "Planes para negocios e instituciones locales." }
+            ? { title: "Planes", subtitle: "Catálogo, Vender y Gestionar para comercios locales." }
             : pathname.startsWith("/niar/favoritos")
               ? { title: "Favoritos", subtitle: "Las tiendas que más te interesan." }
               : isEntrepreneur
@@ -448,7 +448,7 @@ export function RoleBadge() {
       }`}
     >
       {isEntrepreneur ? <Store size={10} /> : <UserIcon size={10} />}
-      {isEntrepreneur ? "Emprendedor" : "Visitante"}
+      {isEntrepreneur ? "Comercio" : "Exploración pública"}
     </span>
   );
 }

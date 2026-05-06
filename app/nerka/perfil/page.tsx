@@ -226,38 +226,6 @@ function EntrepreneurDashboard() {
             </ul>
           </section>
 
-          {/* AI PLACEHOLDER */}
-          <section className="overflow-hidden rounded-2xl border border-[#d9cef8] bg-gradient-to-br from-[#F8F4FF] to-white">
-            <div className="flex items-start gap-3 p-5">
-              <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#5B2EFF] text-white">
-                <Sparkles size={18} />
-              </span>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="text-sm font-semibold text-[#2B174F]">Asistente IA</p>
-                  <span className="rounded-full bg-[#F2ECFF] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#5B2EFF]">
-                    Próximamente
-                  </span>
-                </div>
-                <p className="mt-1 text-sm text-[#433d56]">
-                  Mejorá tus publicaciones en segundos: títulos, descripciones y precios.
-                </p>
-                <div className="mt-3 grid gap-2 sm:grid-cols-3">
-                  {[
-                    { t: "Generar descripción", d: "para un producto" },
-                    { t: "Sugerir precios", d: "según mercado" },
-                    { t: "Crear publicación", d: "para redes" },
-                  ].map((c) => (
-                    <button key={c.t} disabled className="cursor-not-allowed rounded-xl border border-[#ece8f7] bg-white px-3 py-2 text-left text-xs text-[#433d56]">
-                      <p className="font-medium text-[#2B174F]">{c.t}</p>
-                      <p className="text-[#6F6A7C]">{c.d}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* CATALOG */}
           <section>
             <SectionTitle
@@ -335,7 +303,7 @@ function EntrepreneurDashboard() {
 
           <section className="rounded-2xl border border-[#d9cef8] bg-gradient-to-br from-[#F8F4FF] to-white p-5">
             <p className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-[#5B2EFF]">
-              <Sparkles size={11} /> Plan actual: Gratis
+              <Sparkles size={11} /> Plan actual: Catálogo
             </p>
             <p className="mt-2 text-sm font-semibold text-[#2B174F]">
               Potenciá tu negocio

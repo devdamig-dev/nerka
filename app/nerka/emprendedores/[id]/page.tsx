@@ -6,7 +6,6 @@ import { useParams } from "next/navigation";
 import {
   Clock,
   Heart,
-  MapPin,
   MessageCircle,
   Send,
   Share2,
@@ -22,7 +21,7 @@ import { useCart, sellerCartItemCount, sellerCartTotal } from "@/lib/cart-contex
 import { buildWhatsAppLink, formatPrice } from "@/lib/orders";
 import { useRole } from "@/lib/role-context";
 
-const tabs = ["Catálogo", "Trabajos", "Reseñas", "Info"] as const;
+const tabs = ["Catálogo", "Galería", "Reseñas", "Info"] as const;
 
 export default function EntrepreneurProfilePage() {
   const params = useParams<{ id: string }>();
@@ -63,124 +62,67 @@ export default function EntrepreneurProfilePage() {
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-6">
         <section>
           {/* HERO */}
-          <div className="relative">
-            <img
-              src={entrepreneur.cover}
-              alt={entrepreneur.name}
-              className="h-44 w-full object-cover lg:h-64 lg:rounded-3xl"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent lg:rounded-3xl" />
+          <div className="relative overflow-hidden lg:rounded-[2rem]">
+            <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-72 w-full object-cover lg:h-[420px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#171321] via-[#171321]/35 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-white lg:p-8">
+              <div className="flex items-end gap-4">
+                <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-20 w-20 rounded-3xl border-4 border-white object-cover shadow-lg lg:h-24 lg:w-24" />
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex flex-wrap gap-1.5">
+                    {entrepreneur.badges.map((badge) => <BadgeTrust key={badge} badge={badge} />)}
+                  </div>
+                  <h1 className="truncate text-3xl font-semibold tracking-tight lg:text-5xl">{entrepreneur.name}</h1>
+                  <p className="mt-1 text-sm text-white/78">{entrepreneur.category} · {entrepreneur.subcategory} · {entrepreneur.zone}</p>
+                </div>
+                <div className="hidden items-center gap-2 lg:flex">
+                  <button type="button" aria-label={fav ? "Quitar de favoritos" : "Guardar en favoritos"} onClick={() => toggleFavorite(entrepreneur.id)} className={`rounded-2xl p-3 shadow-sm transition ${fav ? "bg-[#FFEAF1] text-[#b8344b]" : "bg-white text-[#2B174F] hover:bg-[#FFEAF1] hover:text-[#b8344b]"}`}>
+                    <Heart size={17} className={fav ? "fill-current" : ""} />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Compartir"
+                    onClick={async () => {
+                      const url = typeof window !== "undefined" ? window.location.href : "";
+                      if (typeof navigator !== "undefined" && "share" in navigator) {
+                        try {
+                          await (navigator as Navigator & { share: (data: ShareData) => Promise<void> }).share({ title: entrepreneur.name, text: `Mirá la tienda de ${entrepreneur.name} en Niar`, url });
+                          return;
+                        } catch {
+                          // fall through to copy
+                        }
+                      }
+                      if (typeof navigator !== "undefined" && navigator.clipboard) await navigator.clipboard.writeText(url);
+                    }}
+                    className="rounded-2xl bg-white p-3 text-[#2B174F] shadow-sm"
+                  >
+                    <Share2 size={17} />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="px-4 pb-4 lg:px-0">
-            <div className="-mt-10 flex items-end gap-3 lg:-mt-14">
-              <img
-                src={entrepreneur.avatar}
-                alt={entrepreneur.name}
-                className="h-20 w-20 rounded-2xl border-4 border-[#FAFAFC] object-cover lg:h-24 lg:w-24"
-              />
-              <div className="ml-auto flex items-center gap-2">
-                <button
-                  type="button"
-                  aria-label={fav ? "Quitar de favoritos" : "Guardar en favoritos"}
-                  onClick={() => toggleFavorite(entrepreneur.id)}
-                  className={`rounded-xl p-2.5 shadow-sm transition ${
-                    fav
-                      ? "bg-[#FFEAF1] text-[#b8344b]"
-                      : "bg-white text-[#2B174F] hover:bg-[#FFEAF1] hover:text-[#b8344b]"
-                  }`}
-                >
-                  <Heart size={16} className={fav ? "fill-current" : ""} />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Compartir"
-                  onClick={async () => {
-                    const url = typeof window !== "undefined" ? window.location.href : "";
-                    if (typeof navigator !== "undefined" && "share" in navigator) {
-                      try {
-                        await (navigator as Navigator & { share: (data: ShareData) => Promise<void> }).share({
-                          title: entrepreneur.name,
-                          text: `Mirá la tienda de ${entrepreneur.name} en Niar`,
-                          url,
-                        });
-                        return;
-                      } catch {
-                        // fall through to copy
-                      }
-                    }
-                    if (typeof navigator !== "undefined" && navigator.clipboard) {
-                      await navigator.clipboard.writeText(url);
-                    }
-                  }}
-                  className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm"
-                >
-                  <Share2 size={16} />
-                </button>
-              </div>
-            </div>
-
-            <h1 className="mt-3 text-xl font-semibold text-[#1f1833] lg:text-3xl">{entrepreneur.name}</h1>
-            <p className="mt-1 text-sm text-[#6F6A7C]">
-              {entrepreneur.category} · {entrepreneur.subcategory}
-            </p>
-            <p className="mt-2 max-w-2xl text-sm text-[#433d56]">{entrepreneur.about}</p>
-
-            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-[#433d56]">
-              <span className="inline-flex items-center gap-1">
-                <Star size={14} className="fill-[#ffb547] text-[#ffb547]" />
-                <strong className="text-[#1f1833]">{entrepreneur.rating}</strong>
-                <span className="text-[#6F6A7C]">({entrepreneur.reviews} reseñas)</span>
-              </span>
-              <span className="inline-flex items-center gap-1 text-[#6F6A7C]">
-                <MapPin size={14} /> {entrepreneur.zone}
-              </span>
-              <span className="inline-flex items-center gap-1 text-[#6F6A7C]">
-                <Clock size={14} /> {entrepreneur.responseTime}
-              </span>
-              <span className="inline-flex items-center gap-1 text-[#6F6A7C]">
-                <Truck size={14} /> {entrepreneur.modalities.join(" · ")}
-              </span>
-            </div>
-
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {entrepreneur.badges.map((b) => (
-                <BadgeTrust key={b} badge={b} />
-              ))}
-            </div>
-
-            {/* PRIMARY CTAs */}
-            <div className="mt-5 grid grid-cols-2 gap-2 lg:max-w-md">
-              <a
-                href={directWhatsAppLink}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-3 text-sm font-medium text-white"
-              >
-                <Send size={15} /> Escribir por WhatsApp
-              </a>
-              <Link
-                href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9cef8] bg-white px-4 py-3 text-sm font-medium text-[#5B2EFF]"
-              >
-                <MessageCircle size={15} /> Mensaje interno
-              </Link>
-            </div>
-
-
-            <div className="mt-5 grid gap-3 rounded-2xl border border-[#ece8f7] bg-white p-4 text-sm lg:grid-cols-3">
+            <div className="mt-5 grid gap-5 rounded-[1.75rem] border border-[#ece8f7] bg-white p-5 shadow-sm lg:grid-cols-[1fr_auto] lg:p-6">
               <div>
-                <p className="font-semibold text-[#2B174F]">Horarios</p>
-                <p className="mt-1 text-[#6F6A7C]">Lunes a sábado · 10 a 19 h</p>
+                <p className="max-w-3xl text-base leading-7 text-[#433d56]">{entrepreneur.about}</p>
+                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#433d56]">
+                  <span className="inline-flex items-center gap-1"><Star size={14} className="fill-[#ffb547] text-[#ffb547]" /><strong className="text-[#1f1833]">{entrepreneur.rating}</strong><span className="text-[#6F6A7C]">({entrepreneur.reviews} reseñas)</span></span>
+                  <span className="inline-flex items-center gap-1 text-[#6F6A7C]"><Clock size={14} /> {entrepreneur.responseTime}</span>
+                  <span className="inline-flex items-center gap-1 text-[#6F6A7C]"><Truck size={14} /> {entrepreneur.modalities.join(" · ")}</span>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold text-[#2B174F]">Entrega / atención</p>
-                <p className="mt-1 text-[#6F6A7C]">{entrepreneur.modalities.join(" · ")}</p>
+              <div className="grid gap-2 sm:grid-cols-2 lg:w-72 lg:grid-cols-1">
+                <a href={directWhatsAppLink} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3 text-sm font-semibold text-white"><Send size={15} /> Consultar por WhatsApp</a>
+                <Link href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#d9cef8] bg-white px-4 py-3 text-sm font-semibold text-[#5B2EFF]"><MessageCircle size={15} /> Mensaje interno</Link>
               </div>
-              <div>
-                <p className="font-semibold text-[#2B174F]">Por qué confiar</p>
-                <p className="mt-1 text-[#6F6A7C]">Perfil local, reseñas verificadas y respuesta directa.</p>
-              </div>
+            </div>
+
+            <div className="mt-5 grid gap-3 text-sm lg:grid-cols-3">
+              <div className="rounded-2xl border border-[#ece8f7] bg-white p-4"><p className="font-semibold text-[#2B174F]">Horarios</p><p className="mt-1 text-[#6F6A7C]">Lunes a sábado · 10 a 19 h</p></div>
+              <div className="rounded-2xl border border-[#ece8f7] bg-white p-4"><p className="font-semibold text-[#2B174F]">Entrega / atención</p><p className="mt-1 text-[#6F6A7C]">{entrepreneur.modalities.join(" · ")}</p></div>
+              <div className="rounded-2xl border border-[#ece8f7] bg-white p-4"><p className="font-semibold text-[#2B174F]">Confianza</p><p className="mt-1 text-[#6F6A7C]">Perfil local, reseñas y respuesta directa.</p></div>
             </div>
 
             {/* TABS */}
@@ -269,7 +211,7 @@ export default function EntrepreneurProfilePage() {
                 </div>
               ) : null}
 
-              {tab === "Trabajos" ? (
+              {tab === "Galería" ? (
                 <div className="grid grid-cols-3 gap-2 lg:grid-cols-4">
                   {entrepreneurs.slice(0, 8).map((e) => (
                     <img

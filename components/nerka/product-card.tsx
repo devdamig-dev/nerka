@@ -31,12 +31,12 @@ export function ProductCard({
   const canAddToCart = product.available && product.type === "product" && typeof product.price === "number";
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-[#ece8f7] bg-white shadow-sm transition hover:shadow-md">
+    <article className="flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ece8f7] bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
       <div className="relative">
         <img
           src={product.image}
           alt={product.name}
-          className="h-40 w-full object-cover"
+          className="h-44 w-full object-cover lg:h-52"
         />
         {product.featured ? (
           <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[11px] font-semibold text-[#5B2EFF] shadow-sm">
@@ -49,16 +49,16 @@ export function ProductCard({
           </span>
         ) : null}
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-3">
+      <div className="flex flex-1 flex-col gap-3 p-4">
         <div>
-          <p className="line-clamp-2 text-sm font-semibold text-[#1f1833]">{product.name}</p>
-          <p className="mt-1 line-clamp-2 text-xs text-[#6F6A7C]">{product.description}</p>
+          <p className="line-clamp-2 text-base font-semibold text-[#1f1833]">{product.name}</p>
+          <p className="mt-1 line-clamp-2 text-sm text-[#6F6A7C]">{product.description}</p>
         </div>
         <div className="mt-auto flex items-end justify-between gap-2 pt-1">
           <div>
             {product.price ? (
               <>
-                <p className="text-base font-semibold text-[#2B174F]">
+                <p className="text-lg font-semibold text-[#2B174F]">
                   {formatPrice(product.price)}
                 </p>
                 {product.unit ? (
@@ -96,7 +96,7 @@ export function ProductCard({
               <button
                 type="button"
                 onClick={() => addItem({ profileId, profileName, contactPhone, product })}
-                className="inline-flex items-center gap-1 rounded-xl bg-[#5B2EFF] px-3 py-2 text-xs font-medium text-white"
+                className="inline-flex items-center gap-1 rounded-2xl bg-[#5B2EFF] px-4 py-2.5 text-xs font-semibold text-white"
               >
                 <ShoppingBag size={14} /> Agregar
               </button>
@@ -104,7 +104,7 @@ export function ProductCard({
           ) : product.available ? (
             <Link
               href={consultLink}
-              className="inline-flex rounded-xl bg-[#F2ECFF] px-3 py-2 text-xs font-medium text-[#5B2EFF]"
+              className="inline-flex rounded-2xl bg-[#F2ECFF] px-4 py-2.5 text-xs font-semibold text-[#5B2EFF]"
             >
               Consultar
             </Link>

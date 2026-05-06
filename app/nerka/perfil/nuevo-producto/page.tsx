@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 const categories = [
   "Producto",
@@ -39,8 +39,7 @@ export default function NuevoProductoPage() {
           e.preventDefault();
           setSubmitted(true);
           // mock — log y vuelta al catálogo.
-          // eslint-disable-next-line no-console
-          console.log("[Niar] Producto mock creado", { name, desc, price, type, unit, available });
+                  console.log("[Niar] Producto mock creado", { name, desc, price, type, unit, available });
           setTimeout(() => router.push("/niar/perfil/catalogo"), 800);
         }}
         className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]"
@@ -63,13 +62,6 @@ export default function NuevoProductoPage() {
               placeholder="Contá brevemente qué incluye, sabores, etc."
               className="min-h-24 w-full rounded-xl border border-[#ece8f7] bg-white px-3 py-2.5 text-sm outline-none focus:border-[#d9cef8]"
             />
-            <button
-              type="button"
-              disabled
-              className="mt-2 inline-flex cursor-not-allowed items-center gap-1 rounded-lg bg-[#F2ECFF] px-2 py-1 text-[11px] font-semibold text-[#5B2EFF]"
-            >
-              <Sparkles size={11} /> Generar con IA · Próximamente
-            </button>
           </Field>
 
           <div className="grid grid-cols-2 gap-3">
@@ -159,14 +151,6 @@ export default function NuevoProductoPage() {
               <li>· Si tenés precio fijo, mostralo. Genera más confianza.</li>
               <li>· Mantené disponibles sólo los productos que podés entregar.</li>
             </ul>
-          </div>
-          <div className="rounded-2xl border border-[#d9cef8] bg-[#F8F4FF] p-4 text-xs text-[#433d56]">
-            <p className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-[#5B2EFF]">
-              <Sparkles size={10} /> Próximamente
-            </p>
-            <p className="mt-1">
-              IA para sugerir título, descripción y rango de precio según tu rubro y zona.
-            </p>
           </div>
         </aside>
       </form>

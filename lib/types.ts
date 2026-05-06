@@ -140,9 +140,9 @@ export type Conversation = {
 // Subscription plans (visual / mock)
 // ─────────────────────────────────────────────────────────────────────
 
-export type PlanId = "free" | "pro" | "business";
+export type PlanId = "catalog" | "sell" | "manage";
 
-export type PlanStatus = "active" | "coming_soon";
+export type PlanStatus = "available";
 
 export type SubscriptionPlan = {
   id: PlanId;
