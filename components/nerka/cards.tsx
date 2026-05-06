@@ -9,52 +9,49 @@ type Request = (typeof requests)[number];
 type Conversation = (typeof conversations)[number];
 
 export function EntrepreneurCard({ entrepreneur, horizontal = false }: { entrepreneur: Entrepreneur; horizontal?: boolean }) {
-  const productCount = entrepreneur.catalog.filter((c) => c.type === "product").length;
+  const productCount = entrepreneur.catalog.filter((item) => item.type === "product").length;
+  const featured = entrepreneur.catalog.find((item) => item.featured) ?? entrepreneur.catalog[0];
+
   return (
-    <article
-      className={`flex flex-col overflow-hidden rounded-2xl border border-[#ece8f7] bg-white shadow-sm transition hover:shadow-md ${
-        horizontal ? "min-w-[240px] lg:min-w-0" : ""
-      }`}
-    >
-      <div className="relative">
-        <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-32 w-full object-cover" />
-        <img
-          src={entrepreneur.avatar}
-          alt={entrepreneur.name}
-          className="absolute -bottom-5 left-3 h-12 w-12 rounded-xl border-4 border-white object-cover"
-        />
-      </div>
-      <div className="flex flex-1 flex-col gap-2 p-3 pt-7">
-        <div>
-          <p className="font-semibold text-[#1f1833]">{entrepreneur.name}</p>
-          <p className="text-xs text-[#6F6A7C]">{entrepreneur.category} · {entrepreneur.subcategory}</p>
+    <article className={`group flex flex-col overflow-hidden rounded-[1.5rem] border border-[#ece8f7] bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg ${horizontal ? "min-w-[280px] lg:min-w-0" : ""}`}>
+      <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="block">
+        <div className="relative h-44 overflow-hidden">
+          <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+          <div className="absolute bottom-3 left-3 right-3 flex items-end gap-3">
+            <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-14 w-14 rounded-2xl border-4 border-white object-cover shadow-sm" />
+            <div className="min-w-0 pb-1 text-white">
+              <p className="truncate text-base font-semibold">{entrepreneur.name}</p>
+              <p className="truncate text-xs text-white/78">{entrepreneur.category} · {entrepreneur.zone}</p>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[#433d56]">
-          <span className="inline-flex items-center gap-1">
-            <Star size={12} className="fill-[#ffb547] text-[#ffb547]" /> {entrepreneur.rating}
-            <span className="text-[#9088a3]">({entrepreneur.reviews})</span>
-          </span>
-          <span className="inline-flex items-center gap-1 text-[#6F6A7C]"><MapPin size={12} /> {entrepreneur.zone}</span>
-          <span className="inline-flex items-center gap-1 text-[#6F6A7C]"><Store size={12} /> {productCount} productos</span>
-        </div>
+      </Link>
+      <div className="flex flex-1 flex-col gap-3 p-4">
         <div className="flex flex-wrap gap-1.5">
-          {entrepreneur.badges.slice(0, 2).map((badge) => (
-            <BadgeTrust key={badge} badge={badge} />
-          ))}
+          {entrepreneur.badges.slice(0, 3).map((badge) => <BadgeTrust key={badge} badge={badge} />)}
         </div>
+        <p className="line-clamp-2 text-sm text-[#6F6A7C]">{entrepreneur.about}</p>
+        <div className="grid grid-cols-3 gap-2 rounded-2xl bg-[#FAFAFC] p-2 text-xs text-[#6F6A7C]">
+          <span className="inline-flex items-center gap-1"><Star size={12} className="fill-[#ffb547] text-[#ffb547]" /> <strong className="text-[#2B174F]">{entrepreneur.rating}</strong></span>
+          <span className="inline-flex items-center gap-1"><Store size={12} /> {productCount}</span>
+          <span className="inline-flex items-center gap-1"><MapPin size={12} /> {entrepreneur.zone}</span>
+        </div>
+        {featured ? (
+          <div className="flex items-center gap-2 rounded-2xl border border-[#ece8f7] p-2">
+            <img src={featured.image} alt={featured.name} className="h-12 w-12 rounded-xl object-cover" />
+            <div className="min-w-0">
+              <p className="truncate text-xs font-semibold text-[#1f1833]">{featured.name}</p>
+              <p className="truncate text-[11px] text-[#8d86a2]">Producto destacado</p>
+            </div>
+          </div>
+        ) : null}
         <div className="mt-auto grid grid-cols-[1fr_auto] gap-2 pt-1">
-          <Link
-            href={`/niar/emprendedores/${entrepreneur.id}`}
-            className="inline-flex items-center justify-center rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]"
-          >
+          <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="inline-flex items-center justify-center rounded-2xl bg-[#5B2EFF] px-3 py-2.5 text-sm font-semibold text-white">
             Ver catálogo
           </Link>
-          <Link
-            href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`}
-            aria-label="Enviar mensaje"
-            className="inline-flex items-center justify-center rounded-xl border border-[#ece8f7] bg-white px-2.5 py-2 text-[#5B2EFF]"
-          >
-            <MessageCircle size={15} />
+          <Link href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`} aria-label="Consultar" className="inline-flex items-center justify-center rounded-2xl border border-[#ece8f7] bg-white px-3 py-2.5 text-[#5B2EFF]">
+            <MessageCircle size={16} />
           </Link>
         </div>
       </div>
@@ -68,10 +65,10 @@ export function EventCard({ event }: { event: Event }) {
       <img src={event.image} alt={event.name} className="h-36 w-full rounded-xl object-cover" />
       <div className="mt-3 space-y-1.5">
         <p className="font-semibold text-[#1f1833]">{event.name}</p>
-        <p className="text-sm text-[#6F6A7C] inline-flex items-center gap-1"><Clock size={13} /> {event.date}</p>
-        <p className="text-sm text-[#6F6A7C] inline-flex items-center gap-1"><MapPin size={13} /> {event.location}</p>
-        <p className="text-sm text-[#433d56]">{event.entrepreneursCount} emprendedores</p>
-        <Link href={`/niar/eventos/${event.id}`} className="mt-1 inline-flex rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver evento</Link>
+        <p className="inline-flex items-center gap-1 text-sm text-[#6F6A7C]"><Clock size={13} /> {event.date}</p>
+        <p className="inline-flex items-center gap-1 text-sm text-[#6F6A7C]"><MapPin size={13} /> {event.location}</p>
+        <p className="text-sm text-[#433d56]">{event.entrepreneursCount} comercios participantes</p>
+        <Link href={`/niar/eventos/${event.id}`} className="mt-1 inline-flex rounded-xl bg-[#F2ECFF] px-3 py-2 text-sm font-medium text-[#5B2EFF]">Ver activación</Link>
       </div>
     </article>
   );

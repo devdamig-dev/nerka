@@ -1,56 +1,52 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { Building2, Check, Crown, Sparkles, Store } from "lucide-react";
-import { institutionPlan, subscriptionPlans } from "@/lib/plans";
+import { Building2, Check, Crown, MessageCircle, Sparkles, Store } from "lucide-react";
+import { communityPlan, subscriptionPlans } from "@/lib/plans";
 import { useRole } from "@/lib/role-context";
 
 export default function PlanesPage() {
   const { isEntrepreneur, toggleRole } = useRole();
-  const [interest, setInterest] = useState<Record<string, boolean>>({});
-
-  const registerInterest = (planId: string) => {
-    setInterest((p) => ({ ...p, [planId]: true }));
-    if (typeof window !== "undefined") {
-      // mock: guardamos el interés a futuro y dejamos console.log para debug.
-      try {
-        const raw = window.localStorage.getItem("nerka.interest.v1");
-        const list = raw ? (JSON.parse(raw) as string[]) : [];
-        if (!list.includes(planId)) list.push(planId);
-        window.localStorage.setItem("nerka.interest.v1", JSON.stringify(list));
-      } catch {
-        // ignore
-      }
-      // eslint-disable-next-line no-console
-      console.log("[Niar] Interés registrado en plan:", planId);
-    }
-  };
 
   return (
     <main className="px-4 py-6 pb-20 lg:px-8 lg:py-10">
-      {/* HERO */}
-      <section className="rounded-3xl border border-[#ece8f7] bg-gradient-to-br from-white to-[#F8F4FF] p-6 lg:p-10">
-        <p className="inline-flex items-center gap-1 rounded-full bg-[#F2ECFF] px-2.5 py-1 text-xs font-semibold text-[#5B2EFF]">
-          <Crown size={12} /> Planes Niar
-        </p>
-        <h1 className="mt-3 text-2xl font-semibold text-[#1f1833] lg:text-4xl">
-          Planes para crecer en la vidriera digital local
-        </h1>
-        <p className="mt-2 max-w-2xl text-sm text-[#6F6A7C] lg:text-base">
-          Empezá gratis con perfil, catálogo y WhatsApp. Sumá Pro o Negocio para ganar visibilidad, y activá una red institucional si querés ordenar una zona completa.
-        </p>
+      <section className="overflow-hidden rounded-[2rem] border border-[#ece8f7] bg-[#171321] p-6 text-white lg:p-10">
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <p className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/85 ring-1 ring-white/10">
+              <Crown size={12} /> Planes comerciales
+            </p>
+            <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight lg:text-5xl">
+              Convertí tu perfil en una vidriera que vende cerca.
+            </h1>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/72 lg:text-base">
+              Niar se enfoca en catálogo, descubrimiento local, WhatsApp y pedidos simples. Sin pagos, logística ni checkout complejo.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href="/niar/perfil" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-[#171321]">
+                Crear perfil comercial <Store size={15} />
+              </Link>
+              <Link href="/niar/explorar" className="inline-flex items-center justify-center rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-white">
+                Ver cómo se explora
+              </Link>
+            </div>
+          </div>
+          <div className="rounded-[1.75rem] border border-white/10 bg-white/8 p-4 backdrop-blur">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">Foco del producto</p>
+            <div className="mt-4 grid gap-2 text-sm text-white/80 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              {["Exploración pública", "Perfiles comerciales", "Catálogos visuales", "Pedidos por WhatsApp", "Destacados", "Métricas comerciales"].map((item) => (
+                <span key={item} className="rounded-2xl bg-white/10 px-3 py-2 ring-1 ring-white/10">{item}</span>
+              ))}
+            </div>
+          </div>
+        </div>
         {!isEntrepreneur ? (
-          <div className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm shadow-sm ring-1 ring-[#ece8f7]">
-            <Store size={15} className="text-[#5B2EFF]" />
-            <span className="text-[#433d56]">
-              Estás viendo los planes como visitante.{" "}
-              <button
-                type="button"
-                onClick={toggleRole}
-                className="font-medium text-[#5B2EFF] underline-offset-2 hover:underline"
-              >
-                Activar mi perfil comercial
+          <div className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-3 text-sm ring-1 ring-white/10">
+            <Store size={15} />
+            <span>
+              Podés explorar sin registrarte. Si tenés un negocio, {" "}
+              <button type="button" onClick={toggleRole} className="font-semibold underline underline-offset-4">
+                activá la vista comercial
               </button>
               .
             </span>
@@ -58,105 +54,67 @@ export default function PlanesPage() {
         ) : null}
       </section>
 
-      {/* PLANS GRID */}
       <section className="mt-8 grid gap-4 lg:grid-cols-3">
-        {subscriptionPlans.map((plan) => {
-          const isComingSoon = plan.status === "coming_soon";
-          const interested = interest[plan.id];
-          return (
-            <article
-              key={plan.id}
-              className={`relative flex flex-col overflow-hidden rounded-3xl border p-6 ${
-                plan.highlight
-                  ? "border-[#5B2EFF] bg-gradient-to-br from-[#F8F4FF] to-white shadow-md"
-                  : "border-[#ece8f7] bg-white shadow-sm"
+        {subscriptionPlans.map((plan) => (
+          <article
+            key={plan.id}
+            className={`relative flex flex-col overflow-hidden rounded-[1.75rem] border p-6 ${
+              plan.highlight
+                ? "border-[#5B2EFF] bg-gradient-to-br from-[#F8F4FF] to-white shadow-lg shadow-[#5B2EFF]/10"
+                : "border-[#ece8f7] bg-white shadow-sm"
+            }`}
+          >
+            {plan.highlight ? (
+              <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#5B2EFF] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+                <Sparkles size={11} /> Plan ideal
+              </span>
+            ) : null}
+            <div>
+              <p className="text-sm font-semibold text-[#5B2EFF]">Plan {plan.name}</p>
+              <h2 className="mt-2 pr-16 text-2xl font-semibold text-[#1f1833]">{plan.tagline}</h2>
+              <p className="mt-4 text-3xl font-semibold text-[#1f1833]">
+                {plan.price}
+                {plan.id !== "catalog" ? <span className="ml-1 text-xs font-normal text-[#6F6A7C]">/mes</span> : <span className="ml-1 text-xs font-normal text-[#6F6A7C]">para empezar</span>}
+              </p>
+            </div>
+
+            <ul className="mt-6 space-y-2 text-sm text-[#433d56]">
+              {plan.features.map((feature) => (
+                <li key={feature} className="flex items-start gap-2">
+                  <Check size={15} className="mt-0.5 shrink-0 text-[#197a43]" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href={plan.cta.href ?? "/niar/perfil"}
+              className={`mt-auto inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold ${
+                plan.highlight ? "bg-[#5B2EFF] text-white" : "border border-[#d9cef8] bg-white text-[#5B2EFF] hover:bg-[#F2ECFF]"
               }`}
             >
-              {plan.highlight ? (
-                <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#5B2EFF] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
-                  <Sparkles size={11} /> Más popular
-                </span>
-              ) : null}
-              <div>
-                <p className="text-sm font-semibold text-[#5B2EFF]">{plan.name}</p>
-                <p className="mt-1 text-xs text-[#6F6A7C]">{plan.tagline}</p>
-                <p className="mt-4 text-3xl font-semibold text-[#1f1833]">
-                  {plan.price}
-                  {plan.id === "free" ? <span className="ml-1 text-xs font-normal text-[#6F6A7C]">por siempre</span> : null}
-                </p>
-                {isComingSoon ? (
-                  <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#FFF4E8] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#9b5a00]">
-                    Próximamente
-                  </span>
-                ) : null}
-              </div>
-
-              <ul className="mt-5 space-y-2 text-sm text-[#433d56]">
-                {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2">
-                    <Check size={15} className="mt-0.5 shrink-0 text-[#197a43]" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-auto pt-6">
-                {plan.id === "free" ? (
-                  <Link
-                    href="/niar/perfil"
-                    className="inline-flex w-full items-center justify-center rounded-xl border border-[#ece8f7] bg-white px-3 py-2.5 text-sm font-medium text-[#5B2EFF]"
-                  >
-                    Plan actual · Ir a Mi negocio
-                  </Link>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => registerInterest(plan.id)}
-                    disabled={interested}
-                    className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium ${
-                      interested
-                        ? "bg-[#E7F9EE] text-[#197a43]"
-                        : plan.highlight
-                          ? "bg-[#5B2EFF] text-white hover:bg-[#4924d0]"
-                          : "border border-[#d9cef8] bg-white text-[#5B2EFF] hover:bg-[#F2ECFF]"
-                    }`}
-                  >
-                    {interested ? (
-                      <>
-                        <Check size={15} /> Te avisamos cuando esté disponible
-                      </>
-                    ) : (
-                      plan.cta.label
-                    )}
-                  </button>
-                )}
-              </div>
-            </article>
-          );
-        })}
+              {plan.cta.label}
+            </Link>
+          </article>
+        ))}
       </section>
 
-      {/* INSTITUTIONAL PLAN */}
-      <section id="instituciones" className="mt-8 rounded-3xl border border-[#d9cef8] bg-gradient-to-br from-[#2B174F] to-[#5B2EFF] p-6 text-white lg:p-8">
-        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+      <section id="instituciones" className="mt-8 rounded-[1.75rem] border border-[#ece8f7] bg-white p-6 lg:p-8">
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <p className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-xs font-semibold">
-              <Building2 size={12} /> Para instituciones
+            <p className="inline-flex items-center gap-1 rounded-full bg-[#F2ECFF] px-2.5 py-1 text-xs font-semibold text-[#5B2EFF]">
+              <Building2 size={12} /> Secundario
             </p>
-            <h2 className="mt-3 text-2xl font-semibold lg:text-3xl">{institutionPlan.name}</h2>
-            <p className="mt-2 text-sm text-white/80">{institutionPlan.tagline}</p>
-            <p className="mt-5 text-3xl font-semibold">{institutionPlan.price}</p>
-            <Link
-              href={institutionPlan.cta.href}
-              className="mt-5 inline-flex rounded-xl bg-white px-4 py-3 text-sm font-semibold text-[#2B174F]"
-            >
-              {institutionPlan.cta.label}
+            <h2 className="mt-3 text-2xl font-semibold text-[#1f1833]">{communityPlan.name}</h2>
+            <p className="mt-2 text-sm text-[#6F6A7C]">{communityPlan.tagline}. Pensado para ordenar una red comercial sin convertir a Niar en una plataforma institucional.</p>
+            <Link href={communityPlan.cta.href} className="mt-5 inline-flex rounded-2xl border border-[#d9cef8] px-4 py-3 text-sm font-semibold text-[#5B2EFF]">
+              {communityPlan.cta.label}
             </Link>
           </div>
           <ul className="grid gap-2 sm:grid-cols-2">
-            {institutionPlan.features.map((feature) => (
-              <li key={feature} className="flex items-start gap-2 rounded-2xl bg-white/10 p-3 text-sm">
-                <Check size={15} className="mt-0.5 shrink-0" />
+            {communityPlan.features.map((feature) => (
+              <li key={feature} className="flex items-start gap-2 rounded-2xl bg-[#FAFAFC] p-3 text-sm text-[#433d56]">
+                <Check size={15} className="mt-0.5 shrink-0 text-[#197a43]" />
                 <span>{feature}</span>
               </li>
             ))}
@@ -164,34 +122,25 @@ export default function PlanesPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="mt-10 grid gap-4 rounded-3xl border border-[#ece8f7] bg-white p-6 lg:grid-cols-2 lg:p-8">
+      <section className="mt-8 grid gap-4 rounded-[1.75rem] border border-[#ece8f7] bg-white p-6 lg:grid-cols-2 lg:p-8">
         <div>
-          <h2 className="text-lg font-semibold text-[#2B174F]">Preguntas frecuentes</h2>
-          <p className="mt-1 text-sm text-[#6F6A7C]">
-            Sobre Niar, planes y cómo funcionan las consultas.
-          </p>
+          <h2 className="text-lg font-semibold text-[#2B174F]">Reglas simples</h2>
+          <p className="mt-1 text-sm text-[#6F6A7C]">Niar prioriza ventas conversacionales y operación liviana.</p>
         </div>
         <div className="space-y-3 text-sm">
           {[
-            {
-              q: "¿Hay pagos online?",
-              a: "Por ahora no. El cierre de la operación es siempre conversacional, por WhatsApp o mensajería interna. Más adelante sumamos pagos opcionales.",
-            },
-            {
-              q: "¿Hay envíos?",
-              a: "Cada negocio define sus modalidades (retiro, envío, atención a domicilio, online). Coordinás directo con el negocio.",
-            },
-            {
-              q: "¿Qué pasa cuando esté disponible Pro o Negocio?",
-              a: "Si registraste tu interés, te avisamos. Vas a poder elegir si cambiás de plan o seguís en el gratuito.",
-            },
-          ].map((f) => (
-            <details key={f.q} className="rounded-xl border border-[#ece8f7] bg-[#FAFAFC] p-3 text-sm">
-              <summary className="cursor-pointer font-medium text-[#2B174F]">{f.q}</summary>
-              <p className="mt-2 text-[#6F6A7C]">{f.a}</p>
+            { q: "¿Niar procesa pagos?", a: "No. La operación se coordina por WhatsApp o mensajería interna." },
+            { q: "¿Incluye logística?", a: "No. Cada comercio define retiro, envío, atención a domicilio u online." },
+            { q: "¿Qué plan conviene?", a: "Catálogo sirve para estar presente. Vender es el plan recomendado si querés carrito simple, prioridad y promociones." },
+          ].map((item) => (
+            <details key={item.q} className="rounded-xl border border-[#ece8f7] bg-[#FAFAFC] p-3">
+              <summary className="cursor-pointer font-medium text-[#2B174F]">{item.q}</summary>
+              <p className="mt-2 text-[#6F6A7C]">{item.a}</p>
             </details>
           ))}
+          <a href="https://wa.me/5491112340000?text=Hola%20Niar%2C%20quiero%20consultar%20por%20planes" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3 font-semibold text-white">
+            <MessageCircle size={15} /> Consultar por WhatsApp
+          </a>
         </div>
       </section>
     </main>
