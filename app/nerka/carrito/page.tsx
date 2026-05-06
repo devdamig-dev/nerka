@@ -23,9 +23,9 @@ export default function CarritoPage() {
         <EmptyState
           icon={<ShoppingBag size={20} />}
           title="Todavía no agregaste productos"
-          description="Explorá emprendimientos cerca tuyo y armá tu pedido. Lo enviás por WhatsApp en un toque."
+          description="Explorá comercios y servicios cerca tuyo, armá tu pedido y envialo por WhatsApp."
           cta="Explorar tiendas"
-          href="/nerka/explorar"
+          href="/niar/explorar"
         />
       </main>
     );
@@ -38,7 +38,7 @@ export default function CarritoPage() {
           <h1 className="text-xl font-semibold text-[#2B174F] lg:text-2xl">Tu carrito</h1>
           <p className="mt-1 text-sm text-[#6F6A7C]">
             {grandItems} {grandItems === 1 ? "producto" : "productos"} de {sellerCarts.length}{" "}
-            {sellerCarts.length === 1 ? "emprendimiento" : "emprendimientos"} · Total estimado{" "}
+            {sellerCarts.length === 1 ? "negocio" : "negocios"} · Total estimado{" "}
             <strong className="text-[#5B2EFF]">{formatPrice(grandTotal)}</strong>
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function CarritoPage() {
                 <div>
                   <p className="text-xs uppercase tracking-wide text-[#8d86a2]">Pedido a</p>
                   <Link
-                    href={`/nerka/emprendedores/${cart.profileId}`}
+                    href={`/niar/emprendedores/${cart.profileId}`}
                     className="text-sm font-semibold text-[#2B174F] hover:underline"
                   >
                     {cart.profileName}
@@ -166,7 +166,7 @@ export default function CarritoPage() {
                 {sent ? (
                   <p className="rounded-xl bg-[#E7F9EE] px-3 py-2 text-xs text-[#197a43]">
                     Listo. Tu pedido aparece como conversación en{" "}
-                    <Link href="/nerka/mensajes" className="font-semibold underline">
+                    <Link href="/niar/mensajes" className="font-semibold underline">
                       Mensajes
                     </Link>
                     . El emprendedor te va a responder por ese canal.
@@ -179,7 +179,7 @@ export default function CarritoPage() {
       </div>
 
       <p className="mt-6 text-center text-xs text-[#9088a3]">
-        Nerka no procesa pagos online. El precio y la entrega se confirman directo con cada
+        Niar no procesa pagos online. El precio y la entrega se confirman directo con cada
         emprendedor.
       </p>
     </main>

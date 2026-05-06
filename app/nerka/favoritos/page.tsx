@@ -25,7 +25,7 @@ export default function FavoritosPage() {
           title="Todavía no agregaste favoritos"
           description="Tocá el corazón en un perfil para guardarlo acá."
           cta="Explorar tiendas"
-          href="/nerka/explorar"
+          href="/niar/explorar"
         />
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

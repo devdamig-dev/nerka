@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NERKA",
-  description: "Encontrá, compará y contratá emprendedores cerca tuyo.",
+  title: "Niar · Lo local, más cerca",
+  description: "Descubrí emprendedores, comercios y servicios de tu zona en una vidriera digital local.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

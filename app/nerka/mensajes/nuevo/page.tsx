@@ -35,7 +35,7 @@ function NewMessageContent() {
           title="Falta indicar el destinatario"
           description="Esta página se abre desde un perfil o un producto."
           cta="Explorar emprendedores"
-          href="/nerka/explorar"
+          href="/niar/explorar"
         />
       </main>
     );
@@ -64,7 +64,7 @@ function NewMessageContent() {
       }}
       product={product ?? null}
       initialText={initialText}
-      onSent={() => router.push("/nerka/mensajes")}
+      onSent={() => router.push("/niar/mensajes")}
     />
   );
 }
@@ -121,7 +121,7 @@ function NewMessageForm({
     <main className="px-4 py-5 pb-32 lg:px-8 lg:py-8 lg:pb-12">
       <div className="mb-4 flex items-center gap-2">
         <Link
-          href={`/nerka/emprendedores/${profile.id}`}
+          href={`/niar/emprendedores/${profile.id}`}
           className="inline-flex items-center gap-1 rounded-xl border border-[#ece8f7] bg-white px-3 py-1.5 text-xs font-medium text-[#5B2EFF] hover:bg-[#F2ECFF]"
         >
           <ArrowLeft size={13} /> Volver al perfil
@@ -206,7 +206,7 @@ function NewMessageForm({
             {sent ? (
               <p className="mt-3 rounded-xl bg-[#E7F9EE] px-3 py-2 text-xs text-[#197a43]">
                 ¡Listo! Tu mensaje queda guardado en{" "}
-                <Link href="/nerka/mensajes" className="font-semibold underline">Mensajes</Link>.
+                <Link href="/niar/mensajes" className="font-semibold underline">Mensajes</Link>.
                 Te llevamos para ahí.
               </p>
             ) : null}
@@ -229,7 +229,7 @@ function NewMessageForm({
             </div>
           </div>
           <Link
-            href={`/nerka/emprendedores/${profile.id}`}
+            href={`/niar/emprendedores/${profile.id}`}
             className="block rounded-2xl border border-[#ece8f7] bg-white p-4 text-sm text-[#5B2EFF] hover:bg-[#F2ECFF]"
           >
             Ver catálogo completo →

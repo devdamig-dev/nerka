@@ -48,7 +48,7 @@ export default function MensajesPage() {
                     return (
                       <Link
                         key={d.id}
-                        href={`/nerka/mensajes/nuevo?to=${e.id}${d.productId ? `&product=${d.productId}` : ""}`}
+                        href={`/niar/mensajes/nuevo?to=${e.id}${d.productId ? `&product=${d.productId}` : ""}`}
                         className="block rounded-2xl border border-[#d9cef8] bg-[#F8F4FF] p-4"
                       >
                         <div className="mb-1 flex items-center justify-between">
@@ -105,7 +105,7 @@ export default function MensajesPage() {
               title="Todavía no tenés conversaciones"
               description="Entrá al perfil de un emprendedor y tocá Enviar mensaje para empezar a chatear."
               cta="Explorar emprendedores"
-              href="/nerka/explorar"
+              href="/niar/explorar"
             />
           </div>
         )}

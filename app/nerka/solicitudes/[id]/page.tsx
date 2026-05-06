@@ -8,7 +8,7 @@ export default async function SolicitudDetailPage({ params }: { params: Promise<
   const proposals = requestComparisons[id as keyof typeof requestComparisons] ?? [];
 
   if (!request) {
-    return <main className="p-4"><EmptyState title="Solicitud no encontrada" description="No encontramos esta solicitud." href="/nerka/solicitudes" cta="Volver" /></main>;
+    return <main className="p-4"><EmptyState title="Solicitud no encontrada" description="No encontramos esta solicitud." href="/niar/solicitudes" cta="Volver" /></main>;
   }
 
   return (
@@ -36,7 +36,7 @@ export default async function SolicitudDetailPage({ params }: { params: Promise<
                 <p className="text-sm text-[#433d56]">{proposal.includes}</p>
                 <p className="mt-1 text-xs text-[#6F6A7C]">Disponibilidad: {proposal.eta}</p>
                 <div className="mt-2"><StatusPill status={proposal.status} /></div>
-                <Link href="/nerka/mensajes" className="mt-3 inline-flex rounded-lg bg-[#F2ECFF] px-3 py-2 text-sm text-[#5B2EFF]">Abrir chat</Link>
+                <Link href="/niar/mensajes" className="mt-3 inline-flex rounded-lg bg-[#F2ECFF] px-3 py-2 text-sm text-[#5B2EFF]">Abrir chat</Link>
               </article>
             );
           })}

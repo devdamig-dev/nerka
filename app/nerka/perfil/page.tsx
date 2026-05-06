@@ -22,7 +22,7 @@ import { SectionTitle } from "@/components/nerka/ui";
 import { useRole } from "@/lib/role-context";
 
 const setupChecklist = [
-  { id: "info", label: "Datos del emprendimiento", done: true },
+  { id: "info", label: "Datos del negocio", done: true },
   { id: "cover", label: "Foto de portada y logo", done: true },
   { id: "products", label: "Subir 3 productos al catálogo", done: true },
   { id: "whatsapp", label: "Conectar WhatsApp para pedidos", done: true },
@@ -58,13 +58,13 @@ function VisitorAccount() {
           Tus tiendas favoritas, mensajes y pedidos en un solo lugar.
         </p>
         <div className="mt-4 grid gap-2 sm:grid-cols-3">
-          <Link href="/nerka/favoritos" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-[#2B174F]">
+          <Link href="/niar/favoritos" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-[#2B174F]">
             <Heart size={15} /> Mis favoritos
           </Link>
-          <Link href="/nerka/mensajes" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white backdrop-blur">
+          <Link href="/niar/mensajes" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white backdrop-blur">
             <MessageCircle size={15} /> Mensajes
           </Link>
-          <Link href="/nerka/carrito" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white backdrop-blur">
+          <Link href="/niar/carrito" className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white backdrop-blur">
             <ShoppingBag size={15} /> Mi carrito
           </Link>
         </div>
@@ -78,14 +78,14 @@ function VisitorAccount() {
               title="Tus tiendas guardadas"
               subtitle={favorites.length ? `${favorites.length} tienda${favorites.length > 1 ? "s" : ""}` : "Todavía no guardaste ninguna"}
               cta="Explorar más"
-              href="/nerka/explorar"
+              href="/niar/explorar"
             />
             {favorites.length ? (
               <div className="grid gap-3 sm:grid-cols-2">
                 {favorites.slice(0, 4).map((e) => (
                   <Link
                     key={e.id}
-                    href={`/nerka/emprendedores/${e.id}`}
+                    href={`/niar/emprendedores/${e.id}`}
                     className="overflow-hidden rounded-2xl border border-[#ece8f7] bg-white shadow-sm transition hover:shadow-md"
                   >
                     <img src={e.cover} alt={e.name} className="h-28 w-full object-cover" />
@@ -110,7 +110,7 @@ function VisitorAccount() {
                 <Store size={12} /> Para emprendedores
               </p>
               <h2 className="mt-2 text-lg font-semibold text-[#1f1833] lg:text-xl">
-                ¿Tenés un emprendimiento?
+                ¿Tenés un negocio?
               </h2>
               <p className="mt-1 text-sm text-[#6F6A7C]">
                 Activá tu perfil comercial. Cargá productos y empezá a recibir pedidos por
@@ -125,7 +125,7 @@ function VisitorAccount() {
               >
                 Activar mi perfil <ArrowRight size={15} />
               </button>
-              <Link href="/nerka/planes" className="text-center text-xs font-medium text-[#5B2EFF]">
+              <Link href="/niar/planes" className="text-center text-xs font-medium text-[#5B2EFF]">
                 Ver planes →
               </Link>
             </div>
@@ -144,9 +144,9 @@ function VisitorAccount() {
           <section className="rounded-2xl border border-[#ece8f7] bg-white p-5 text-sm">
             <p className="font-semibold text-[#2B174F]">Más</p>
             <div className="mt-3 space-y-1">
-              <Link href="/nerka/eventos" className="block rounded-lg px-2 py-2 text-[#433d56] hover:bg-[#F2ECFF]">Ferias y eventos</Link>
-              <Link href="/nerka/solicitudes" className="block rounded-lg px-2 py-2 text-[#433d56] hover:bg-[#F2ECFF]">Mis solicitudes</Link>
-              <Link href="/nerka/planes" className="block rounded-lg px-2 py-2 text-[#433d56] hover:bg-[#F2ECFF]">Planes</Link>
+              <Link href="/niar/eventos" className="block rounded-lg px-2 py-2 text-[#433d56] hover:bg-[#F2ECFF]">Ferias y eventos</Link>
+              <Link href="/niar/solicitudes" className="block rounded-lg px-2 py-2 text-[#433d56] hover:bg-[#F2ECFF]">Mis solicitudes</Link>
+              <Link href="/niar/planes" className="block rounded-lg px-2 py-2 text-[#433d56] hover:bg-[#F2ECFF]">Planes</Link>
             </div>
           </section>
         </aside>
@@ -173,17 +173,17 @@ function EntrepreneurDashboard() {
         <p className="text-xs uppercase tracking-wide opacity-80">Mi negocio</p>
         <h1 className="mt-1 text-2xl font-semibold lg:text-3xl">{profile.name}</h1>
         <p className="mt-1 text-sm opacity-90">
-          Gestioná tu catálogo, pedidos, mensajes y tu plan en Nerka.
+          Gestioná tu catálogo, pedidos, mensajes y tu plan en Niar.
         </p>
         <div className="mt-4 grid gap-2 sm:grid-cols-3">
           <Link
-            href={`/nerka/emprendedores/${profile.id}`}
+            href={`/niar/emprendedores/${profile.id}`}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-[#2B174F]"
           >
             <Eye size={15} /> Ver mi tienda
           </Link>
           <Link
-            href="/nerka/perfil/nuevo-producto"
+            href="/niar/perfil/nuevo-producto"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white backdrop-blur"
           >
             <PackagePlus size={15} /> Cargar producto
@@ -264,7 +264,7 @@ function EntrepreneurDashboard() {
               title="Mi catálogo"
               subtitle={`${productCount} productos · ${serviceCount} servicios`}
               cta="Ver catálogo completo"
-              href="/nerka/perfil/catalogo"
+              href="/niar/perfil/catalogo"
             />
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-4">
               {profile.catalog.slice(0, 5).map((item) => (
@@ -283,7 +283,7 @@ function EntrepreneurDashboard() {
                 </article>
               ))}
               <Link
-                href="/nerka/perfil/nuevo-producto"
+                href="/niar/perfil/nuevo-producto"
                 className="flex min-h-[180px] flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#d9cef8] bg-[#FAFAFC] p-3 text-sm font-medium text-[#5B2EFF] hover:bg-[#F2ECFF]"
               >
                 <PackagePlus size={20} />
@@ -298,7 +298,7 @@ function EntrepreneurDashboard() {
               title="Pedidos recientes"
               subtitle="Recibidos por WhatsApp y mensajes internos"
               cta="Ver todos"
-              href="/nerka/mensajes"
+              href="/niar/mensajes"
             />
             <div className="overflow-hidden rounded-2xl border border-[#ece8f7] bg-white">
               <ul className="divide-y divide-[#f1ecfb]">
@@ -344,7 +344,7 @@ function EntrepreneurDashboard() {
               Más visibilidad, métricas y herramientas para crecer.
             </p>
             <Link
-              href="/nerka/planes"
+              href="/niar/planes"
               className="mt-3 inline-flex w-full items-center justify-center gap-1 rounded-xl bg-[#5B2EFF] px-3 py-2 text-sm font-medium text-white"
             >
               Ver planes <ArrowRight size={14} />
@@ -356,10 +356,10 @@ function EntrepreneurDashboard() {
             <p className="mt-2 text-xs text-[#6F6A7C]">Compartí este link en redes para recibir más pedidos.</p>
             <div className="mt-3 flex items-center gap-2 rounded-xl border border-[#ece8f7] bg-[#FAFAFC] px-3 py-2 text-xs text-[#433d56]">
               <Store size={13} className="text-[#5B2EFF]" />
-              <span className="truncate">nerka.app/nerka/emprendedores/{profile.id}</span>
+              <span className="truncate">niar.app/niar/emprendedores/{profile.id}</span>
             </div>
             <Link
-              href={`/nerka/emprendedores/${profile.id}`}
+              href={`/niar/emprendedores/${profile.id}`}
               className="mt-3 inline-flex w-full items-center justify-center gap-1 rounded-xl border border-[#ece8f7] bg-white px-3 py-2 text-sm font-medium text-[#5B2EFF]"
             >
               Abrir mi tienda <ArrowRight size={14} />

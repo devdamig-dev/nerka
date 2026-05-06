@@ -23,7 +23,7 @@ export default function NuevoProductoPage() {
   return (
     <main className="px-4 py-5 pb-24 lg:px-8 lg:py-8 lg:pb-12">
       <div className="mb-4 flex items-center gap-2">
-        <Link href="/nerka/perfil/catalogo" className="rounded-xl border border-[#ece8f7] bg-white p-2 text-[#5B2EFF]">
+        <Link href="/niar/perfil/catalogo" className="rounded-xl border border-[#ece8f7] bg-white p-2 text-[#5B2EFF]">
           <ArrowLeft size={14} />
         </Link>
         <div>
@@ -40,8 +40,8 @@ export default function NuevoProductoPage() {
           setSubmitted(true);
           // mock — log y vuelta al catálogo.
           // eslint-disable-next-line no-console
-          console.log("[Nerka] Producto mock creado", { name, desc, price, type, unit, available });
-          setTimeout(() => router.push("/nerka/perfil/catalogo"), 800);
+          console.log("[Niar] Producto mock creado", { name, desc, price, type, unit, available });
+          setTimeout(() => router.push("/niar/perfil/catalogo"), 800);
         }}
         className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]"
       >
@@ -136,7 +136,7 @@ export default function NuevoProductoPage() {
               {submitted ? "Guardando..." : "Publicar producto"}
             </button>
             <Link
-              href="/nerka/perfil/catalogo"
+              href="/niar/perfil/catalogo"
               className="inline-flex items-center justify-center rounded-xl border border-[#ece8f7] bg-white px-4 py-3 text-sm font-medium text-[#5B2EFF]"
             >
               Cancelar
