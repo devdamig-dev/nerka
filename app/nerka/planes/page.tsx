@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Check, Crown, Sparkles, Store } from "lucide-react";
-import { subscriptionPlans } from "@/lib/plans";
+import { Building2, Check, Crown, Sparkles, Store } from "lucide-react";
+import { institutionPlan, subscriptionPlans } from "@/lib/plans";
 import { useRole } from "@/lib/role-context";
 
 export default function PlanesPage() {
@@ -23,7 +23,7 @@ export default function PlanesPage() {
         // ignore
       }
       // eslint-disable-next-line no-console
-      console.log("[Nerka] Interés registrado en plan:", planId);
+      console.log("[Niar] Interés registrado en plan:", planId);
     }
   };
 
@@ -32,14 +32,13 @@ export default function PlanesPage() {
       {/* HERO */}
       <section className="rounded-3xl border border-[#ece8f7] bg-gradient-to-br from-white to-[#F8F4FF] p-6 lg:p-10">
         <p className="inline-flex items-center gap-1 rounded-full bg-[#F2ECFF] px-2.5 py-1 text-xs font-semibold text-[#5B2EFF]">
-          <Crown size={12} /> Planes Nerka
+          <Crown size={12} /> Planes Niar
         </p>
         <h1 className="mt-3 text-2xl font-semibold text-[#1f1833] lg:text-4xl">
-          Crecé en Nerka cuando estés listo
+          Planes para crecer en la vidriera digital local
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-[#6F6A7C] lg:text-base">
-          Empezá gratis con tu perfil comercial, catálogo y pedidos por WhatsApp. Cuando tu
-          negocio crezca, sumá visibilidad, métricas y herramientas profesionales.
+          Empezá gratis con perfil, catálogo y WhatsApp. Sumá Pro o Negocio para ganar visibilidad, y activá una red institucional si querés ordenar una zona completa.
         </p>
         {!isEntrepreneur ? (
           <div className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm shadow-sm ring-1 ring-[#ece8f7]">
@@ -51,7 +50,7 @@ export default function PlanesPage() {
                 onClick={toggleRole}
                 className="font-medium text-[#5B2EFF] underline-offset-2 hover:underline"
               >
-                Activar mi perfil de emprendedor
+                Activar mi perfil comercial
               </button>
               .
             </span>
@@ -104,7 +103,7 @@ export default function PlanesPage() {
               <div className="mt-auto pt-6">
                 {plan.id === "free" ? (
                   <Link
-                    href="/nerka/perfil"
+                    href="/niar/perfil"
                     className="inline-flex w-full items-center justify-center rounded-xl border border-[#ece8f7] bg-white px-3 py-2.5 text-sm font-medium text-[#5B2EFF]"
                   >
                     Plan actual · Ir a Mi negocio
@@ -137,12 +136,40 @@ export default function PlanesPage() {
         })}
       </section>
 
+      {/* INSTITUTIONAL PLAN */}
+      <section id="instituciones" className="mt-8 rounded-3xl border border-[#d9cef8] bg-gradient-to-br from-[#2B174F] to-[#5B2EFF] p-6 text-white lg:p-8">
+        <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-xs font-semibold">
+              <Building2 size={12} /> Para instituciones
+            </p>
+            <h2 className="mt-3 text-2xl font-semibold lg:text-3xl">{institutionPlan.name}</h2>
+            <p className="mt-2 text-sm text-white/80">{institutionPlan.tagline}</p>
+            <p className="mt-5 text-3xl font-semibold">{institutionPlan.price}</p>
+            <Link
+              href={institutionPlan.cta.href}
+              className="mt-5 inline-flex rounded-xl bg-white px-4 py-3 text-sm font-semibold text-[#2B174F]"
+            >
+              {institutionPlan.cta.label}
+            </Link>
+          </div>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {institutionPlan.features.map((feature) => (
+              <li key={feature} className="flex items-start gap-2 rounded-2xl bg-white/10 p-3 text-sm">
+                <Check size={15} className="mt-0.5 shrink-0" />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="mt-10 grid gap-4 rounded-3xl border border-[#ece8f7] bg-white p-6 lg:grid-cols-2 lg:p-8">
         <div>
           <h2 className="text-lg font-semibold text-[#2B174F]">Preguntas frecuentes</h2>
           <p className="mt-1 text-sm text-[#6F6A7C]">
-            Sobre Nerka, planes y cómo funcionan los pedidos.
+            Sobre Niar, planes y cómo funcionan las consultas.
           </p>
         </div>
         <div className="space-y-3 text-sm">
@@ -153,7 +180,7 @@ export default function PlanesPage() {
             },
             {
               q: "¿Hay envíos?",
-              a: "Cada emprendimiento define sus modalidades (retiro, envío, atención a domicilio, online). Coordinás directo con el negocio.",
+              a: "Cada negocio define sus modalidades (retiro, envío, atención a domicilio, online). Coordinás directo con el negocio.",
             },
             {
               q: "¿Qué pasa cuando esté disponible Pro o Negocio?",

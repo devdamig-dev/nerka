@@ -71,10 +71,10 @@ function ExplorarContent() {
           <div>
             <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Explorar</p>
             <h1 className="mt-1 text-2xl font-semibold text-[#1f1833]">
-              {filtered.length} emprendedores en tu zona
+              {filtered.length} comercios, servicios y emprendedores en tu zona
             </h1>
             <p className="mt-1 text-sm text-[#6F6A7C]">
-              Filtrá por rubro, zona o tipo. Tocá una tienda para ver su catálogo.
+              Filtrá por zona, rubro, productos, servicios, destacados y señales de confianza.
             </p>
           </div>
           <div className="hidden gap-2 xl:flex">
@@ -93,8 +93,8 @@ function ExplorarContent() {
         </div>
       </section>
 
-      <h1 className="mb-3 text-xl font-semibold text-[#2B174F] lg:hidden">Explorar emprendedores</h1>
-      <SearchBar placeholder="Buscá por rubro, nombre o servicio" />
+      <h1 className="mb-3 text-xl font-semibold text-[#2B174F] lg:hidden">Explorar Niar</h1>
+      <SearchBar placeholder="¿Qué estás buscando? Producto, servicio o comercio" />
 
       <div className="mt-5 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-6">
         <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit lg:space-y-5 lg:rounded-2xl lg:border lg:border-[#ece8f7] lg:bg-white lg:p-5">
@@ -166,7 +166,7 @@ function ExplorarContent() {
           <div className="space-y-2">
             <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Orden</p>
             <div className="flex flex-wrap gap-2">
-              {["destacados", "mejor valorados", "más cercanos", "nuevos"].map((item, i) => (
+              {["destacados", "verificados", "responde rápido", "top en tu zona", "más cercanos", "nuevos"].map((item, i) => (
                 <button
                   key={item}
                   type="button"

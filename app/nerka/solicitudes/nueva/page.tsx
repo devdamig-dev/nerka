@@ -15,7 +15,7 @@ export default function NuevaSolicitudPage() {
         className="mt-5 space-y-3"
         onSubmit={(e) => {
           e.preventDefault();
-          router.push("/nerka/solicitudes?created=req-cumple-1");
+          router.push("/niar/solicitudes?created=req-cumple-1");
         }}
       >
         <Field label="¿Qué necesitás?" placeholder="Ej: Cumpleaños de 1 año" required />

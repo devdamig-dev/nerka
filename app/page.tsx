@@ -1,341 +1,265 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import {
   ArrowRight,
-  Compass,
+  Building2,
+  CheckCircle2,
   MapPin,
   MessageCircle,
-  PackagePlus,
   Search,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
   Star,
   Store,
+  Users,
 } from "lucide-react";
 import { entrepreneurs, popularProducts, categories } from "@/lib/nerka-data";
 import { formatPrice } from "@/lib/orders";
 
+const zones = ["Berazategui", "Hudson", "Quilmes", "Zona Sur"];
+
 export default function LandingPage() {
   const featuredEntrepreneurs = entrepreneurs.slice(0, 6);
   const featuredProducts = popularProducts.slice(0, 8);
+  const popularServices = entrepreneurs
+    .flatMap((business) =>
+      business.catalog
+        .filter((item) => item.type === "service" && item.available)
+        .map((service) => ({ ...service, businessId: business.id, businessName: business.name, zone: business.zone })),
+    )
+    .slice(0, 6);
 
   return (
     <main className="min-h-screen bg-[#FAFAFC] text-[#171321]">
-      {/* HEADER */}
       <header className="sticky top-0 z-30 border-b border-[#ece8f7] bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-          <Link href="/" className="text-xl font-semibold tracking-tight text-[#2B174F]">
-            nerka
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
+          <Link href="/" className="text-2xl font-semibold tracking-tight text-[#2B174F]">
+            Niar
           </Link>
-          <nav className="hidden items-center gap-6 text-sm text-[#433d56] md:flex">
-            <Link href="/nerka/explorar" className="hover:text-[#5B2EFF]">Explorar</Link>
-            <Link href="#emprendedores" className="hover:text-[#5B2EFF]">Emprendedores</Link>
-            <Link href="#vender" className="hover:text-[#5B2EFF]">Vender en Nerka</Link>
-            <Link href="/nerka/planes" className="hover:text-[#5B2EFF]">Planes</Link>
+          <nav className="hidden items-center gap-5 text-sm text-[#433d56] lg:flex">
+            <Link href="/niar/explorar" className="hover:text-[#5B2EFF]">Explorar</Link>
+            <Link href="#comercios" className="hover:text-[#5B2EFF]">Comercios</Link>
+            <Link href="#servicios" className="hover:text-[#5B2EFF]">Servicios</Link>
+            <Link href="/niar/perfil" className="hover:text-[#5B2EFF]">Vender en Niar</Link>
+            <Link href="/instituciones" className="hover:text-[#5B2EFF]">Para municipios/cámaras</Link>
+            <Link href="/niar/planes" className="hover:text-[#5B2EFF]">Planes</Link>
           </nav>
-          <div className="flex items-center gap-2">
-            <Link
-              href="/nerka"
-              className="hidden rounded-xl px-3 py-2 text-sm font-medium text-[#5B2EFF] hover:bg-[#F2ECFF] sm:inline-flex"
-            >
-              Entrar
-            </Link>
-            <Link
-              href="/nerka"
-              className="inline-flex items-center gap-1 rounded-xl bg-[#5B2EFF] px-3 py-2 text-sm font-medium text-white"
-            >
-              Abrir app <ArrowRight size={14} />
-            </Link>
-          </div>
+          <Link
+            href="/niar"
+            className="inline-flex items-center gap-1 rounded-xl bg-[#5B2EFF] px-3 py-2 text-sm font-medium text-white"
+          >
+            Entrar <ArrowRight size={14} />
+          </Link>
         </div>
       </header>
 
-      {/* HERO with dual narrative */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-[#F4F0FF] to-[#FAFAFC]" />
-        <div className="mx-auto max-w-6xl px-5 py-12 lg:py-20">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-medium text-[#5B2EFF] shadow-sm ring-1 ring-[#ece8f7]">
-              <Sparkles size={12} /> Marketplace local · Argentina
+      <section className="relative overflow-hidden border-b border-[#ece8f7]">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#efe7ff,transparent_34%),linear-gradient(180deg,#F8F4FF_0%,#FAFAFC_80%)]" />
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 lg:grid-cols-[1.08fr_0.92fr] lg:py-20">
+          <div>
+            <p className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-semibold text-[#5B2EFF] shadow-sm ring-1 ring-[#ece8f7]">
+              <Sparkles size={12} /> Lo local, más cerca.
             </p>
-            <h1 className="mt-4 text-3xl font-semibold leading-tight text-[#1f1833] lg:text-5xl">
-              Conectá con <span className="text-[#5B2EFF]">emprendedores</span> de tu zona.
-              <br className="hidden md:block" /> O empezá a vender el tuyo.
+            <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight text-[#1f1833] lg:text-6xl">
+              Encontrá emprendedores, comercios y servicios cerca tuyo.
             </h1>
-            <p className="mt-3 text-base text-[#6F6A7C] lg:text-lg">
-              Nerka es el puente entre emprendedores locales y clientes reales. Descubrí, consultá
-              y comprá — o creá tu perfil comercial y recibí pedidos por WhatsApp.
+            <p className="mt-4 max-w-2xl text-base leading-7 text-[#6F6A7C] lg:text-lg">
+              Niar reúne la oferta local de tu zona en una vidriera digital simple, ordenada y conectada por WhatsApp.
             </p>
-          </div>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#6F6A7C] lg:text-base">
+              Descubrí emprendedores, comercios y servicios de tu zona. Explorá catálogos, contactá por WhatsApp y comprá directo a quienes están cerca tuyo.
+            </p>
 
-          {/* Dual path cards */}
-          <div className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-2">
-            <article className="group relative overflow-hidden rounded-3xl border border-[#ece8f7] bg-white p-6 shadow-sm transition hover:shadow-md lg:p-8">
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#F2ECFF]" aria-hidden />
-              <div className="relative">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F2ECFF] px-3 py-1 text-xs font-semibold text-[#5B2EFF]">
-                  <Search size={12} /> Para quien busca
-                </span>
-                <h2 className="mt-3 text-xl font-semibold text-[#1f1833] lg:text-2xl">
-                  Descubrí emprendedores cerca tuyo
-                </h2>
-                <p className="mt-2 text-sm text-[#6F6A7C]">
-                  Recorré catálogos reales, comparalos, agregá productos al carrito y consultá
-                  directo por WhatsApp o por mensaje interno.
-                </p>
-                <ul className="mt-4 space-y-1.5 text-sm text-[#433d56]">
-                  <li className="flex items-center gap-2"><Compass size={14} className="text-[#5B2EFF]" /> Explorá por rubro o zona</li>
-                  <li className="flex items-center gap-2"><ShoppingBag size={14} className="text-[#5B2EFF]" /> Carrito multi-tienda</li>
-                  <li className="flex items-center gap-2"><MessageCircle size={14} className="text-[#5B2EFF]" /> Consultá sin compromiso</li>
-                </ul>
-                <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-                  <Link
-                    href="/nerka/explorar"
-                    className="inline-flex items-center justify-center gap-1 rounded-xl bg-[#5B2EFF] px-4 py-2.5 text-sm font-medium text-white"
-                  >
-                    Explorar emprendedores <ArrowRight size={14} />
-                  </Link>
-                  <Link
-                    href="/nerka"
-                    className="inline-flex items-center justify-center rounded-xl border border-[#d9cef8] bg-white px-4 py-2.5 text-sm font-medium text-[#5B2EFF]"
-                  >
-                    Ver productos cerca mío
-                  </Link>
-                </div>
-              </div>
-            </article>
-
-            <article className="group relative overflow-hidden rounded-3xl border border-[#3f1bbd] bg-gradient-to-br from-[#5B2EFF] to-[#2B174F] p-6 text-white shadow-sm transition hover:shadow-md lg:p-8">
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/10" aria-hidden />
-              <div className="relative">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold backdrop-blur">
-                  <Store size={12} /> Para emprendedores
-                </span>
-                <h2 className="mt-3 text-xl font-semibold lg:text-2xl">
-                  Tenés un emprendimiento? Empezá a vender hoy
-                </h2>
-                <p className="mt-2 text-sm text-white/85">
-                  Creá tu perfil comercial, cargá tus productos, compartí el link de tu tienda
-                  y recibí pedidos por WhatsApp en minutos. Sin saber nada técnico.
-                </p>
-                <ul className="mt-4 space-y-1.5 text-sm text-white/90">
-                  <li className="flex items-center gap-2"><PackagePlus size={14} /> Catálogo simple y rápido</li>
-                  <li className="flex items-center gap-2"><Store size={14} /> Perfil con link compartible</li>
-                  <li className="flex items-center gap-2"><Sparkles size={14} /> IA para mejorar tus publicaciones</li>
-                </ul>
-                <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-                  <Link
-                    href="/nerka/perfil"
-                    className="inline-flex items-center justify-center gap-1 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-[#2B174F]"
-                  >
-                    Empezar a vender <ArrowRight size={14} />
-                  </Link>
-                  <Link
-                    href="/nerka/planes"
-                    className="inline-flex items-center justify-center rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white backdrop-blur"
-                  >
-                    Ver planes
-                  </Link>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          {/* TRUST STRIP */}
-          <div className="mx-auto mt-10 grid max-w-5xl gap-3 sm:grid-cols-3">
-            {[
-              { icon: <Star size={18} />, title: "Emprendedores reales", desc: "Tiendas verificadas en tu zona" },
-              { icon: <ShieldCheck size={18} />, title: "Sin pagos online", desc: "Cerrás directo con cada negocio" },
-              { icon: <MapPin size={18} />, title: "Cerca tuyo", desc: "Berazategui, Quilmes y Zona Sur" },
-            ].map((item) => (
-              <div key={item.title} className="flex items-center gap-3 rounded-2xl border border-[#ece8f7] bg-white p-4">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[#F2ECFF] text-[#5B2EFF]">
-                  {item.icon}
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-[#1f1833]">{item.title}</p>
-                  <p className="text-xs text-[#6F6A7C]">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CATEGORIES */}
-      <section className="border-t border-[#ece8f7] bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-10">
-          <div className="mb-5 flex items-end justify-between">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Categorías</p>
-              <h2 className="mt-1 text-xl font-semibold text-[#1f1833] lg:text-2xl">Encontrá tu rubro</h2>
-            </div>
-            <Link href="/nerka/explorar" className="text-sm font-medium text-[#5B2EFF]">
-              Ver todas →
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
-            {categories.slice(0, 14).map((cat) => (
-              <Link
-                key={cat}
-                href="/nerka/explorar"
-                className="rounded-2xl border border-[#ece8f7] bg-[#FAFAFC] px-3 py-3 text-center text-sm font-medium text-[#2B174F] transition hover:border-[#d9cef8] hover:bg-[#F2ECFF]"
-              >
-                {cat}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURED ENTREPRENEURS */}
-      <section id="emprendedores" className="bg-[#FAFAFC]">
-        <div className="mx-auto max-w-6xl px-5 py-12">
-          <div className="mb-6 flex items-end justify-between gap-3">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Destacados</p>
-              <h2 className="mt-1 text-2xl font-semibold text-[#1f1833] lg:text-3xl">
-                Emprendedores en tu zona
-              </h2>
-              <p className="mt-1 text-sm text-[#6F6A7C]">
-                Tiendas verificadas que responden rápido y trabajan localmente.
-              </p>
-            </div>
-            <Link href="/nerka/explorar" className="hidden text-sm font-medium text-[#5B2EFF] sm:inline">
-              Ver todos →
-            </Link>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredEntrepreneurs.map((e) => (
-              <Link
-                key={e.id}
-                href={`/nerka/emprendedores/${e.id}`}
-                className="group overflow-hidden rounded-2xl border border-[#ece8f7] bg-white shadow-sm transition hover:shadow-md"
-              >
-                <div className="relative">
-                  <img src={e.cover} alt={e.name} className="h-40 w-full object-cover transition group-hover:scale-[1.02]" />
-                  <img
-                    src={e.avatar}
-                    alt=""
-                    className="absolute -bottom-5 left-3 h-12 w-12 rounded-xl border-4 border-white object-cover"
-                  />
-                </div>
-                <div className="p-4 pt-7">
-                  <p className="font-semibold text-[#1f1833]">{e.name}</p>
-                  <p className="text-xs text-[#6F6A7C]">{e.category} · {e.zone}</p>
-                  <div className="mt-2 flex items-center gap-3 text-xs text-[#433d56]">
-                    <span className="inline-flex items-center gap-1">
-                      <Star size={12} className="fill-[#ffb547] text-[#ffb547]" /> {e.rating}
-                    </span>
-                    <span className="text-[#9088a3]">·</span>
-                    <span>{e.catalog.filter((c) => c.type === "product").length} productos</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* POPULAR PRODUCTS */}
-      <section className="border-y border-[#ece8f7] bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-12">
-          <div className="mb-6">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Productos populares</p>
-            <h2 className="mt-1 text-2xl font-semibold text-[#1f1833] lg:text-3xl">
-              Lo que más se pide cerca tuyo
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {featuredProducts.map((p) => (
-              <Link
-                key={p.id}
-                href={`/nerka/emprendedores/${p.entrepreneurId}`}
-                className="overflow-hidden rounded-2xl border border-[#ece8f7] bg-white shadow-sm transition hover:shadow-md"
-              >
-                <img src={p.image} alt={p.name} className="h-32 w-full object-cover" />
-                <div className="p-3">
-                  <p className="line-clamp-1 text-sm font-semibold text-[#1f1833]">{p.name}</p>
-                  <p className="line-clamp-1 text-xs text-[#6F6A7C]">{p.entrepreneurName}</p>
-                  <p className="mt-1 text-sm font-semibold text-[#5B2EFF]">{formatPrice(p.price)}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SELLER VALUE PROP */}
-      <section id="vender" className="bg-[#FAFAFC]">
-        <div className="mx-auto max-w-6xl px-5 py-14">
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr]">
-            <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FFF4E8] px-3 py-1 text-xs font-semibold text-[#9b5a00]">
-                <Store size={12} /> Para emprendedores
-              </span>
-              <h2 className="mt-3 text-2xl font-semibold text-[#1f1833] lg:text-3xl">
-                Tu negocio local, listo para vender en minutos
-              </h2>
-              <p className="mt-2 text-sm text-[#6F6A7C] lg:text-base">
-                Sin pagos online, sin envíos complicados, sin dominios. Te damos un perfil
-                comercial real, catálogo, carrito y un link compartible. El cierre se hace
-                directo por WhatsApp.
-              </p>
-              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-                {[
-                  { icon: <PackagePlus size={16} />, label: "Catálogo simple" },
-                  { icon: <MessageCircle size={16} />, label: "Pedidos por WhatsApp" },
-                  { icon: <Sparkles size={16} />, label: "Mejorá con IA" },
-                  { icon: <ShieldCheck size={16} />, label: "Perfil verificado" },
-                ].map((b) => (
-                  <li key={b.label} className="flex items-center gap-2 rounded-xl border border-[#ece8f7] bg-white px-3 py-2 text-sm text-[#433d56]">
-                    <span className="text-[#5B2EFF]">{b.icon}</span> {b.label}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-                <Link
-                  href="/nerka/perfil"
-                  className="inline-flex items-center justify-center gap-1 rounded-xl bg-[#5B2EFF] px-5 py-3 text-sm font-medium text-white"
-                >
-                  Crear mi tienda <ArrowRight size={14} />
-                </Link>
-                <Link
-                  href="/nerka/planes"
-                  className="inline-flex items-center justify-center rounded-xl border border-[#d9cef8] bg-white px-5 py-3 text-sm font-medium text-[#5B2EFF]"
-                >
-                  Ver planes
+            <div className="mt-7 rounded-3xl border border-[#ece8f7] bg-white p-3 shadow-sm">
+              <div className="grid gap-3 lg:grid-cols-[1fr_210px_auto]">
+                <label className="flex items-center gap-2 rounded-2xl bg-[#FAFAFC] px-4 py-3 text-sm text-[#9088a3]">
+                  <Search size={18} className="text-[#5B2EFF]" />
+                  <span>¿Qué estás buscando?</span>
+                </label>
+                <label className="flex items-center gap-2 rounded-2xl bg-[#FAFAFC] px-4 py-3 text-sm text-[#2B174F]">
+                  <MapPin size={18} className="text-[#5B2EFF]" />
+                  <select className="w-full bg-transparent outline-none">
+                    {zones.map((zone) => <option key={zone}>{zone}</option>)}
+                  </select>
+                </label>
+                <Link href="/niar/explorar" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#5B2EFF] px-5 py-3 text-sm font-semibold text-white">
+                  Explorar cerca mío <ArrowRight size={15} />
                 </Link>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              {entrepreneurs.slice(2, 6).map((e) => (
-                <div key={e.id} className="overflow-hidden rounded-2xl border border-[#ece8f7] bg-white shadow-sm">
-                  <img src={e.cover} alt={e.name} className="h-28 w-full object-cover" />
+
+            <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+              <Link href="/niar/perfil" className="inline-flex items-center justify-center rounded-xl border border-[#d9cef8] bg-white px-4 py-3 text-sm font-semibold text-[#5B2EFF]">
+                Sumar mi negocio
+              </Link>
+              <Link href="/instituciones" className="inline-flex items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold text-[#433d56] hover:bg-white">
+                Quiero implementarlo en mi zona
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-[#ece8f7] bg-white p-4 shadow-xl shadow-[#2B174F]/10">
+            <div className="grid gap-3 sm:grid-cols-2">
+              {featuredEntrepreneurs.slice(0, 4).map((business) => (
+                <Link key={business.id} href={`/niar/emprendedores/${business.id}`} className="overflow-hidden rounded-3xl border border-[#ece8f7] bg-[#FAFAFC]">
+                  <img src={business.cover} alt={business.name} className="h-28 w-full object-cover" />
                   <div className="p-3">
-                    <p className="text-xs font-semibold text-[#1f1833]">{e.name}</p>
-                    <p className="text-[11px] text-[#6F6A7C]">{e.zone}</p>
+                    <p className="font-semibold text-[#1f1833]">{business.name}</p>
+                    <p className="mt-1 text-xs text-[#6F6A7C]">{business.category} · {business.zone}</p>
+                    <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#E8FFF5] px-2 py-1 text-[10px] font-semibold text-[#197a43]">
+                      <ShieldCheck size={11} /> Verificado
+                    </span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-[#ece8f7] bg-white">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-6 text-sm text-[#6F6A7C] md:flex-row md:items-center md:justify-between">
-          <p className="text-xs text-[#9088a3]">© {new Date().getFullYear()} Nerka — hecho con ♥ para emprendedores locales</p>
-          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-xs">
-            <Link href="/nerka/explorar" className="hover:text-[#5B2EFF]">Explorar</Link>
-            <Link href="/nerka/perfil" className="hover:text-[#5B2EFF]">Vender en Nerka</Link>
-            <Link href="/nerka/planes" className="hover:text-[#5B2EFF]">Planes</Link>
-            <Link href="/nerka" className="hover:text-[#5B2EFF]">Abrir app</Link>
-          </nav>
+      <section className="mx-auto max-w-7xl px-5 py-12">
+        <div className="mb-5 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold text-[#5B2EFF]">Categorías visuales</p>
+            <h2 className="text-2xl font-semibold text-[#1f1833]">Explorá la vidriera local por rubro</h2>
+          </div>
+          <Link href="/niar/explorar" className="hidden text-sm font-semibold text-[#5B2EFF] sm:inline">Ver todo →</Link>
+        </div>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {categories.slice(0, 12).map((category) => (
+            <Link key={category} href="/niar/explorar" className="rounded-3xl border border-[#ece8f7] bg-white p-4 text-sm font-semibold text-[#2B174F] transition hover:border-[#d9cef8] hover:bg-[#F2ECFF]">
+              <Store className="mb-3 text-[#5B2EFF]" size={19} /> {category}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section id="comercios" className="bg-white py-12">
+        <div className="mx-auto max-w-7xl px-5">
+          <SectionHeading eyebrow="Destacados" title="Emprendedores y comercios destacados" cta="Explorar comercios" href="/niar/explorar" />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredEntrepreneurs.map((business) => (
+              <Link key={business.id} href={`/niar/emprendedores/${business.id}`} className="overflow-hidden rounded-3xl border border-[#ece8f7] bg-[#FAFAFC] shadow-sm transition hover:shadow-md">
+                <img src={business.cover} alt={business.name} className="h-40 w-full object-cover" />
+                <div className="p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-semibold text-[#1f1833]">{business.name}</p>
+                      <p className="text-sm text-[#6F6A7C]">{business.category} · {business.zone}</p>
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#2B174F]"><Star size={14} className="fill-[#ffb547] text-[#ffb547]" /> {business.rating}</span>
+                  </div>
+                  <p className="mt-3 line-clamp-2 text-sm text-[#6F6A7C]">{business.about}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 py-12">
+        <SectionHeading eyebrow="Productos" title="Productos populares cerca tuyo" cta="Ver productos" href="/niar/explorar?type=Productos" />
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {featuredProducts.map((product) => (
+            <Link key={product.id} href={`/niar/emprendedores/${product.entrepreneurId}`} className="overflow-hidden rounded-3xl border border-[#ece8f7] bg-white shadow-sm transition hover:shadow-md">
+              <img src={product.image} alt={product.name} className="h-36 w-full object-cover" />
+              <div className="p-4">
+                <p className="line-clamp-1 font-semibold text-[#1f1833]">{product.name}</p>
+                <p className="line-clamp-1 text-xs text-[#6F6A7C]">{product.entrepreneurName}</p>
+                <p className="mt-2 text-sm font-semibold text-[#5B2EFF]">{formatPrice(product.price)}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section id="servicios" className="bg-white py-12">
+        <div className="mx-auto max-w-7xl px-5">
+          <SectionHeading eyebrow="Servicios" title="Servicios populares de tu zona" cta="Ver servicios" href="/niar/explorar?type=Servicios" />
+          <div className="grid gap-4 md:grid-cols-3">
+            {popularServices.map((service) => (
+              <Link key={`${service.businessId}-${service.id}`} href={`/niar/emprendedores/${service.businessId}`} className="rounded-3xl border border-[#ece8f7] bg-[#FAFAFC] p-5 shadow-sm transition hover:shadow-md">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#5B2EFF]">{service.zone}</p>
+                <h3 className="mt-2 text-lg font-semibold text-[#1f1833]">{service.name}</h3>
+                <p className="mt-2 line-clamp-2 text-sm text-[#6F6A7C]">{service.description}</p>
+                <p className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#5B2EFF]">Consultar por WhatsApp <MessageCircle size={14} /></p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 py-14">
+        <SectionHeading eyebrow="Cómo funciona" title="Una experiencia simple para cada actor local" />
+        <div className="grid gap-4 lg:grid-cols-3">
+          <HowCard icon={<ShoppingBag size={20} />} title="Para compradores" items={["Buscan por rubro, producto o zona", "Ven catálogos públicos", "Consultan y compran directo por WhatsApp"]} />
+          <HowCard icon={<Store size={20} />} title="Para emprendedores" items={["Activan perfil y catálogo", "Muestran zona, horarios y modalidades", "Reciben consultas sin fricción"]} />
+          <HowCard icon={<Building2 size={20} />} title="Para municipios y cámaras" items={["Ordenan la base comercial", "Impulsan campañas locales", "Miden visitas, consultas y actividad"]} />
+        </div>
+      </section>
+
+      <section className="bg-[#2B174F] py-14 text-white">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+          <div>
+            <p className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><Users size={12} /> Infraestructura comercial local</p>
+            <h2 className="mt-4 text-3xl font-semibold lg:text-4xl">Una red comercial local para municipios, cámaras y comunidades</h2>
+            <p className="mt-4 max-w-2xl text-white/80">
+              Niar permite ordenar perfiles, catálogos, rubros, zonas, consultas y actividad comercial en una vidriera digital pública lista para escalar por barrios, localidades o corredores.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {["Perfiles verificados", "Categorías y zonas", "Campañas y destacados", "Métricas de actividad"].map((item) => (
+              <div key={item} className="rounded-2xl bg-white/10 p-4 text-sm font-semibold"><CheckCircle2 className="mb-2" size={18} /> {item}</div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-5 py-16 text-center">
+        <h2 className="text-3xl font-semibold text-[#1f1833] lg:text-5xl">Activá la vidriera digital de tu zona.</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-[#6F6A7C]">Sumá comercios, servicios y emprendedores a una red local ordenada, visible y conectada por WhatsApp.</p>
+        <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+          <Link href="/instituciones" className="rounded-xl bg-[#5B2EFF] px-5 py-3 text-sm font-semibold text-white">Solicitar demo</Link>
+          <Link href="/niar/perfil" className="rounded-xl border border-[#d9cef8] bg-white px-5 py-3 text-sm font-semibold text-[#5B2EFF]">Sumar mi negocio</Link>
+        </div>
+      </section>
+
+      <footer className="border-t border-[#ece8f7] bg-white py-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 text-sm text-[#6F6A7C] md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} Niar — Lo local, más cerca.</p>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/niar/explorar" className="hover:text-[#5B2EFF]">Explorar</Link>
+            <Link href="/niar/perfil" className="hover:text-[#5B2EFF]">Vender en Niar</Link>
+            <Link href="/instituciones" className="hover:text-[#5B2EFF]">Municipios y cámaras</Link>
+            <Link href="/niar/planes" className="hover:text-[#5B2EFF]">Planes</Link>
+          </div>
         </div>
       </footer>
     </main>
+  );
+}
+
+function SectionHeading({ eyebrow, title, cta, href }: { eyebrow: string; title: string; cta?: string; href?: string }) {
+  return (
+    <div className="mb-6 flex items-end justify-between gap-4">
+      <div>
+        <p className="text-sm font-semibold text-[#5B2EFF]">{eyebrow}</p>
+        <h2 className="mt-1 text-2xl font-semibold text-[#1f1833] lg:text-3xl">{title}</h2>
+      </div>
+      {cta && href ? <Link href={href} className="hidden text-sm font-semibold text-[#5B2EFF] sm:inline">{cta} →</Link> : null}
+    </div>
+  );
+}
+
+function HowCard({ icon, title, items }: { icon: ReactNode; title: string; items: string[] }) {
+  return (
+    <article className="rounded-3xl border border-[#ece8f7] bg-white p-6 shadow-sm">
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[#F2ECFF] text-[#5B2EFF]">{icon}</span>
+      <h3 className="mt-4 text-lg font-semibold text-[#1f1833]">{title}</h3>
+      <ul className="mt-3 space-y-2 text-sm text-[#6F6A7C]">
+        {items.map((item) => <li key={item} className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-[#197a43]" /> {item}</li>)}
+      </ul>
+    </article>
   );
 }

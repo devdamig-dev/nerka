@@ -2,7 +2,7 @@ export type TrustBadge =
   | "Verificado"
   | "Responde rápido"
   | "Top en tu zona"
-  | "Nuevo en Nerka"
+  | "Nuevo en Niar"
   | "Recomendado";
 
 export type ConversationStatus =

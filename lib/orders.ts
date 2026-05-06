@@ -7,7 +7,7 @@ export function formatPrice(value?: number | null) {
 }
 
 export function buildOrderMessage(cart: SellerCart, options?: { note?: string; siteName?: string }) {
-  const siteName = options?.siteName ?? "NERKA";
+  const siteName = options?.siteName ?? "NIAR";
   const total = sellerCartTotal(cart);
   const lines: string[] = [];
   lines.push(`Hola ${cart.profileName}, te escribo desde ${siteName} para hacer este pedido:`);

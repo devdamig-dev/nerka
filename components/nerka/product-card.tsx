@@ -23,7 +23,7 @@ export function ProductCard({
   consultHref,
 }: ProductCardProps) {
   const consultLink =
-    consultHref ?? `/nerka/mensajes/nuevo?to=${profileId}&product=${product.id}`;
+    consultHref ?? `/niar/mensajes/nuevo?to=${profileId}&product=${product.id}`;
   const { addItem, getSellerCart, updateQuantity } = useCart();
   const cart = getSellerCart(profileId);
   const quantity = cart?.items[product.id]?.quantity ?? 0;

@@ -26,7 +26,7 @@ import type { ConversationStatus, RequestStatus, TrustBadge } from "@/lib/types"
 import { useCart } from "@/lib/cart-context";
 import { useRole } from "@/lib/role-context";
 
-export function NerkaAppShell({ children }: { children: ReactNode }) {
+export function NiarAppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#F4F2FA]">
       <div className="mx-auto w-full lg:max-w-7xl lg:px-6 lg:py-6">
@@ -40,12 +40,12 @@ export function NerkaAppShell({ children }: { children: ReactNode }) {
           </div>
         </div>
       </div>
-      <NerkaBottomNav />
+      <NiarBottomNav />
     </div>
   );
 }
 
-export function NerkaHeader() {
+export function NiarHeader() {
   const { totalItemsAcrossSellers } = useCart();
   return (
     <header className="sticky top-0 z-20 border-b border-[#ece8f7] bg-[#FAFAFC]/95 px-4 pb-3 pt-5 backdrop-blur-sm lg:hidden">
@@ -54,13 +54,13 @@ export function NerkaHeader() {
           <Menu size={18} />
         </button>
         <div className="text-center">
-          <p className="text-xl font-semibold tracking-tight text-[#2B174F]">nerka</p>
+          <p className="text-xl font-semibold tracking-tight text-[#2B174F]">Niar</p>
           <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#6F6A7C]">
             <MapPin size={12} /> Berazategui
           </p>
         </div>
         <Link
-          href="/nerka/carrito"
+          href="/niar/carrito"
           className="relative rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm"
           aria-label="Carrito"
         >
@@ -84,29 +84,29 @@ type NavItem = {
 };
 
 const visitorNav: NavItem[] = [
-  { href: "/nerka", label: "Inicio", icon: Home },
-  { href: "/nerka/explorar", label: "Explorar", icon: Compass },
-  { href: "/nerka/carrito", label: "Carrito", icon: ShoppingBag, showCartBadge: true },
-  { href: "/nerka/mensajes", label: "Mensajes", icon: MessageCircle },
-  { href: "/nerka/perfil", label: "Mi cuenta", icon: UserIcon },
+  { href: "/niar", label: "Inicio", icon: Home },
+  { href: "/niar/explorar", label: "Explorar", icon: Compass },
+  { href: "/niar/carrito", label: "Carrito", icon: ShoppingBag, showCartBadge: true },
+  { href: "/niar/mensajes", label: "Mensajes", icon: MessageCircle },
+  { href: "/niar/perfil", label: "Mi cuenta", icon: UserIcon },
 ];
 
 const entrepreneurNav: NavItem[] = [
-  { href: "/nerka", label: "Inicio", icon: Home },
-  { href: "/nerka/perfil", label: "Mi negocio", icon: Store },
-  { href: "/nerka/perfil/catalogo", label: "Catálogo", icon: LayoutGrid },
-  { href: "/nerka/mensajes", label: "Mensajes", icon: MessageCircle },
-  { href: "/nerka/planes", label: "Planes", icon: Crown },
+  { href: "/niar", label: "Inicio", icon: Home },
+  { href: "/niar/perfil", label: "Mi negocio", icon: Store },
+  { href: "/niar/perfil/catalogo", label: "Catálogo", icon: LayoutGrid },
+  { href: "/niar/mensajes", label: "Mensajes", icon: MessageCircle },
+  { href: "/niar/planes", label: "Planes", icon: Crown },
 ];
 
 const visitorExtras = [
-  { href: "/nerka/favoritos", label: "Favoritos", icon: Heart },
-  { href: "/nerka/solicitudes", label: "Solicitudes", icon: Inbox },
+  { href: "/niar/favoritos", label: "Favoritos", icon: Heart },
+  { href: "/niar/solicitudes", label: "Solicitudes", icon: Inbox },
 ];
 
 const entrepreneurExtras = [
-  { href: "/nerka/perfil#estadisticas", label: "Estadísticas", icon: BarChart3 },
-  { href: "/nerka/solicitudes", label: "Solicitudes", icon: Inbox },
+  { href: "/niar/perfil#estadisticas", label: "Estadísticas", icon: BarChart3 },
+  { href: "/niar/solicitudes", label: "Solicitudes", icon: Inbox },
 ];
 
 function DesktopSidebar() {
@@ -120,8 +120,8 @@ function DesktopSidebar() {
     <div className="sticky top-6 space-y-3">
       {/* BRAND */}
       <div className="rounded-3xl border border-[#ece8f7] bg-white p-4">
-        <Link href="/nerka" className="block">
-          <p className="text-2xl font-semibold tracking-tight text-[#2B174F]">nerka</p>
+        <Link href="/niar" className="block">
+          <p className="text-2xl font-semibold tracking-tight text-[#2B174F]">Niar</p>
           <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#6F6A7C]">
             <MapPin size={12} /> {user.zone ?? "Berazategui"}
           </p>
@@ -149,7 +149,7 @@ function DesktopSidebar() {
 
         <nav className="mt-4 space-y-1">
           {navItems.map(({ href, label, icon: Icon, showCartBadge }) => {
-            const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
+            const active = pathname === href || (href !== "/niar" && pathname.startsWith(href));
             return (
               <Link
                 key={href}
@@ -194,7 +194,7 @@ function DesktopSidebar() {
       {/* CTA secundario contextual */}
       {isEntrepreneur ? (
         <Link
-          href="/nerka/planes"
+          href="/niar/planes"
           className="block rounded-2xl bg-gradient-to-br from-[#5B2EFF] to-[#2B174F] p-4 text-white"
         >
           <p className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide opacity-80">
@@ -211,7 +211,7 @@ function DesktopSidebar() {
           className="block w-full rounded-2xl border border-[#d9cef8] bg-white p-4 text-left"
         >
           <p className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-[#5B2EFF]">
-            <Store size={11} /> ¿Tenés un emprendimiento?
+            <Store size={11} /> ¿Tenés un negocio?
           </p>
           <p className="mt-1 text-sm font-semibold leading-snug text-[#1f1833]">
             Activá tu perfil comercial
@@ -229,33 +229,33 @@ function DesktopTopbar() {
   const { isEntrepreneur, user, toggleRole } = useRole();
   const { totalItemsAcrossSellers } = useCart();
 
-  const meta = pathname.startsWith("/nerka/explorar")
+  const meta = pathname.startsWith("/niar/explorar")
     ? {
-        title: "Explorar emprendedores",
-        subtitle: "Tiendas locales, productos y servicios cerca tuyo.",
+        title: "Explorar Niar",
+        subtitle: "Comercios, productos y servicios cerca tuyo.",
       }
-    : pathname.startsWith("/nerka/perfil")
+    : pathname.startsWith("/niar/perfil")
       ? isEntrepreneur
         ? {
             title: `Mi negocio · ${user.name}`,
             subtitle: "Gestioná catálogo, pedidos, mensajes y plan.",
           }
         : { title: "Mi cuenta", subtitle: "Tus datos, favoritos y mensajes." }
-      : pathname.startsWith("/nerka/carrito")
+      : pathname.startsWith("/niar/carrito")
         ? { title: "Tu carrito", subtitle: "Revisá y enviá tu pedido por WhatsApp o mensaje interno." }
-        : pathname.startsWith("/nerka/mensajes")
-          ? { title: "Mensajes", subtitle: "Conversá con emprendedores y coordiná pedidos." }
-          : pathname.startsWith("/nerka/planes")
-            ? { title: "Planes", subtitle: "Crecé en Nerka cuando estés listo." }
-            : pathname.startsWith("/nerka/favoritos")
+        : pathname.startsWith("/niar/mensajes")
+          ? { title: "Mensajes", subtitle: "Conversá con negocios locales y coordiná pedidos." }
+          : pathname.startsWith("/niar/planes")
+            ? { title: "Planes", subtitle: "Planes para negocios e instituciones locales." }
+            : pathname.startsWith("/niar/favoritos")
               ? { title: "Favoritos", subtitle: "Las tiendas que más te interesan." }
               : isEntrepreneur
                 ? {
-                    title: `Hola, ${user.name}`,
+                    title: `Panel de ${user.name}`,
                     subtitle: "Resumen de tu negocio, pedidos y catálogo.",
                   }
                 : {
-                    title: "Descubrí emprendedores cerca tuyo",
+                    title: "Descubrí comercios y servicios cerca tuyo",
                     subtitle: "Recorré, consultá y comprá local.",
                   };
 
@@ -272,11 +272,11 @@ function DesktopTopbar() {
           className="rounded-xl border border-[#ece8f7] bg-white px-3 py-2 text-xs font-medium text-[#5B2EFF] hover:bg-[#F2ECFF]"
           title="Cambiar de rol"
         >
-          {isEntrepreneur ? "Ver como visitante" : "Soy emprendedor"}
+          {isEntrepreneur ? "Ver como visitante" : "Tengo un negocio"}
         </button>
         {!isEntrepreneur ? (
           <Link
-            href="/nerka/carrito"
+            href="/niar/carrito"
             className="relative rounded-xl border border-[#ece8f7] bg-white p-2.5 text-[#2B174F]"
             aria-label="Carrito"
           >
@@ -289,7 +289,7 @@ function DesktopTopbar() {
           </Link>
         ) : (
           <Link
-            href="/nerka/perfil/nuevo-producto"
+            href="/niar/perfil/nuevo-producto"
             className="inline-flex items-center gap-1 rounded-xl bg-[#5B2EFF] px-3 py-2 text-xs font-medium text-white"
           >
             <PackagePlus size={14} /> Cargar producto
@@ -303,7 +303,7 @@ function DesktopTopbar() {
   );
 }
 
-export function NerkaBottomNav() {
+export function NiarBottomNav() {
   const pathname = usePathname();
   const { totalItemsAcrossSellers } = useCart();
   const { isEntrepreneur } = useRole();
@@ -312,7 +312,7 @@ export function NerkaBottomNav() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t border-[#ece8f7] bg-white/95 px-2 py-3 backdrop-blur lg:hidden">
       {navItems.map(({ href, label, icon: Icon, showCartBadge }) => {
-        const active = pathname === href || (href !== "/nerka" && pathname.startsWith(href));
+        const active = pathname === href || (href !== "/niar" && pathname.startsWith(href));
         return (
           <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2">
             <span
@@ -375,7 +375,7 @@ export function BadgeTrust({ badge }: { badge: TrustBadge }) {
           ? "bg-[#F2ECFF] text-[#5B2EFF]"
           : badge === "Recomendado"
             ? "bg-[#FFEAF1] text-[#b8344b]"
-            : "bg-[#EAF3FF] text-[#225ea8]"; // Nuevo en Nerka
+            : "bg-[#EAF3FF] text-[#225ea8]"; // Nuevo en Niar
   return <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${style}`}>{badge}</span>;
 }
 
@@ -453,6 +453,6 @@ export function RoleBadge() {
   );
 }
 
-export function NerkaShine() {
+export function NiarShine() {
   return <Sparkles size={14} className="text-[#5B2EFF]" />;
 }

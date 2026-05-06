@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/niar/:path*",
+        destination: "/nerka/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

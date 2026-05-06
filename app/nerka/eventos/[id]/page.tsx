@@ -31,7 +31,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                     <p className="font-medium text-[#1f1833]">{entrepreneur.name}</p>
                     <p className="text-sm text-[#6F6A7C]">{entrepreneur.category}</p>
                   </div>
-                  <Link href={`/nerka/emprendedores/${entrepreneur.id}`} className="rounded-lg bg-[#F2ECFF] px-3 py-1.5 text-sm text-[#5B2EFF]">Ver perfil</Link>
+                  <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="rounded-lg bg-[#F2ECFF] px-3 py-1.5 text-sm text-[#5B2EFF]">Ver perfil</Link>
                 </article>
               );
             })}

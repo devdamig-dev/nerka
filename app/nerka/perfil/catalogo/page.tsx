@@ -17,7 +17,7 @@ export default function CatalogoPage() {
     <main className="px-4 py-5 pb-24 lg:px-8 lg:py-8 lg:pb-10">
       <div className="mb-4 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Link href="/nerka" className="rounded-xl border border-[#ece8f7] bg-white p-2 text-[#5B2EFF]">
+          <Link href="/niar" className="rounded-xl border border-[#ece8f7] bg-white p-2 text-[#5B2EFF]">
             <ArrowLeft size={14} />
           </Link>
           <div>
@@ -28,7 +28,7 @@ export default function CatalogoPage() {
           </div>
         </div>
         <Link
-          href="/nerka/perfil/nuevo-producto"
+          href="/niar/perfil/nuevo-producto"
           className="inline-flex items-center gap-1 rounded-xl bg-[#5B2EFF] px-3 py-2 text-sm font-medium text-white"
         >
           <PackagePlus size={14} /> Nuevo producto
@@ -59,7 +59,7 @@ export default function CatalogoPage() {
           </article>
         ))}
         <Link
-          href="/nerka/perfil/nuevo-producto"
+          href="/niar/perfil/nuevo-producto"
           className="flex min-h-[180px] flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#d9cef8] bg-[#FAFAFC] p-3 text-sm font-medium text-[#5B2EFF] hover:bg-[#F2ECFF]"
         >
           <PackagePlus size={20} />

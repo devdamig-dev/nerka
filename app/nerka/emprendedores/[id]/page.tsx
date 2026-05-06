@@ -42,10 +42,10 @@ export default function EntrepreneurProfilePage() {
     return (
       <main className="p-4">
         <EmptyState
-          title="Tienda no encontrada"
-          description="Este emprendimiento no existe o ya no está disponible."
-          cta="Explorar tiendas"
-          href="/nerka/explorar"
+          title="Perfil no encontrado"
+          description="Este perfil comercial no existe o ya no está disponible."
+          cta="Explorar Niar"
+          href="/niar/explorar"
         />
       </main>
     );
@@ -55,7 +55,7 @@ export default function EntrepreneurProfilePage() {
   const serviceList = entrepreneur.catalog.filter((c) => c.type === "service");
 
   const directWhatsAppLink = `https://wa.me/${entrepreneur.contactPhone.replace(/\D/g, "")}?text=${encodeURIComponent(
-    `Hola ${entrepreneur.name}, te escribo desde NERKA. Quería consultarte por tu catálogo.`,
+    `Hola ${entrepreneur.name}, te escribo desde NIAR. Quería consultarte por tu catálogo.`,
   )}`;
 
   return (
@@ -101,7 +101,7 @@ export default function EntrepreneurProfilePage() {
                       try {
                         await (navigator as Navigator & { share: (data: ShareData) => Promise<void> }).share({
                           title: entrepreneur.name,
-                          text: `Mirá la tienda de ${entrepreneur.name} en Nerka`,
+                          text: `Mirá la tienda de ${entrepreneur.name} en Niar`,
                           url,
                         });
                         return;
@@ -160,11 +160,27 @@ export default function EntrepreneurProfilePage() {
                 <Send size={15} /> Escribir por WhatsApp
               </a>
               <Link
-                href={`/nerka/mensajes/nuevo?to=${entrepreneur.id}`}
+                href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`}
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9cef8] bg-white px-4 py-3 text-sm font-medium text-[#5B2EFF]"
               >
                 <MessageCircle size={15} /> Mensaje interno
               </Link>
+            </div>
+
+
+            <div className="mt-5 grid gap-3 rounded-2xl border border-[#ece8f7] bg-white p-4 text-sm lg:grid-cols-3">
+              <div>
+                <p className="font-semibold text-[#2B174F]">Horarios</p>
+                <p className="mt-1 text-[#6F6A7C]">Lunes a sábado · 10 a 19 h</p>
+              </div>
+              <div>
+                <p className="font-semibold text-[#2B174F]">Entrega / atención</p>
+                <p className="mt-1 text-[#6F6A7C]">{entrepreneur.modalities.join(" · ")}</p>
+              </div>
+              <div>
+                <p className="font-semibold text-[#2B174F]">Por qué confiar</p>
+                <p className="mt-1 text-[#6F6A7C]">Perfil local, reseñas verificadas y respuesta directa.</p>
+              </div>
             </div>
 
             {/* TABS */}
@@ -191,7 +207,7 @@ export default function EntrepreneurProfilePage() {
                     <div>
                       <SectionTitle
                         title="Productos destacados"
-                        subtitle="Los favoritos del emprendimiento"
+                        subtitle="Selección destacada del negocio"
                       />
                       <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
                         {featured.map((item) => (
@@ -247,7 +263,7 @@ export default function EntrepreneurProfilePage() {
                   {!productList.length && !serviceList.length ? (
                     <EmptyState
                       title="Sin productos cargados"
-                      description="Este emprendimiento todavía no publicó su catálogo."
+                      description="Este perfil todavía no publicó su catálogo."
                     />
                   ) : null}
                 </div>
@@ -342,7 +358,7 @@ export default function EntrepreneurProfilePage() {
                   Pedir por WhatsApp
                 </a>
                 <Link
-                  href="/nerka/carrito"
+                  href="/niar/carrito"
                   className="block rounded-xl bg-[#F2ECFF] px-3 py-2.5 text-center text-sm font-medium text-[#5B2EFF]"
                 >
                   Ver carrito completo
@@ -359,7 +375,7 @@ export default function EntrepreneurProfilePage() {
                   rel="noreferrer"
                   className="block rounded-xl bg-[#25D366] px-3 py-2.5 text-center text-sm font-medium text-white"
                 >
-                  Consultar al emprendimiento
+                  Consultar al negocio
                 </a>
               </>
             )}
@@ -367,7 +383,7 @@ export default function EntrepreneurProfilePage() {
             <div className="mt-2 rounded-xl bg-[#FAFAFC] p-3 text-xs text-[#6F6A7C]">
               <p className="font-medium text-[#2B174F]">Por qué confiar</p>
               <ul className="mt-1 space-y-1">
-                <li>· Emprendimiento local de {entrepreneur.zone}</li>
+                <li>· Negocio local de {entrepreneur.zone}</li>
                 <li>· {entrepreneur.responseTime}</li>
                 <li>· {entrepreneur.reviews} reseñas verificadas</li>
               </ul>
@@ -388,7 +404,7 @@ export default function EntrepreneurProfilePage() {
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <Link
-                href="/nerka/carrito"
+                href="/niar/carrito"
                 className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-center text-sm font-medium text-[#5B2EFF]"
               >
                 Ver carrito
