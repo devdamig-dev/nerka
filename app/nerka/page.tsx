@@ -45,9 +45,9 @@ function VisitorHome() {
   const zones = ["Berazategui", "Quilmes", "Temperley", "Zona Sur"];
 
   return (
-    <div className="space-y-10 px-4 py-4 lg:px-8 lg:py-8">
-      <section className="overflow-hidden rounded-[2.25rem] border border-[#E8E0D6] bg-[#F7F2EA] text-[#1f241f] shadow-[0_24px_80px_rgba(88,102,74,0.13)]">
-        <div className="grid gap-10 p-5 lg:grid-cols-[0.96fr_1.04fr] lg:p-10 xl:p-14">
+    <div className="mx-auto max-w-[1540px] space-y-12 px-4 py-4 lg:space-y-16 lg:px-10 lg:py-10 xl:px-12">
+      <section className="overflow-hidden rounded-[2.5rem] border border-[#E8E0D6] bg-[#F7F2EA] text-[#1f241f] shadow-[0_28px_90px_rgba(88,102,74,0.14)]">
+        <div className="grid gap-10 p-5 lg:grid-cols-[0.9fr_1.1fr] lg:p-12 xl:p-16">
           <div className="flex flex-col justify-center">
             <p className="inline-flex w-fit items-center gap-1 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-[#6E7F63] ring-1 ring-[#D9CFC1]">
               <Sparkles size={12} /> Descubrimiento local premium
@@ -105,7 +105,7 @@ function VisitorHome() {
 
       <section>
         <SectionTitle title="Categorías para descubrir" subtitle="Elegí un rubro y empezá por lo visual" cta="Ver todas" href="/niar/explorar" />
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 xl:grid-cols-7">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 xl:grid-cols-7">
           {categories.slice(0, 14).map((category) => (
             <Link key={category} href="/niar/explorar" className="rounded-2xl border border-[#E6DDD0] bg-white/80 p-4 text-sm font-semibold text-[#2F382B] transition hover:-translate-y-0.5 hover:border-[#C8D4BF] hover:bg-white hover:shadow-[0_14px_35px_rgba(79,89,68,0.10)]">
               {category}
@@ -116,18 +116,18 @@ function VisitorHome() {
 
       <section>
         <SectionTitle title="Comercios destacados" subtitle="Perfiles cuidados, visuales y listos para consultar" cta="Explorar todos" href="/niar/explorar" />
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {entrepreneurs.slice(0, 6).map((entrepreneur) => <EntrepreneurCard key={entrepreneur.id} entrepreneur={entrepreneur} />)}
         </div>
       </section>
 
       <section>
         <SectionTitle title="Productos populares cerca tuyo" subtitle="Cards grandes, precio claro y acceso al catálogo" cta="Ver productos" href="/niar/explorar?type=Productos" />
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
           {popularProducts.slice(0, 8).map((product) => (
             <Link key={product.id} href={`/niar/emprendedores/${product.entrepreneurId}`} className="group overflow-hidden rounded-[1.75rem] border border-[#E6DDD0] bg-white shadow-[0_14px_35px_rgba(79,89,68,0.08)] transition hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(79,89,68,0.14)]">
-              <img src={product.image} alt={product.name} className="h-40 w-full object-cover transition group-hover:scale-[1.03] lg:h-48" />
-              <div className="p-4">
+              <img src={product.image} alt={product.name} className="h-48 w-full object-cover transition duration-700 group-hover:scale-[1.04] lg:h-64" />
+              <div className="p-5">
                 <p className="line-clamp-1 text-sm font-semibold text-[#1f241f]">{product.name}</p>
                 <p className="mt-1 line-clamp-1 text-xs text-[#666C60]">{product.entrepreneurName}</p>
                 <p className="mt-2 text-base font-semibold text-[#6E7F63]">{formatPrice(product.price)}</p>
@@ -171,51 +171,50 @@ function EntrepreneurHome() {
   const serviceCount = profile.catalog.filter((c) => c.type === "service").length;
 
   return (
-    <div className="space-y-6 px-4 py-4 lg:space-y-8 lg:px-8 lg:py-8">
+    <div className="mx-auto max-w-[1540px] space-y-10 px-4 py-4 lg:space-y-14 lg:px-10 lg:py-10 xl:px-12">
       {/* HERO entrepreneur */}
-      <section className="rounded-3xl bg-gradient-to-br from-[#6E7F63] to-[#2F382B] p-5 text-white lg:p-9">
-        <p className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-xs font-medium backdrop-blur">
+      <section className="overflow-hidden rounded-[2.5rem] bg-[#F7F2EA] p-5 text-[#1f241f] shadow-[0_28px_90px_rgba(88,102,74,0.12)] ring-1 ring-[#E8E0D6] lg:p-10">
+        <p className="inline-flex items-center gap-1 rounded-full bg-white/75 px-3 py-1 text-xs font-semibold text-[#6E7F63] ring-1 ring-[#D9CFC1]">
           <Store size={12} /> Mi negocio
         </p>
-        <h1 className="mt-3 text-2xl font-semibold lg:text-4xl">Hola, {profile.name} 👋</h1>
-        <p className="mt-2 max-w-2xl text-sm text-white/90 lg:text-base">
-          Resumen de tu día: {productCount} productos, {serviceCount} servicios, 7 pedidos esta
-          semana. Tu tienda está activa.
+        <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] lg:text-6xl">Tu marca local, más descubrible</h1>
+        <p className="mt-4 max-w-3xl text-base leading-7 text-[#5F665A] lg:text-lg">
+          {profile.name} se ve como una mini marca dentro del ecosistema NIAR: portada amplia, catálogo visual y accesos simples para que clientes te descubran sin sensación administrativa.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link
             href={`/niar/emprendedores/${profile.id}`}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-[#1f241f]"
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#1f241f] px-5 py-3 text-sm font-semibold text-white"
           >
             Ver mi tienda
           </Link>
           <Link
             href="/niar/perfil/nuevo-producto"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white backdrop-blur"
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/85 px-5 py-3 text-sm font-semibold text-[#5F6F55] ring-1 ring-[#D9CFC1]"
           >
             <PackagePlus size={15} /> Cargar producto
           </Link>
           <Link
             href="/niar/mensajes"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white backdrop-blur"
+            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/85 px-5 py-3 text-sm font-semibold text-[#5F6F55] ring-1 ring-[#D9CFC1]"
           >
             <MessageCircle size={15} /> Pedidos y mensajes
           </Link>
         </div>
       </section>
 
-      {/* METRICS quick */}
+      {/* PRESENCIA comercial */}
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { label: "Visitas a tu tienda", value: "128", trend: "+12%" },
-          { label: "Pedidos esta semana", value: "7", trend: "+3" },
-          { label: "Mensajes nuevos", value: "4", trend: "" },
-          { label: "Total en pedidos", value: formatPrice(196500) ?? "$0", trend: "+18%" },
+          { label: "Portada activa", value: "Hero", trend: "visual" },
+          { label: "Catálogo visible", value: `${productCount + serviceCount}`, trend: "ítems" },
+          { label: "Respuesta", value: profile.responseTime, trend: "" },
+          { label: "Zona", value: profile.zone, trend: "local" },
         ].map((m) => (
-          <article key={m.label} className="rounded-2xl border border-[#E6DDD0] bg-white p-4">
+          <article key={m.label} className="rounded-[1.75rem] border border-[#E6DDD0] bg-white/88 p-5 shadow-[0_16px_42px_rgba(79,89,68,0.07)]">
             <p className="text-xs text-[#666C60]">{m.label}</p>
             <div className="mt-1 flex items-baseline gap-2">
-              <p className="text-xl font-semibold text-[#1f241f]">{m.value}</p>
+              <p className="text-xl font-semibold tracking-[-0.02em] text-[#1f241f]">{m.value}</p>
               {m.trend ? <span className="text-xs font-medium text-[#197a43]">{m.trend}</span> : null}
             </div>
           </article>
@@ -224,8 +223,8 @@ function EntrepreneurHome() {
 
       {/* QUICK ACTIONS entrepreneur */}
       <section>
-        <SectionTitle title="Atajos para tu negocio" />
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <SectionTitle title="Gestioná sin romper la experiencia" />
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           <QuickActionCard
             href="/niar/perfil/nuevo-producto"
             title="Cargar producto"
@@ -260,15 +259,15 @@ function EntrepreneurHome() {
       {/* MY CATALOG PEEK */}
       <section>
         <SectionTitle
-          title="Mi catálogo"
+          title="Escaparate visual"
           subtitle={`${productCount} productos · ${serviceCount} servicios`}
           cta="Ver completo"
           href="/niar/perfil/catalogo"
         />
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 xl:grid-cols-5">
           {profile.catalog.slice(0, 5).map((item) => (
-            <article key={item.id} className="overflow-hidden rounded-2xl border border-[#E6DDD0] bg-white">
-              <img src={item.image} alt={item.name} className="h-28 w-full object-cover" />
+            <article key={item.id} className="overflow-hidden rounded-[1.75rem] border border-[#E6DDD0] bg-white shadow-[0_16px_42px_rgba(79,89,68,0.07)]">
+              <img src={item.image} alt={item.name} className="h-40 w-full object-cover lg:h-48" />
               <div className="space-y-1 p-3">
                 <p className="line-clamp-1 text-sm font-semibold text-[#1f241f]">{item.name}</p>
                 <p className="text-xs text-[#6E7F63]">
@@ -295,7 +294,7 @@ function EntrepreneurHome() {
       </section>
 
       {/* PLANS CTA */}
-      <section className="grid gap-3 rounded-3xl border border-[#C8D4BF] bg-gradient-to-br from-[#F8F4FF] to-white p-5 lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
+      <section className="grid gap-3 rounded-3xl border border-[#C8D4BF] bg-gradient-to-br from-[#F7F2EA] to-white p-5 lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
         <div>
           <p className="inline-flex items-center gap-1 rounded-full bg-[#EEF3EA] px-2.5 py-1 text-xs font-semibold text-[#6E7F63]">
             <Crown size={12} /> Plan recomendado · Vender
@@ -319,7 +318,7 @@ function EntrepreneurHome() {
       </section>
 
       {/* tip */}
-      <section className="rounded-2xl border border-[#E6DDD0] bg-white p-4 text-sm text-[#666C60]">
+      <section className="rounded-[1.75rem] border border-[#E6DDD0] bg-white/88 p-5 shadow-[0_16px_42px_rgba(79,89,68,0.07)] text-sm text-[#666C60]">
         <p className="font-medium text-[#1f241f]">¿Curioso por la otra punta?</p>
         <p className="mt-1">
           Probá la app{" "}
