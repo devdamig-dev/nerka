@@ -17,7 +17,7 @@ export default function ExplorarPage() {
 
 function ExplorarFallback() {
   return (
-    <main className="px-4 py-5 lg:px-8 lg:py-8">
+    <main className="mx-auto max-w-[1540px] px-4 py-5 lg:px-10 lg:py-10 xl:px-12">
       <div className="mb-3 h-7 w-48 animate-pulse rounded-lg bg-white" />
       <div className="h-12 animate-pulse rounded-2xl bg-white" />
       <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -64,15 +64,15 @@ function ExplorarContent() {
   const top = [...entrepreneurs].sort((a, b) => b.rating - a.rating).slice(0, 3);
 
   return (
-    <main className="px-4 py-5 lg:px-8 lg:py-8">
-      <section className="mb-6 hidden overflow-hidden rounded-[2rem] border border-[#E6DDD0] bg-[#F7F2EA] lg:block">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-8 p-8">
+    <main className="mx-auto max-w-[1540px] px-4 py-5 lg:px-10 lg:py-10 xl:px-12">
+      <section className="mb-8 hidden overflow-hidden rounded-[2.5rem] border border-[#E6DDD0] bg-[#F7F2EA] shadow-[0_24px_80px_rgba(88,102,74,0.10)] lg:block">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-10 p-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7F8C72]">Explorar</p>
-            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-[#1f241f]">
+            <h1 className="mt-3 text-4xl font-semibold tracking-[-0.045em] text-[#1f241f] xl:text-5xl">
               {filtered.length} lugares para descubrir cerca tuyo
             </h1>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#666C60]">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-[#666C60]">
               Un recorrido visual por comercios, productos y servicios locales. Menos ruido, más intención de compra.
             </p>
           </div>
@@ -95,8 +95,8 @@ function ExplorarContent() {
       <h1 className="mb-3 text-xl font-semibold text-[#1f241f] lg:hidden">Explorar Niar</h1>
       <SearchBar placeholder="¿Qué estás buscando? Producto, servicio o comercio" />
 
-      <div className="mt-5 lg:grid lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-8">
-        <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit lg:space-y-5 lg:rounded-[1.75rem] lg:border lg:border-[#E6DDD0] lg:bg-white/86 lg:p-5 lg:shadow-sm">
+      <div className="mt-6 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-10">
+        <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit lg:space-y-6 lg:rounded-[2rem] lg:border lg:border-[#E6DDD0] lg:bg-white/62 lg:p-5 lg:shadow-[0_18px_55px_rgba(79,89,68,0.06)] lg:backdrop-blur">
           <div>
             <p className="hidden text-xs font-medium uppercase tracking-wide text-[#7F8C72] lg:mb-2 lg:block">
               Categorías
@@ -196,7 +196,7 @@ function ExplorarContent() {
             </div>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {loading ? (
               <>
                 <LoadingCard />

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   BarChart3,
-  Bell,
   Compass,
   Crown,
   Heart,
@@ -28,17 +27,10 @@ import { useRole } from "@/lib/role-context";
 
 export function NiarAppShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#F3EFE7]">
-      <div className="mx-auto w-full lg:max-w-7xl lg:px-6 lg:py-6">
-        <div className="lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-6">
-          <aside className="hidden lg:block">
-            <DesktopSidebar />
-          </aside>
-          <div className="min-h-screen bg-[#FBF8F3] pb-24 lg:min-h-[calc(100vh-3rem)] lg:rounded-3xl lg:border lg:border-[#E6DDD0] lg:pb-0 lg:shadow-sm">
-            <DesktopTopbar />
-            {children}
-          </div>
-        </div>
+    <div className="min-h-screen bg-[#FBF8F3] text-[#1f241f]">
+      <DesktopTopbar />
+      <div className="mx-auto w-full pb-24 lg:pb-0">
+        {children}
       </div>
       <NiarBottomNav />
     </div>
@@ -109,7 +101,7 @@ const entrepreneurExtras = [
   { href: "/niar/solicitudes", label: "Solicitudes", icon: Inbox },
 ];
 
-function DesktopSidebar() {
+export function DesktopSidebar() {
   const pathname = usePathname();
   const { totalItemsAcrossSellers } = useCart();
   const { user, isEntrepreneur, toggleRole } = useRole();
@@ -229,75 +221,80 @@ function DesktopTopbar() {
   const { isEntrepreneur, user, toggleRole } = useRole();
   const { totalItemsAcrossSellers } = useCart();
 
-  const meta = pathname.startsWith("/niar/explorar")
-    ? {
-        title: "Explorar Niar",
-        subtitle: "Comercios, productos y servicios cerca tuyo.",
-      }
-    : pathname.startsWith("/niar/perfil")
-      ? isEntrepreneur
-        ? {
-            title: `Mi negocio · ${user.name}`,
-            subtitle: "Gestioná catálogo, pedidos, mensajes y plan.",
-          }
-        : { title: "Mi cuenta", subtitle: "Tus datos, favoritos y mensajes." }
-      : pathname.startsWith("/niar/carrito")
-        ? { title: "Tu carrito", subtitle: "Revisá y enviá tu pedido por WhatsApp o mensaje interno." }
-        : pathname.startsWith("/niar/mensajes")
-          ? { title: "Mensajes", subtitle: "Conversá con negocios locales y coordiná pedidos." }
-          : pathname.startsWith("/niar/planes")
-            ? { title: "Planes", subtitle: "Catálogo, Vender y Gestionar para comercios locales." }
-            : pathname.startsWith("/niar/favoritos")
-              ? { title: "Favoritos", subtitle: "Las tiendas que más te interesan." }
-              : isEntrepreneur
-                ? {
-                    title: `Panel de ${user.name}`,
-                    subtitle: "Resumen de tu negocio, pedidos y catálogo.",
-                  }
-                : {
-                    title: "Descubrí comercios y servicios cerca tuyo",
-                    subtitle: "Recorré, consultá y comprá local.",
-                  };
+  const primaryNav = [
+    { href: "/niar/explorar", label: "Explorar", icon: Compass },
+    { href: "/niar/explorar", label: "Comercios", icon: Store },
+    { href: "/niar/explorar?type=Servicios", label: "Servicios", icon: Sparkles },
+    { href: "/niar/explorar#categorias", label: "Categorías", icon: LayoutGrid },
+    { href: "/niar/favoritos", label: "Favoritos", icon: Heart },
+    { href: "/niar/planes", label: "Vender", icon: Crown },
+    { href: isEntrepreneur ? "/niar/perfil" : "/niar/mensajes", label: "Perfil", icon: UserIcon },
+  ];
 
   return (
-    <header className="hidden items-center justify-between gap-4 border-b border-[#E6DDD0] bg-white/90 px-6 py-4 backdrop-blur lg:flex">
-      <div className="min-w-0">
-        <p className="truncate text-lg font-semibold text-[#1f241f]">{meta.title}</p>
-        <p className="truncate text-sm text-[#666C60]">{meta.subtitle}</p>
-      </div>
-      <div className="flex shrink-0 items-center gap-2">
-        <button
-          type="button"
-          onClick={toggleRole}
-          className="rounded-xl border border-[#E6DDD0] bg-white px-3 py-2 text-xs font-medium text-[#6E7F63] hover:bg-[#EEF3EA]"
-          title="Cambiar de rol"
-        >
-          {isEntrepreneur ? "Ver como visitante" : "Tengo un negocio"}
-        </button>
-        {!isEntrepreneur ? (
-          <Link
-            href="/niar/carrito"
-            className="relative rounded-xl border border-[#E6DDD0] bg-white p-2.5 text-[#1f241f]"
-            aria-label="Carrito"
+    <header className="sticky top-0 z-40 hidden border-b border-[#E6DDD0]/80 bg-[#FBF8F3]/88 px-6 py-3 backdrop-blur-xl lg:block">
+      <div className="mx-auto flex max-w-[1540px] items-center justify-between gap-6">
+        <Link href="/niar" className="group flex shrink-0 items-center gap-3" aria-label="Ir al inicio de Niar">
+          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#1f241f] text-sm font-semibold tracking-[-0.03em] text-[#FBF8F3] shadow-[0_16px_35px_rgba(31,36,31,0.16)] transition group-hover:-translate-y-0.5">
+            N
+          </span>
+          <span>
+            <span className="block text-xl font-semibold tracking-[-0.04em] text-[#1f241f]">Niar</span>
+            <span className="mt-0.5 flex items-center gap-1 text-xs text-[#6D7468]"><MapPin size={12} /> {user.zone ?? "Berazategui"}</span>
+          </span>
+        </Link>
+
+        <nav className="flex flex-1 items-center justify-center gap-1 rounded-full border border-[#E6DDD0]/80 bg-white/72 p-1.5 shadow-[0_18px_55px_rgba(79,89,68,0.08)]">
+          {primaryNav.map(({ href, label, icon: Icon }) => {
+            const active = pathname === href || (href !== "/niar" && pathname.startsWith(href.split("?")[0].split("#")[0]) && label !== "Servicios" && label !== "Categorías");
+            return (
+              <Link
+                key={`${href}-${label}`}
+                href={href}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition xl:px-4 ${
+                  active
+                    ? "bg-[#EEF3EA] text-[#53634A] shadow-sm"
+                    : "text-[#555C51] hover:bg-[#F7F2EA] hover:text-[#1f241f]"
+                }`}
+              >
+                <Icon size={14} />
+                {label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="flex shrink-0 items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleRole}
+            className="rounded-full border border-[#DCD2C5] bg-white/76 px-4 py-2 text-xs font-semibold text-[#5F6F55] shadow-sm transition hover:bg-[#EEF3EA]"
+            title="Cambiar de rol"
           >
-            <ShoppingBag size={18} />
-            {totalItemsAcrossSellers > 0 ? (
-              <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#6E7F63] px-1 text-[10px] font-semibold text-white">
-                {totalItemsAcrossSellers}
-              </span>
-            ) : null}
-          </Link>
-        ) : (
-          <Link
-            href="/niar/perfil/nuevo-producto"
-            className="inline-flex items-center gap-1 rounded-xl bg-[#6E7F63] px-3 py-2 text-xs font-medium text-white"
-          >
-            <PackagePlus size={14} /> Cargar producto
-          </Link>
-        )}
-        <button className="rounded-xl bg-[#EEF3EA] p-2.5 text-[#6E7F63]" aria-label="Notificaciones">
-          <Bell size={18} />
-        </button>
+            {isEntrepreneur ? "Ver como visitante" : "Tengo un negocio"}
+          </button>
+          {!isEntrepreneur ? (
+            <Link
+              href="/niar/carrito"
+              className="relative rounded-full border border-[#DCD2C5] bg-white/76 p-2.5 text-[#1f241f] shadow-sm transition hover:bg-[#F7F2EA]"
+              aria-label="Carrito"
+            >
+              <ShoppingBag size={18} />
+              {totalItemsAcrossSellers > 0 ? (
+                <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#6E7F63] px-1.5 text-[10px] font-semibold text-white">
+                  {totalItemsAcrossSellers}
+                </span>
+              ) : null}
+            </Link>
+          ) : (
+            <Link
+              href="/niar/perfil/nuevo-producto"
+              className="inline-flex items-center gap-1 rounded-full bg-[#6E7F63] px-4 py-2.5 text-xs font-semibold text-white shadow-[0_12px_28px_rgba(110,127,99,0.24)] transition hover:bg-[#5D6F52]"
+            >
+              <PackagePlus size={14} /> Publicar
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );

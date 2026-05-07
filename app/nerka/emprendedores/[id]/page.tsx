@@ -58,22 +58,22 @@ export default function EntrepreneurProfilePage() {
   )}`;
 
   return (
-    <main className="pb-40 lg:px-8 lg:py-8 lg:pb-8">
-      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
+    <main className="mx-auto max-w-[1540px] pb-40 lg:px-10 lg:py-10 lg:pb-10 xl:px-12">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">
         <section>
           {/* HERO */}
-          <div className="relative overflow-hidden bg-[#1f241f] lg:rounded-[2.25rem] lg:shadow-[0_24px_70px_rgba(79,89,68,0.16)]">
-            <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-80 w-full object-cover lg:h-[500px]" />
+          <div className="relative overflow-hidden bg-[#1f241f] lg:rounded-[2.75rem] lg:shadow-[0_30px_90px_rgba(79,89,68,0.18)]">
+            <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-96 w-full object-cover lg:h-[560px] xl:h-[640px]" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1f241f] via-[#1f241f]/28 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-4 text-white lg:p-8">
+            <div className="absolute bottom-0 left-0 right-0 p-5 text-white lg:p-10">
               <div className="flex items-end gap-4">
-                <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-20 w-20 rounded-3xl border-4 border-white object-cover shadow-lg lg:h-24 lg:w-24" />
+                <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-20 w-20 rounded-[1.5rem] border-4 border-white object-cover shadow-lg lg:h-28 lg:w-28" />
                 <div className="min-w-0 flex-1">
                   <div className="mb-2 flex flex-wrap gap-1.5">
                     {entrepreneur.badges.map((badge) => <BadgeTrust key={badge} badge={badge} />)}
                   </div>
-                  <h1 className="truncate text-4xl font-semibold tracking-[-0.04em] lg:text-6xl">{entrepreneur.name}</h1>
-                  <p className="mt-1 text-sm text-white/78">{entrepreneur.category} · {entrepreneur.subcategory} · {entrepreneur.zone}</p>
+                  <h1 className="truncate text-4xl font-semibold tracking-[-0.05em] lg:text-7xl">{entrepreneur.name}</h1>
+                  <p className="mt-2 text-base text-white/80">{entrepreneur.category} · {entrepreneur.subcategory} · {entrepreneur.zone}</p>
                 </div>
                 <div className="hidden items-center gap-2 lg:flex">
                   <button type="button" aria-label={fav ? "Quitar de favoritos" : "Guardar en favoritos"} onClick={() => toggleFavorite(entrepreneur.id)} className={`rounded-2xl p-3 shadow-sm transition ${fav ? "bg-[#FFEAF1] text-[#b8344b]" : "bg-white text-[#1f241f] hover:bg-[#FFEAF1] hover:text-[#b8344b]"}`}>
@@ -104,7 +104,7 @@ export default function EntrepreneurProfilePage() {
           </div>
 
           <div className="px-4 pb-4 lg:px-0">
-            <div className="mt-6 grid gap-6 rounded-[2rem] border border-[#E6DDD0] bg-white/90 p-5 shadow-[0_18px_45px_rgba(79,89,68,0.08)] lg:grid-cols-[1fr_auto] lg:p-7">
+            <div className="mt-8 grid gap-8 rounded-[2.25rem] border border-[#E6DDD0] bg-white/88 p-6 shadow-[0_22px_60px_rgba(79,89,68,0.09)] ring-1 ring-white/60 lg:grid-cols-[1fr_auto] lg:p-8">
               <div>
                 <p className="max-w-3xl text-base leading-7 text-[#555C51]">{entrepreneur.about}</p>
                 <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#555C51]">
@@ -120,13 +120,13 @@ export default function EntrepreneurProfilePage() {
             </div>
 
             {/* TABS */}
-            <div className="sticky top-0 z-20 mt-7 rounded-2xl bg-[#FBF8F3] py-2 lg:top-20">
-              <div className="grid grid-cols-4 rounded-xl bg-white p-1 shadow-sm">
+            <div className="sticky top-0 z-20 mt-8 rounded-[1.5rem] bg-[#FBF8F3]/88 py-2 backdrop-blur lg:top-20">
+              <div className="grid grid-cols-4 rounded-full border border-[#E6DDD0] bg-white/82 p-1.5 shadow-[0_16px_45px_rgba(79,89,68,0.07)]">
                 {tabs.map((item) => (
                   <button
                     key={item}
                     onClick={() => setTab(item)}
-                    className={`rounded-lg px-2 py-2 text-xs font-medium ${
+                    className={`rounded-full px-2 py-2.5 text-xs font-semibold ${
                       tab === item ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#756f89]"
                     }`}
                   >
@@ -145,7 +145,7 @@ export default function EntrepreneurProfilePage() {
                         title="Productos destacados"
                         subtitle="Selección destacada del negocio"
                       />
-                      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                         {featured.map((item) => (
                           <ProductCard
                             key={item.id}
@@ -162,7 +162,7 @@ export default function EntrepreneurProfilePage() {
                   {productList.length ? (
                     <div>
                       <SectionTitle title="Productos" />
-                      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                         {productList.map((item) => (
                           <ProductCard
                             key={item.id}
@@ -182,7 +182,7 @@ export default function EntrepreneurProfilePage() {
                         title="Servicios"
                         subtitle="Coordiná detalles y presupuesto por mensaje"
                       />
-                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
                         {serviceList.map((item) => (
                           <ProductCard
                             key={item.id}
@@ -263,7 +263,7 @@ export default function EntrepreneurProfilePage() {
 
         {/* DESKTOP SIDE PANEL */}
         <aside className="hidden lg:block">
-          <div className="sticky top-24 space-y-4 rounded-[1.75rem] border border-[#E6DDD0] bg-white/92 p-5 shadow-[0_18px_45px_rgba(79,89,68,0.08)]">
+          <div className="sticky top-28 space-y-4 rounded-[2rem] border border-[#E6DDD0] bg-white/90 p-5 shadow-[0_22px_60px_rgba(79,89,68,0.09)] ring-1 ring-white/60">
             <p className="text-base font-semibold text-[#1f241f]">Tu pedido</p>
             {cart && cartCount > 0 ? (
               <>
