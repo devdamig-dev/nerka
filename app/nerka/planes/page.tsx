@@ -10,20 +10,20 @@ export default function PlanesPage() {
 
   return (
     <main className="px-4 py-6 pb-20 lg:px-8 lg:py-10">
-      <section className="overflow-hidden rounded-[2rem] border border-[#ece8f7] bg-[#171321] p-6 text-white lg:p-10">
+      <section className="overflow-hidden rounded-[2rem] border border-[#E6DDD0] bg-[#1f241f] p-6 text-white lg:p-10">
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
             <p className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/85 ring-1 ring-white/10">
               <Crown size={12} /> Planes comerciales
             </p>
             <h1 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight lg:text-5xl">
-              Convertí tu perfil en una vidriera que vende cerca.
+              Convertí tu perfil en una tienda local que se descubre y vende.
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-white/72 lg:text-base">
-              Niar se enfoca en catálogo, descubrimiento local, WhatsApp y pedidos simples. Sin pagos, logística ni checkout complejo.
+              Niar se enfoca en catálogo, descubrimiento local, WhatsApp y pedidos simples. Sin pagos, logística ni checkout complejo: foco en consulta, catálogo y venta conversacional.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/niar/perfil" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-[#171321]">
+              <Link href="/niar/perfil" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-[#1f241f]">
                 Crear perfil comercial <Store size={15} />
               </Link>
               <Link href="/niar/explorar" className="inline-flex items-center justify-center rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-white">
@@ -54,31 +54,31 @@ export default function PlanesPage() {
         ) : null}
       </section>
 
-      <section className="mt-8 grid gap-4 lg:grid-cols-3">
+      <section className="mt-8 grid gap-4 lg:grid-cols-[0.95fr_1.1fr_0.95fr]">
         {subscriptionPlans.map((plan) => (
           <article
             key={plan.id}
             className={`relative flex flex-col overflow-hidden rounded-[1.75rem] border p-6 ${
               plan.highlight
-                ? "border-[#5B2EFF] bg-gradient-to-br from-[#F8F4FF] to-white shadow-lg shadow-[#5B2EFF]/10"
-                : "border-[#ece8f7] bg-white shadow-sm"
+                ? "border-[#6E7F63] bg-gradient-to-br from-[#EEF3EA] via-white to-[#FBF8F3] shadow-xl shadow-[#6E7F63]/12 lg:-translate-y-2"
+                : "border-[#E6DDD0] bg-white shadow-sm"
             }`}
           >
             {plan.highlight ? (
-              <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#5B2EFF] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+              <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-[#6E7F63] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
                 <Sparkles size={11} /> Plan ideal
               </span>
             ) : null}
             <div>
-              <p className="text-sm font-semibold text-[#5B2EFF]">Plan {plan.name}</p>
-              <h2 className="mt-2 pr-16 text-2xl font-semibold text-[#1f1833]">{plan.tagline}</h2>
-              <p className="mt-4 text-3xl font-semibold text-[#1f1833]">
+              <p className="text-sm font-semibold text-[#6E7F63]">Plan {plan.name}</p>
+              <h2 className="mt-2 pr-16 text-2xl font-semibold text-[#1f241f]">{plan.tagline}</h2>
+              <p className="mt-4 text-3xl font-semibold text-[#1f241f]">
                 {plan.price}
-                {plan.id !== "catalog" ? <span className="ml-1 text-xs font-normal text-[#6F6A7C]">/mes</span> : <span className="ml-1 text-xs font-normal text-[#6F6A7C]">para empezar</span>}
+                {plan.id !== "catalog" ? <span className="ml-1 text-xs font-normal text-[#666C60]">/mes</span> : <span className="ml-1 text-xs font-normal text-[#666C60]">para empezar</span>}
               </p>
             </div>
 
-            <ul className="mt-6 space-y-2 text-sm text-[#433d56]">
+            <ul className="mt-6 space-y-2 text-sm text-[#555C51]">
               {plan.features.map((feature) => (
                 <li key={feature} className="flex items-start gap-2">
                   <Check size={15} className="mt-0.5 shrink-0 text-[#197a43]" />
@@ -90,7 +90,7 @@ export default function PlanesPage() {
             <Link
               href={plan.cta.href ?? "/niar/perfil"}
               className={`mt-auto inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold ${
-                plan.highlight ? "bg-[#5B2EFF] text-white" : "border border-[#d9cef8] bg-white text-[#5B2EFF] hover:bg-[#F2ECFF]"
+                plan.highlight ? "bg-[#6E7F63] text-white" : "border border-[#C8D4BF] bg-white text-[#6E7F63] hover:bg-[#EEF3EA]"
               }`}
             >
               {plan.cta.label}
@@ -99,21 +99,21 @@ export default function PlanesPage() {
         ))}
       </section>
 
-      <section id="instituciones" className="mt-8 rounded-[1.75rem] border border-[#ece8f7] bg-white p-6 lg:p-8">
+      <section id="instituciones" className="mt-10 rounded-[1.75rem] border opacity-80 border-[#E6DDD0] bg-white p-6 lg:p-8">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <p className="inline-flex items-center gap-1 rounded-full bg-[#F2ECFF] px-2.5 py-1 text-xs font-semibold text-[#5B2EFF]">
+            <p className="inline-flex items-center gap-1 rounded-full bg-[#EEF3EA] px-2.5 py-1 text-xs font-semibold text-[#6E7F63]">
               <Building2 size={12} /> Secundario
             </p>
-            <h2 className="mt-3 text-2xl font-semibold text-[#1f1833]">{communityPlan.name}</h2>
-            <p className="mt-2 text-sm text-[#6F6A7C]">{communityPlan.tagline}. Pensado para ordenar una red comercial sin convertir a Niar en una plataforma institucional.</p>
-            <Link href={communityPlan.cta.href} className="mt-5 inline-flex rounded-2xl border border-[#d9cef8] px-4 py-3 text-sm font-semibold text-[#5B2EFF]">
+            <h2 className="mt-3 text-2xl font-semibold text-[#1f241f]">{communityPlan.name}</h2>
+            <p className="mt-2 text-sm text-[#666C60]">{communityPlan.tagline}. Pensado para ordenar una red comercial sin convertir a Niar en una plataforma institucional.</p>
+            <Link href={communityPlan.cta.href} className="mt-5 inline-flex rounded-2xl border border-[#C8D4BF] px-4 py-3 text-sm font-semibold text-[#6E7F63]">
               {communityPlan.cta.label}
             </Link>
           </div>
           <ul className="grid gap-2 sm:grid-cols-2">
             {communityPlan.features.map((feature) => (
-              <li key={feature} className="flex items-start gap-2 rounded-2xl bg-[#FAFAFC] p-3 text-sm text-[#433d56]">
+              <li key={feature} className="flex items-start gap-2 rounded-2xl bg-[#FBF8F3] p-3 text-sm text-[#555C51]">
                 <Check size={15} className="mt-0.5 shrink-0 text-[#197a43]" />
                 <span>{feature}</span>
               </li>
@@ -122,10 +122,10 @@ export default function PlanesPage() {
         </div>
       </section>
 
-      <section className="mt-8 grid gap-4 rounded-[1.75rem] border border-[#ece8f7] bg-white p-6 lg:grid-cols-2 lg:p-8">
+      <section className="mt-8 grid gap-4 rounded-[1.75rem] border border-[#E6DDD0] bg-white p-6 lg:grid-cols-2 lg:p-8">
         <div>
-          <h2 className="text-lg font-semibold text-[#2B174F]">Reglas simples</h2>
-          <p className="mt-1 text-sm text-[#6F6A7C]">Niar prioriza ventas conversacionales y operación liviana.</p>
+          <h2 className="text-lg font-semibold text-[#1f241f]">Reglas simples</h2>
+          <p className="mt-1 text-sm text-[#666C60]">Niar prioriza ventas conversacionales y operación liviana.</p>
         </div>
         <div className="space-y-3 text-sm">
           {[
@@ -133,9 +133,9 @@ export default function PlanesPage() {
             { q: "¿Incluye logística?", a: "No. Cada comercio define retiro, envío, atención a domicilio u online." },
             { q: "¿Qué plan conviene?", a: "Catálogo sirve para estar presente. Vender es el plan recomendado si querés carrito simple, prioridad y promociones." },
           ].map((item) => (
-            <details key={item.q} className="rounded-xl border border-[#ece8f7] bg-[#FAFAFC] p-3">
-              <summary className="cursor-pointer font-medium text-[#2B174F]">{item.q}</summary>
-              <p className="mt-2 text-[#6F6A7C]">{item.a}</p>
+            <details key={item.q} className="rounded-xl border border-[#E6DDD0] bg-[#FBF8F3] p-3">
+              <summary className="cursor-pointer font-medium text-[#1f241f]">{item.q}</summary>
+              <p className="mt-2 text-[#666C60]">{item.a}</p>
             </details>
           ))}
           <a href="https://wa.me/5491112340000?text=Hola%20Niar%2C%20quiero%20consultar%20por%20planes" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3 font-semibold text-white">

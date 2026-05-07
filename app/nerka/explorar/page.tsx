@@ -65,26 +65,25 @@ function ExplorarContent() {
 
   return (
     <main className="px-4 py-5 lg:px-8 lg:py-8">
-      {/* Hero strip — solo en desktop, da feel marketplace */}
-      <section className="mb-5 hidden overflow-hidden rounded-3xl border border-[#ece8f7] bg-gradient-to-br from-[#F8F4FF] to-white lg:block">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 p-6">
+      <section className="mb-6 hidden overflow-hidden rounded-[2rem] border border-[#E6DDD0] bg-[#F7F2EA] lg:block">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-8 p-8">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Explorar</p>
-            <h1 className="mt-1 text-2xl font-semibold text-[#1f1833]">
-              {filtered.length} comercios, servicios y emprendedores en tu zona
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7F8C72]">Explorar</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-[#1f241f]">
+              {filtered.length} lugares para descubrir cerca tuyo
             </h1>
-            <p className="mt-1 text-sm text-[#6F6A7C]">
-              Filtrá por zona, rubro, productos, servicios, destacados y señales de confianza.
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#666C60]">
+              Un recorrido visual por comercios, productos y servicios locales. Menos ruido, más intención de compra.
             </p>
           </div>
-          <div className="hidden gap-2 xl:flex">
+          <div className="hidden gap-3 xl:flex">
             {top.map((e) => (
-              <div key={e.id} className="flex items-center gap-2 rounded-2xl border border-[#ece8f7] bg-white px-3 py-2">
-                <img src={e.avatar} alt="" className="h-8 w-8 rounded-lg object-cover" />
+              <div key={e.id} className="flex items-center gap-3 rounded-2xl bg-white/85 px-3 py-2 shadow-sm ring-1 ring-[#E1D8CB]">
+                <img src={e.avatar} alt="" className="h-10 w-10 rounded-xl object-cover" />
                 <div>
-                  <p className="text-xs font-semibold text-[#2B174F]">{e.name}</p>
-                  <p className="inline-flex items-center gap-1 text-[10px] text-[#6F6A7C]">
-                    <Star size={10} className="fill-[#ffb547] text-[#ffb547]" /> {e.rating}
+                  <p className="text-xs font-semibold text-[#1f241f]">{e.name}</p>
+                  <p className="inline-flex items-center gap-1 text-[10px] text-[#666C60]">
+                    <Star size={10} className="fill-[#C9984A] text-[#C9984A]" /> {e.rating}
                   </p>
                 </div>
               </div>
@@ -93,13 +92,13 @@ function ExplorarContent() {
         </div>
       </section>
 
-      <h1 className="mb-3 text-xl font-semibold text-[#2B174F] lg:hidden">Explorar Niar</h1>
+      <h1 className="mb-3 text-xl font-semibold text-[#1f241f] lg:hidden">Explorar Niar</h1>
       <SearchBar placeholder="¿Qué estás buscando? Producto, servicio o comercio" />
 
-      <div className="mt-5 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-6">
-        <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit lg:space-y-5 lg:rounded-2xl lg:border lg:border-[#ece8f7] lg:bg-white lg:p-5">
+      <div className="mt-5 lg:grid lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-8">
+        <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit lg:space-y-5 lg:rounded-[1.75rem] lg:border lg:border-[#E6DDD0] lg:bg-white/86 lg:p-5 lg:shadow-sm">
           <div>
-            <p className="hidden text-xs font-medium uppercase tracking-wide text-[#8d86a2] lg:mb-2 lg:block">
+            <p className="hidden text-xs font-medium uppercase tracking-wide text-[#7F8C72] lg:mb-2 lg:block">
               Categorías
             </p>
             <CategoryChips items={["Todos", ...categories]} active={active} onSelect={onSelect} />
@@ -107,17 +106,17 @@ function ExplorarContent() {
 
           {active !== "Todos" ? (
             <div className="space-y-2">
-              <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Subcategorías</p>
+              <p className="text-xs font-medium uppercase tracking-wide text-[#7F8C72]">Subcategorías</p>
               <div className="flex flex-wrap gap-2">
                 {categorySubcategories[active as keyof typeof categorySubcategories]?.map((item) => (
-                  <span key={item} className="rounded-full border border-[#ece8f7] bg-white px-3 py-1 text-xs text-[#6F6A7C]">{item}</span>
+                  <span key={item} className="rounded-full border border-[#E6DDD0] bg-white px-3 py-1 text-xs text-[#666C60]">{item}</span>
                 ))}
               </div>
             </div>
           ) : null}
 
           <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Zona</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-[#7F8C72]">Zona</p>
             <div className="flex flex-wrap gap-2">
               {["En Berazategui", "Zonas cercanas", "Ver todo"].map((item) => (
                 <button
@@ -125,8 +124,8 @@ function ExplorarContent() {
                   onClick={() => setZone(item)}
                   className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs lg:border ${
                     zone === item
-                      ? "bg-[#F2ECFF] text-[#5B2EFF] border-[#d9cef8]"
-                      : "bg-white text-[#6F6A7C] border-[#ece8f7]"
+                      ? "bg-[#EEF3EA] text-[#5F6F55] border-[#C8D4BF]"
+                      : "bg-white text-[#666C60] border-[#E6DDD0]"
                   }`}
                 >
                   <MapPin size={10} /> {item}
@@ -136,7 +135,7 @@ function ExplorarContent() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Tipo</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-[#7F8C72]">Tipo</p>
             <div className="flex gap-2">
               {["Ambos", "Productos", "Servicios"].map((item) => (
                 <button
@@ -144,8 +143,8 @@ function ExplorarContent() {
                   onClick={() => setType(item)}
                   className={`rounded-full px-3 py-1.5 text-xs lg:border ${
                     type === item
-                      ? "bg-[#F2ECFF] text-[#5B2EFF] border-[#d9cef8]"
-                      : "bg-white text-[#6F6A7C] border-[#ece8f7]"
+                      ? "bg-[#EEF3EA] text-[#5F6F55] border-[#C8D4BF]"
+                      : "bg-white text-[#666C60] border-[#E6DDD0]"
                   }`}
                 >
                   {item}
@@ -155,16 +154,16 @@ function ExplorarContent() {
           </div>
 
           <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Modalidad</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-[#7F8C72]">Modalidad</p>
             <div className="flex flex-wrap gap-2">
               {["retiro", "envío", "atención a domicilio", "online"].map((item) => (
-                <span key={item} className="rounded-full border border-[#ece8f7] bg-white px-3 py-1 text-xs text-[#6F6A7C]">{item}</span>
+                <span key={item} className="rounded-full border border-[#E6DDD0] bg-white px-3 py-1 text-xs text-[#666C60]">{item}</span>
               ))}
             </div>
           </div>
 
           <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Orden</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-[#7F8C72]">Orden</p>
             <div className="flex flex-wrap gap-2">
               {["destacados", "verificados", "responde rápido", "top en tu zona", "más cercanos", "nuevos"].map((item, i) => (
                 <button
@@ -172,8 +171,8 @@ function ExplorarContent() {
                   type="button"
                   className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs lg:border ${
                     i === 0
-                      ? "bg-[#F2ECFF] text-[#5B2EFF] border-[#d9cef8]"
-                      : "bg-white text-[#6F6A7C] border-[#ece8f7]"
+                      ? "bg-[#EEF3EA] text-[#5F6F55] border-[#C8D4BF]"
+                      : "bg-white text-[#666C60] border-[#E6DDD0]"
                   }`}
                 >
                   {i === 0 ? <Sparkles size={10} /> : null} {item}
@@ -185,19 +184,19 @@ function ExplorarContent() {
 
         <section className="mt-5 space-y-3 lg:mt-0">
           <div className="hidden items-center justify-between lg:flex">
-            <p className="text-sm text-[#6F6A7C]">
-              <strong className="text-[#2B174F]">{filtered.length}</strong>{" "}
+            <p className="text-sm text-[#666C60]">
+              <strong className="text-[#1f241f]">{filtered.length}</strong>{" "}
               {filtered.length === 1 ? "tienda" : "tiendas"}
               {active !== "Todos" ? ` · ${active}` : ""}
             </p>
-            <div className="flex items-center gap-1 rounded-xl border border-[#ece8f7] bg-white p-1">
-              <button className="rounded-lg bg-[#F2ECFF] p-1.5 text-[#5B2EFF]" aria-label="Vista grilla">
+            <div className="flex items-center gap-1 rounded-xl border border-[#E6DDD0] bg-white p-1">
+              <button className="rounded-lg bg-[#EEF3EA] p-1.5 text-[#5F6F55]" aria-label="Vista grilla">
                 <LayoutGrid size={14} />
               </button>
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
             {loading ? (
               <>
                 <LoadingCard />
