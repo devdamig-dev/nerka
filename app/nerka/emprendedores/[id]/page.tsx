@@ -59,12 +59,12 @@ export default function EntrepreneurProfilePage() {
 
   return (
     <main className="pb-40 lg:px-8 lg:py-8 lg:pb-8">
-      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-6">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
         <section>
           {/* HERO */}
-          <div className="relative overflow-hidden lg:rounded-[2rem]">
-            <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-72 w-full object-cover lg:h-[420px]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#171321] via-[#171321]/35 to-transparent" />
+          <div className="relative overflow-hidden bg-[#1f241f] lg:rounded-[2.25rem] lg:shadow-[0_24px_70px_rgba(79,89,68,0.16)]">
+            <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-80 w-full object-cover lg:h-[500px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1f241f] via-[#1f241f]/28 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-4 text-white lg:p-8">
               <div className="flex items-end gap-4">
                 <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-20 w-20 rounded-3xl border-4 border-white object-cover shadow-lg lg:h-24 lg:w-24" />
@@ -72,11 +72,11 @@ export default function EntrepreneurProfilePage() {
                   <div className="mb-2 flex flex-wrap gap-1.5">
                     {entrepreneur.badges.map((badge) => <BadgeTrust key={badge} badge={badge} />)}
                   </div>
-                  <h1 className="truncate text-3xl font-semibold tracking-tight lg:text-5xl">{entrepreneur.name}</h1>
+                  <h1 className="truncate text-4xl font-semibold tracking-[-0.04em] lg:text-6xl">{entrepreneur.name}</h1>
                   <p className="mt-1 text-sm text-white/78">{entrepreneur.category} · {entrepreneur.subcategory} · {entrepreneur.zone}</p>
                 </div>
                 <div className="hidden items-center gap-2 lg:flex">
-                  <button type="button" aria-label={fav ? "Quitar de favoritos" : "Guardar en favoritos"} onClick={() => toggleFavorite(entrepreneur.id)} className={`rounded-2xl p-3 shadow-sm transition ${fav ? "bg-[#FFEAF1] text-[#b8344b]" : "bg-white text-[#2B174F] hover:bg-[#FFEAF1] hover:text-[#b8344b]"}`}>
+                  <button type="button" aria-label={fav ? "Quitar de favoritos" : "Guardar en favoritos"} onClick={() => toggleFavorite(entrepreneur.id)} className={`rounded-2xl p-3 shadow-sm transition ${fav ? "bg-[#FFEAF1] text-[#b8344b]" : "bg-white text-[#1f241f] hover:bg-[#FFEAF1] hover:text-[#b8344b]"}`}>
                     <Heart size={17} className={fav ? "fill-current" : ""} />
                   </button>
                   <button
@@ -94,7 +94,7 @@ export default function EntrepreneurProfilePage() {
                       }
                       if (typeof navigator !== "undefined" && navigator.clipboard) await navigator.clipboard.writeText(url);
                     }}
-                    className="rounded-2xl bg-white p-3 text-[#2B174F] shadow-sm"
+                    className="rounded-2xl bg-white p-3 text-[#1f241f] shadow-sm"
                   >
                     <Share2 size={17} />
                   </button>
@@ -104,36 +104,30 @@ export default function EntrepreneurProfilePage() {
           </div>
 
           <div className="px-4 pb-4 lg:px-0">
-            <div className="mt-5 grid gap-5 rounded-[1.75rem] border border-[#ece8f7] bg-white p-5 shadow-sm lg:grid-cols-[1fr_auto] lg:p-6">
+            <div className="mt-6 grid gap-6 rounded-[2rem] border border-[#E6DDD0] bg-white/90 p-5 shadow-[0_18px_45px_rgba(79,89,68,0.08)] lg:grid-cols-[1fr_auto] lg:p-7">
               <div>
-                <p className="max-w-3xl text-base leading-7 text-[#433d56]">{entrepreneur.about}</p>
-                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#433d56]">
-                  <span className="inline-flex items-center gap-1"><Star size={14} className="fill-[#ffb547] text-[#ffb547]" /><strong className="text-[#1f1833]">{entrepreneur.rating}</strong><span className="text-[#6F6A7C]">({entrepreneur.reviews} reseñas)</span></span>
-                  <span className="inline-flex items-center gap-1 text-[#6F6A7C]"><Clock size={14} /> {entrepreneur.responseTime}</span>
-                  <span className="inline-flex items-center gap-1 text-[#6F6A7C]"><Truck size={14} /> {entrepreneur.modalities.join(" · ")}</span>
+                <p className="max-w-3xl text-base leading-7 text-[#555C51]">{entrepreneur.about}</p>
+                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#555C51]">
+                  <span className="inline-flex items-center gap-1"><Star size={14} className="fill-[#C9984A] text-[#C9984A]" /><strong className="text-[#1f241f]">{entrepreneur.rating}</strong><span className="text-[#666C60]">({entrepreneur.reviews} reseñas)</span></span>
+                  <span className="inline-flex items-center gap-1 text-[#666C60]"><Clock size={14} /> {entrepreneur.responseTime}</span>
+                  <span className="inline-flex items-center gap-1 text-[#666C60]"><Truck size={14} /> {entrepreneur.modalities.join(" · ")}</span>
                 </div>
               </div>
               <div className="grid gap-2 sm:grid-cols-2 lg:w-72 lg:grid-cols-1">
                 <a href={directWhatsAppLink} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3 text-sm font-semibold text-white"><Send size={15} /> Consultar por WhatsApp</a>
-                <Link href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#d9cef8] bg-white px-4 py-3 text-sm font-semibold text-[#5B2EFF]"><MessageCircle size={15} /> Mensaje interno</Link>
+                <Link href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#C8D4BF] bg-white px-4 py-3 text-sm font-semibold text-[#6E7F63]"><MessageCircle size={15} /> Mensaje interno</Link>
               </div>
             </div>
 
-            <div className="mt-5 grid gap-3 text-sm lg:grid-cols-3">
-              <div className="rounded-2xl border border-[#ece8f7] bg-white p-4"><p className="font-semibold text-[#2B174F]">Horarios</p><p className="mt-1 text-[#6F6A7C]">Lunes a sábado · 10 a 19 h</p></div>
-              <div className="rounded-2xl border border-[#ece8f7] bg-white p-4"><p className="font-semibold text-[#2B174F]">Entrega / atención</p><p className="mt-1 text-[#6F6A7C]">{entrepreneur.modalities.join(" · ")}</p></div>
-              <div className="rounded-2xl border border-[#ece8f7] bg-white p-4"><p className="font-semibold text-[#2B174F]">Confianza</p><p className="mt-1 text-[#6F6A7C]">Perfil local, reseñas y respuesta directa.</p></div>
-            </div>
-
             {/* TABS */}
-            <div className="sticky top-0 z-20 mt-6 rounded-2xl bg-[#FAFAFC] py-2 lg:top-20">
+            <div className="sticky top-0 z-20 mt-7 rounded-2xl bg-[#FBF8F3] py-2 lg:top-20">
               <div className="grid grid-cols-4 rounded-xl bg-white p-1 shadow-sm">
                 {tabs.map((item) => (
                   <button
                     key={item}
                     onClick={() => setTab(item)}
                     className={`rounded-lg px-2 py-2 text-xs font-medium ${
-                      tab === item ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#756f89]"
+                      tab === item ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#756f89]"
                     }`}
                   >
                     {item}
@@ -151,7 +145,7 @@ export default function EntrepreneurProfilePage() {
                         title="Productos destacados"
                         subtitle="Selección destacada del negocio"
                       />
-                      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+                      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
                         {featured.map((item) => (
                           <ProductCard
                             key={item.id}
@@ -168,7 +162,7 @@ export default function EntrepreneurProfilePage() {
                   {productList.length ? (
                     <div>
                       <SectionTitle title="Productos" />
-                      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+                      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
                         {productList.map((item) => (
                           <ProductCard
                             key={item.id}
@@ -188,7 +182,7 @@ export default function EntrepreneurProfilePage() {
                         title="Servicios"
                         subtitle="Coordiná detalles y presupuesto por mensaje"
                       />
-                      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                         {serviceList.map((item) => (
                           <ProductCard
                             key={item.id}
@@ -227,15 +221,15 @@ export default function EntrepreneurProfilePage() {
               {tab === "Reseñas" ? (
                 <div className="space-y-3">
                   {["Sofía R.", "Carla M.", "Micaela T."].map((name, i) => (
-                    <article key={name} className="rounded-2xl border border-[#ece8f7] bg-white p-3">
+                    <article key={name} className="rounded-2xl border border-[#E6DDD0] bg-white p-3">
                       <div className="flex items-center justify-between">
-                        <p className="font-medium text-[#1f1833]">{name}</p>
-                        <span className="inline-flex items-center gap-1 text-xs text-[#433d56]">
-                          <Star size={12} className="fill-[#ffb547] text-[#ffb547]" /> 5,0
+                        <p className="font-medium text-[#1f241f]">{name}</p>
+                        <span className="inline-flex items-center gap-1 text-xs text-[#555C51]">
+                          <Star size={12} className="fill-[#C9984A] text-[#C9984A]" /> 5,0
                         </span>
                       </div>
-                      <p className="text-xs text-[#6F6A7C]">{i + 3} de abril</p>
-                      <p className="mt-2 text-sm text-[#433d56]">
+                      <p className="text-xs text-[#666C60]">{i + 3} de abril</p>
+                      <p className="mt-2 text-sm text-[#555C51]">
                         Excelente servicio, súper puntual y muy buena predisposición.
                       </p>
                     </article>
@@ -244,22 +238,22 @@ export default function EntrepreneurProfilePage() {
               ) : null}
 
               {tab === "Info" ? (
-                <article className="space-y-2 rounded-2xl border border-[#ece8f7] bg-white p-4 text-sm text-[#433d56]">
+                <article className="space-y-2 rounded-2xl border border-[#E6DDD0] bg-white p-4 text-sm text-[#555C51]">
                   <p>{entrepreneur.about}</p>
                   <p>
-                    <strong className="text-[#2B174F]">Qué ofrece:</strong> {entrepreneur.offers.join(", ")}
+                    <strong className="text-[#1f241f]">Qué ofrece:</strong> {entrepreneur.offers.join(", ")}
                   </p>
                   <p>
-                    <strong className="text-[#2B174F]">Cobertura:</strong> {entrepreneur.coverage}
+                    <strong className="text-[#1f241f]">Cobertura:</strong> {entrepreneur.coverage}
                   </p>
                   <p>
-                    <strong className="text-[#2B174F]">Tiempos de respuesta:</strong> {entrepreneur.responseTime}
+                    <strong className="text-[#1f241f]">Tiempos de respuesta:</strong> {entrepreneur.responseTime}
                   </p>
                   <p>
-                    <strong className="text-[#2B174F]">Modalidad:</strong> {entrepreneur.modality}
+                    <strong className="text-[#1f241f]">Modalidad:</strong> {entrepreneur.modality}
                   </p>
                   <p>
-                    <strong className="text-[#2B174F]">WhatsApp:</strong> +{entrepreneur.contactPhone}
+                    <strong className="text-[#1f241f]">WhatsApp:</strong> +{entrepreneur.contactPhone}
                   </p>
                 </article>
               ) : null}
@@ -269,61 +263,61 @@ export default function EntrepreneurProfilePage() {
 
         {/* DESKTOP SIDE PANEL */}
         <aside className="hidden lg:block">
-          <div className="sticky top-24 space-y-3 rounded-2xl border border-[#ece8f7] bg-white p-4">
-            <p className="text-base font-semibold text-[#2B174F]">Tu pedido</p>
+          <div className="sticky top-24 space-y-4 rounded-[1.75rem] border border-[#E6DDD0] bg-white/92 p-5 shadow-[0_18px_45px_rgba(79,89,68,0.08)]">
+            <p className="text-base font-semibold text-[#1f241f]">Tu pedido</p>
             {cart && cartCount > 0 ? (
               <>
                 <ul className="space-y-2">
                   {Object.values(cart.items).map((line) => (
                     <li key={line.productId} className="flex items-center justify-between gap-2 text-sm">
-                      <span className="text-[#433d56]">
-                        {line.name} <span className="text-[#9088a3]">x{line.quantity}</span>
+                      <span className="text-[#555C51]">
+                        {line.name} <span className="text-[#8A8378]">x{line.quantity}</span>
                       </span>
-                      <span className="text-[#2B174F]">
+                      <span className="text-[#1f241f]">
                         {line.price ? formatPrice(line.price * line.quantity) : "a coordinar"}
                       </span>
                     </li>
                   ))}
                 </ul>
-                <div className="border-t border-[#ece8f7] pt-2 text-sm">
-                  <p className="flex justify-between text-[#6F6A7C]">
+                <div className="border-t border-[#E6DDD0] pt-2 text-sm">
+                  <p className="flex justify-between text-[#666C60]">
                     <span>Total estimado</span>
-                    <strong className="text-[#5B2EFF]">{formatPrice(cartTotal)}</strong>
+                    <strong className="text-[#6E7F63]">{formatPrice(cartTotal)}</strong>
                   </p>
                 </div>
                 <a
                   href={buildWhatsAppLink(cart)}
                   target="_blank"
                   rel="noreferrer"
-                  className="block rounded-xl bg-[#25D366] px-3 py-2.5 text-center text-sm font-medium text-white"
+                  className="block rounded-2xl bg-[#25D366] px-4 py-3 text-center text-sm font-semibold text-white shadow-sm"
                 >
                   Pedir por WhatsApp
                 </a>
                 <Link
                   href="/niar/carrito"
-                  className="block rounded-xl bg-[#F2ECFF] px-3 py-2.5 text-center text-sm font-medium text-[#5B2EFF]"
+                  className="block rounded-2xl bg-[#EEF3EA] px-4 py-3 text-center text-sm font-semibold text-[#6E7F63]"
                 >
                   Ver carrito completo
                 </Link>
               </>
             ) : (
               <>
-                <p className="text-sm text-[#6F6A7C]">
+                <p className="text-sm text-[#666C60]">
                   Agregá productos del catálogo y armá tu pedido. Lo enviás directo por WhatsApp.
                 </p>
                 <a
                   href={directWhatsAppLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="block rounded-xl bg-[#25D366] px-3 py-2.5 text-center text-sm font-medium text-white"
+                  className="block rounded-2xl bg-[#25D366] px-4 py-3 text-center text-sm font-semibold text-white shadow-sm"
                 >
                   Consultar al negocio
                 </a>
               </>
             )}
 
-            <div className="mt-2 rounded-xl bg-[#FAFAFC] p-3 text-xs text-[#6F6A7C]">
-              <p className="font-medium text-[#2B174F]">Por qué confiar</p>
+            <div className="mt-2 rounded-xl bg-[#FBF8F3] p-3 text-xs text-[#666C60]">
+              <p className="font-medium text-[#1f241f]">Por qué confiar</p>
               <ul className="mt-1 space-y-1">
                 <li>· Negocio local de {entrepreneur.zone}</li>
                 <li>· {entrepreneur.responseTime}</li>
@@ -337,17 +331,17 @@ export default function EntrepreneurProfilePage() {
       {/* MOBILE STICKY CART BAR */}
       {cart && cartCount > 0 ? (
         <div className="fixed bottom-20 left-0 right-0 z-40 px-4 lg:hidden">
-          <div className="rounded-2xl border border-[#d9cef8] bg-white p-3 shadow-lg">
+          <div className="rounded-2xl border border-[#C8D4BF] bg-white p-3 shadow-lg">
             <div className="flex items-center justify-between gap-2">
-              <p className="inline-flex items-center gap-2 text-sm font-medium text-[#2B174F]">
+              <p className="inline-flex items-center gap-2 text-sm font-medium text-[#1f241f]">
                 <ShoppingBag size={15} /> {cartCount} {cartCount === 1 ? "producto" : "productos"}
               </p>
-              <p className="text-sm font-semibold text-[#5B2EFF]">{formatPrice(cartTotal)}</p>
+              <p className="text-sm font-semibold text-[#6E7F63]">{formatPrice(cartTotal)}</p>
             </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <Link
                 href="/niar/carrito"
-                className="rounded-xl bg-[#F2ECFF] px-3 py-2 text-center text-sm font-medium text-[#5B2EFF]"
+                className="rounded-xl bg-[#EEF3EA] px-3 py-2 text-center text-sm font-medium text-[#6E7F63]"
               >
                 Ver carrito
               </Link>

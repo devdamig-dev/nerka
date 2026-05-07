@@ -28,13 +28,13 @@ import { useRole } from "@/lib/role-context";
 
 export function NiarAppShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#F4F2FA]">
+    <div className="min-h-screen bg-[#F3EFE7]">
       <div className="mx-auto w-full lg:max-w-7xl lg:px-6 lg:py-6">
         <div className="lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-6">
           <aside className="hidden lg:block">
             <DesktopSidebar />
           </aside>
-          <div className="min-h-screen bg-[#FAFAFC] pb-24 lg:min-h-[calc(100vh-3rem)] lg:rounded-3xl lg:border lg:border-[#ece8f7] lg:pb-0 lg:shadow-sm">
+          <div className="min-h-screen bg-[#FBF8F3] pb-24 lg:min-h-[calc(100vh-3rem)] lg:rounded-3xl lg:border lg:border-[#E6DDD0] lg:pb-0 lg:shadow-sm">
             <DesktopTopbar />
             {children}
           </div>
@@ -48,25 +48,25 @@ export function NiarAppShell({ children }: { children: ReactNode }) {
 export function NiarHeader() {
   const { totalItemsAcrossSellers } = useCart();
   return (
-    <header className="sticky top-0 z-20 border-b border-[#ece8f7] bg-[#FAFAFC]/95 px-4 pb-3 pt-5 backdrop-blur-sm lg:hidden">
+    <header className="sticky top-0 z-20 border-b border-[#E6DDD0] bg-[#FBF8F3]/95 px-4 pb-3 pt-5 backdrop-blur-sm lg:hidden">
       <div className="flex items-start justify-between">
-        <button className="rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm" aria-label="Menú">
+        <button className="rounded-xl bg-white p-2.5 text-[#1f241f] shadow-sm" aria-label="Menú">
           <Menu size={18} />
         </button>
         <div className="text-center">
-          <p className="text-xl font-semibold tracking-tight text-[#2B174F]">Niar</p>
-          <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#6F6A7C]">
+          <p className="text-xl font-semibold tracking-tight text-[#1f241f]">Niar</p>
+          <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#666C60]">
             <MapPin size={12} /> Berazategui
           </p>
         </div>
         <Link
           href="/niar/carrito"
-          className="relative rounded-xl bg-white p-2.5 text-[#2B174F] shadow-sm"
+          className="relative rounded-xl bg-white p-2.5 text-[#1f241f] shadow-sm"
           aria-label="Carrito"
         >
           <ShoppingBag size={18} />
           {totalItemsAcrossSellers > 0 ? (
-            <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#5B2EFF] px-1 text-[10px] font-semibold text-white">
+            <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#6E7F63] px-1 text-[10px] font-semibold text-white">
               {totalItemsAcrossSellers}
             </span>
           ) : null}
@@ -119,10 +119,10 @@ function DesktopSidebar() {
   return (
     <div className="sticky top-6 space-y-3">
       {/* BRAND */}
-      <div className="rounded-3xl border border-[#ece8f7] bg-white p-4">
+      <div className="rounded-3xl border border-[#E6DDD0] bg-white p-4">
         <Link href="/niar" className="block">
-          <p className="text-2xl font-semibold tracking-tight text-[#2B174F]">Niar</p>
-          <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#6F6A7C]">
+          <p className="text-2xl font-semibold tracking-tight text-[#1f241f]">Niar</p>
+          <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#666C60]">
             <MapPin size={12} /> {user.zone ?? "Berazategui"}
           </p>
         </Link>
@@ -131,18 +131,18 @@ function DesktopSidebar() {
         <button
           type="button"
           onClick={toggleRole}
-          className="mt-4 flex w-full items-center justify-between gap-2 rounded-2xl border border-[#ece8f7] bg-[#FAFAFC] px-3 py-2 text-left text-xs"
+          className="mt-4 flex w-full items-center justify-between gap-2 rounded-2xl border border-[#E6DDD0] bg-[#FBF8F3] px-3 py-2 text-left text-xs"
           title="Cambiar de rol"
         >
           <div>
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-[#9088a3]">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-[#8A8378]">
               Modo
             </p>
-            <p className="text-sm font-semibold text-[#2B174F]">
+            <p className="text-sm font-semibold text-[#1f241f]">
               {isEntrepreneur ? "Comercio" : "Exploración pública"}
             </p>
           </div>
-          <span className="rounded-lg bg-white px-2 py-1 text-[10px] font-medium text-[#5B2EFF] shadow-sm">
+          <span className="rounded-lg bg-white px-2 py-1 text-[10px] font-medium text-[#6E7F63] shadow-sm">
             cambiar
           </span>
         </button>
@@ -155,7 +155,7 @@ function DesktopSidebar() {
                 key={href}
                 href={href}
                 className={`flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm ${
-                  active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#4b4560] hover:bg-[#f6f3ff]"
+                  active ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#4F554B] hover:bg-[#F7F2EA]"
                 }`}
               >
                 <span className="flex items-center gap-3">
@@ -163,7 +163,7 @@ function DesktopSidebar() {
                   {label}
                 </span>
                 {showCartBadge && totalItemsAcrossSellers > 0 ? (
-                  <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#5B2EFF] px-1.5 text-[11px] font-semibold text-white">
+                  <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#6E7F63] px-1.5 text-[11px] font-semibold text-white">
                     {totalItemsAcrossSellers}
                   </span>
                 ) : null}
@@ -171,7 +171,7 @@ function DesktopSidebar() {
             );
           })}
 
-          <div className="mt-3 border-t border-[#f1ecfb] pt-3">
+          <div className="mt-3 border-t border-[#EDE4D8] pt-3">
             {extras.map(({ href, label, icon: Icon }) => {
               const active = pathname === href;
               return (
@@ -179,7 +179,7 @@ function DesktopSidebar() {
                   key={`${href}-${label}`}
                   href={href}
                   className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm ${
-                    active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#776f8e] hover:bg-[#f6f3ff]"
+                    active ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#777064] hover:bg-[#F7F2EA]"
                   }`}
                 >
                   <Icon size={16} />
@@ -195,7 +195,7 @@ function DesktopSidebar() {
       {isEntrepreneur ? (
         <Link
           href="/niar/planes"
-          className="block rounded-2xl bg-gradient-to-br from-[#5B2EFF] to-[#2B174F] p-4 text-white"
+          className="block rounded-2xl bg-gradient-to-br from-[#6E7F63] to-[#2F382B] p-4 text-white"
         >
           <p className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide opacity-80">
             <Crown size={11} /> Plan Vender
@@ -208,16 +208,16 @@ function DesktopSidebar() {
         <button
           type="button"
           onClick={toggleRole}
-          className="block w-full rounded-2xl border border-[#d9cef8] bg-white p-4 text-left"
+          className="block w-full rounded-2xl border border-[#C8D4BF] bg-white p-4 text-left"
         >
-          <p className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-[#5B2EFF]">
+          <p className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-[#6E7F63]">
             <Store size={11} /> ¿Tenés un negocio?
           </p>
-          <p className="mt-1 text-sm font-semibold leading-snug text-[#1f1833]">
+          <p className="mt-1 text-sm font-semibold leading-snug text-[#1f241f]">
             Activá tu perfil comercial
           </p>
-          <p className="mt-1 text-xs text-[#6F6A7C]">Cargá productos y recibí pedidos por WhatsApp.</p>
-          <p className="mt-2 text-xs font-medium text-[#5B2EFF]">Empezar →</p>
+          <p className="mt-1 text-xs text-[#666C60]">Cargá productos y recibí pedidos por WhatsApp.</p>
+          <p className="mt-2 text-xs font-medium text-[#6E7F63]">Empezar →</p>
         </button>
       )}
     </div>
@@ -260,16 +260,16 @@ function DesktopTopbar() {
                   };
 
   return (
-    <header className="hidden items-center justify-between gap-4 border-b border-[#ece8f7] bg-white/90 px-6 py-4 backdrop-blur lg:flex">
+    <header className="hidden items-center justify-between gap-4 border-b border-[#E6DDD0] bg-white/90 px-6 py-4 backdrop-blur lg:flex">
       <div className="min-w-0">
-        <p className="truncate text-lg font-semibold text-[#2B174F]">{meta.title}</p>
-        <p className="truncate text-sm text-[#6F6A7C]">{meta.subtitle}</p>
+        <p className="truncate text-lg font-semibold text-[#1f241f]">{meta.title}</p>
+        <p className="truncate text-sm text-[#666C60]">{meta.subtitle}</p>
       </div>
       <div className="flex shrink-0 items-center gap-2">
         <button
           type="button"
           onClick={toggleRole}
-          className="rounded-xl border border-[#ece8f7] bg-white px-3 py-2 text-xs font-medium text-[#5B2EFF] hover:bg-[#F2ECFF]"
+          className="rounded-xl border border-[#E6DDD0] bg-white px-3 py-2 text-xs font-medium text-[#6E7F63] hover:bg-[#EEF3EA]"
           title="Cambiar de rol"
         >
           {isEntrepreneur ? "Ver como visitante" : "Tengo un negocio"}
@@ -277,12 +277,12 @@ function DesktopTopbar() {
         {!isEntrepreneur ? (
           <Link
             href="/niar/carrito"
-            className="relative rounded-xl border border-[#ece8f7] bg-white p-2.5 text-[#2B174F]"
+            className="relative rounded-xl border border-[#E6DDD0] bg-white p-2.5 text-[#1f241f]"
             aria-label="Carrito"
           >
             <ShoppingBag size={18} />
             {totalItemsAcrossSellers > 0 ? (
-              <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#5B2EFF] px-1 text-[10px] font-semibold text-white">
+              <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#6E7F63] px-1 text-[10px] font-semibold text-white">
                 {totalItemsAcrossSellers}
               </span>
             ) : null}
@@ -290,12 +290,12 @@ function DesktopTopbar() {
         ) : (
           <Link
             href="/niar/perfil/nuevo-producto"
-            className="inline-flex items-center gap-1 rounded-xl bg-[#5B2EFF] px-3 py-2 text-xs font-medium text-white"
+            className="inline-flex items-center gap-1 rounded-xl bg-[#6E7F63] px-3 py-2 text-xs font-medium text-white"
           >
             <PackagePlus size={14} /> Cargar producto
           </Link>
         )}
-        <button className="rounded-xl bg-[#F2ECFF] p-2.5 text-[#5B2EFF]" aria-label="Notificaciones">
+        <button className="rounded-xl bg-[#EEF3EA] p-2.5 text-[#6E7F63]" aria-label="Notificaciones">
           <Bell size={18} />
         </button>
       </div>
@@ -310,24 +310,24 @@ export function NiarBottomNav() {
   const navItems = isEntrepreneur ? entrepreneurNav : visitorNav;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t border-[#ece8f7] bg-white/95 px-2 py-3 backdrop-blur lg:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t border-[#E6DDD0] bg-white/95 px-2 py-3 backdrop-blur lg:hidden">
       {navItems.map(({ href, label, icon: Icon, showCartBadge }) => {
         const active = pathname === href || (href !== "/niar" && pathname.startsWith(href));
         return (
           <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2">
             <span
               className={`relative rounded-xl p-2 ${
-                active ? "bg-[#F2ECFF] text-[#5B2EFF]" : "text-[#9088a3]"
+                active ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#8A8378]"
               }`}
             >
               <Icon size={18} />
               {showCartBadge && totalItemsAcrossSellers > 0 ? (
-                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#5B2EFF] px-1 text-[10px] font-semibold text-white">
+                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-[#6E7F63] px-1 text-[10px] font-semibold text-white">
                   {totalItemsAcrossSellers}
                 </span>
               ) : null}
             </span>
-            <span className={`text-[11px] ${active ? "text-[#2B174F]" : "text-[#9088a3]"}`}>{label}</span>
+            <span className={`text-[11px] ${active ? "text-[#1f241f]" : "text-[#8A8378]"}`}>{label}</span>
           </Link>
         );
       })}
@@ -337,10 +337,10 @@ export function NiarBottomNav() {
 
 export function SearchBar({ placeholder = "¿Qué estás buscando hoy?" }: { placeholder?: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-2xl border border-[#ece8f7] bg-white px-4 py-3 shadow-sm lg:px-5 lg:py-4">
-      <Search size={18} className="text-[#6F6A7C]" />
+    <div className="flex items-center gap-2 rounded-2xl border border-[#E6DDD0] bg-white px-4 py-3 shadow-sm lg:px-5 lg:py-4">
+      <Search size={18} className="text-[#666C60]" />
       <input
-        className="w-full bg-transparent text-sm text-[#171321] outline-none placeholder:text-[#9b95aa]"
+        className="w-full bg-transparent text-sm text-[#1f241f] outline-none placeholder:text-[#A39A8D]"
         placeholder={placeholder}
       />
     </div>
@@ -355,7 +355,7 @@ export function CategoryChips({ items, active, onSelect }: { items: string[]; ac
           key={item}
           onClick={() => onSelect?.(item)}
           className={`rounded-full px-4 py-2 text-sm whitespace-nowrap ${
-            (active ? active === item : i === 0) ? "bg-[#5B2EFF] text-white" : "bg-white text-[#4b4560]"
+            (active ? active === item : i === 0) ? "bg-[#6E7F63] text-white" : "bg-white text-[#4F554B]"
           }`}
         >
           {item}
@@ -372,7 +372,7 @@ export function BadgeTrust({ badge }: { badge: TrustBadge }) {
       : badge === "Responde rápido"
         ? "bg-[#FFF4E8] text-[#9b5a00]"
         : badge === "Top en tu zona"
-          ? "bg-[#F2ECFF] text-[#5B2EFF]"
+          ? "bg-[#EEF3EA] text-[#6E7F63]"
           : badge === "Recomendado"
             ? "bg-[#FFEAF1] text-[#b8344b]"
             : "bg-[#EAF3FF] text-[#225ea8]"; // Nuevo en Niar
@@ -386,7 +386,7 @@ export function StatusPill({ status }: { status: RequestStatus | ConversationSta
       : status === "En evaluación" || status === "Presupuesto enviado"
         ? "bg-[#FFF4E8] text-[#9b5a00]"
         : status === "Esperando respuesta"
-          ? "bg-[#F2ECFF] text-[#5B2EFF]"
+          ? "bg-[#EEF3EA] text-[#6E7F63]"
           : "bg-[#E7F9EE] text-[#197a43]";
 
   return <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${color}`}>{status}</span>;
@@ -396,11 +396,11 @@ export function SectionTitle({ title, subtitle, cta, href }: { title: string; su
   return (
     <div className="mb-3 flex items-end justify-between gap-3">
       <div>
-        <h2 className="text-base font-semibold text-[#1f1833] lg:text-lg">{title}</h2>
-        {subtitle ? <p className="mt-0.5 text-xs text-[#6F6A7C] lg:text-sm">{subtitle}</p> : null}
+        <h2 className="text-base font-semibold text-[#1f241f] lg:text-lg">{title}</h2>
+        {subtitle ? <p className="mt-0.5 text-xs text-[#666C60] lg:text-sm">{subtitle}</p> : null}
       </div>
       {cta && href ? (
-        <Link href={href} className="shrink-0 text-xs font-medium text-[#5B2EFF]">
+        <Link href={href} className="shrink-0 text-xs font-medium text-[#6E7F63]">
           {cta}
         </Link>
       ) : null}
@@ -411,13 +411,13 @@ export function SectionTitle({ title, subtitle, cta, href }: { title: string; su
 export function EmptyState({ title, description, cta, href, icon }: { title: string; description: string; cta?: string; href?: string; icon?: ReactNode }) {
   return (
     <div className="rounded-2xl border border-dashed border-[#ddd5f1] bg-white p-6 text-center">
-      <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#F2ECFF] text-[#5B2EFF]">
+      <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF3EA] text-[#6E7F63]">
         {icon ?? <Inbox size={20} />}
       </div>
-      <p className="font-medium text-[#2B174F]">{title}</p>
-      <p className="mx-auto mt-1 max-w-sm text-sm text-[#6F6A7C]">{description}</p>
+      <p className="font-medium text-[#1f241f]">{title}</p>
+      <p className="mx-auto mt-1 max-w-sm text-sm text-[#666C60]">{description}</p>
       {cta && href ? (
-        <Link href={href} className="mt-4 inline-flex rounded-xl bg-[#5B2EFF] px-4 py-2 text-sm font-medium text-white">
+        <Link href={href} className="mt-4 inline-flex rounded-xl bg-[#6E7F63] px-4 py-2 text-sm font-medium text-white">
           {cta}
         </Link>
       ) : null}
@@ -428,8 +428,8 @@ export function EmptyState({ title, description, cta, href, icon }: { title: str
 export function QuickActionCard({ title, description, href, tone, icon }: { title: string; description: string; href: string; tone: string; icon: ReactNode }) {
   return (
     <Link href={href} className={`block rounded-2xl p-4 transition hover:shadow-sm ${tone}`}>
-      <div className="mb-3 inline-flex rounded-xl bg-white/80 p-2 text-[#2B174F]">{icon}</div>
-      <p className="text-sm font-semibold text-[#1f1833]">{title}</p>
+      <div className="mb-3 inline-flex rounded-xl bg-white/80 p-2 text-[#1f241f]">{icon}</div>
+      <p className="text-sm font-semibold text-[#1f241f]">{title}</p>
       <p className="mt-1 text-xs text-[#50486b]">{description}</p>
     </Link>
   );
@@ -444,7 +444,7 @@ export function RoleBadge() {
   return (
     <span
       className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-        isEntrepreneur ? "bg-[#FFF4E8] text-[#9b5a00]" : "bg-[#F2ECFF] text-[#5B2EFF]"
+        isEntrepreneur ? "bg-[#FFF4E8] text-[#9b5a00]" : "bg-[#EEF3EA] text-[#6E7F63]"
       }`}
     >
       {isEntrepreneur ? <Store size={10} /> : <UserIcon size={10} />}
@@ -454,5 +454,5 @@ export function RoleBadge() {
 }
 
 export function NiarShine() {
-  return <Sparkles size={14} className="text-[#5B2EFF]" />;
+  return <Sparkles size={14} className="text-[#6E7F63]" />;
 }
