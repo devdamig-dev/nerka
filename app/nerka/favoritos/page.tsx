@@ -11,24 +11,29 @@ export default function FavoritosPage() {
   const favorites = entrepreneurs.filter((e) => user.favorites.includes(e.id));
 
   return (
-    <main className="px-4 py-5 lg:px-8 lg:py-8">
-      <div className="mb-4">
-        <h1 className="text-xl font-semibold text-[#2B174F] lg:text-2xl">Tus favoritos</h1>
-        <p className="text-xs text-[#6F6A7C] lg:text-sm">
+    <main className="px-5 py-8 lg:px-2 lg:py-10">
+      <header className="mb-8">
+        <p className="text-xs font-medium uppercase tracking-wide text-[var(--niar-ink-soft)]">
+          Tu colección
+        </p>
+        <h1 className="font-display mt-2 text-3xl font-semibold text-[var(--niar-ink)] lg:text-[44px]">
+          Tus favoritos
+        </h1>
+        <p className="mt-2 text-sm text-[var(--niar-ink-mute)]">
           Tiendas guardadas para volver fácil cuando quieras consultarlas.
         </p>
-      </div>
+      </header>
 
       {hydrated && favorites.length === 0 ? (
         <EmptyState
           icon={<Heart size={20} />}
           title="Todavía no agregaste favoritos"
           description="Tocá el corazón en un perfil para guardarlo acá."
-          cta="Explorar tiendas"
+          cta="Descubrir tiendas"
           href="/nerka/explorar"
         />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {favorites.map((e) => (
             <EntrepreneurCard key={e.id} entrepreneur={e} />
           ))}

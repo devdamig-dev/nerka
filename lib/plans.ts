@@ -11,7 +11,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       "Perfil comercial público",
       "Catálogo básico (hasta 25 productos)",
       "Pedidos por WhatsApp",
-      "Mensajería interna Nerka",
+      "Mensajería interna NIAR",
       "Aparición en explorador local",
     ],
     cta: { label: "Plan actual" },

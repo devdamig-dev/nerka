@@ -2,9 +2,9 @@
 
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { LayoutGrid, MapPin, Sparkles, Star } from "lucide-react";
+import { ChevronDown, MapPin, Search, SlidersHorizontal } from "lucide-react";
 import { EntrepreneurCard } from "@/components/nerka/cards";
-import { CategoryChips, EmptyState, LoadingCard, SearchBar } from "@/components/nerka/ui";
+import { EmptyState, LoadingCard } from "@/components/nerka/ui";
 import { categories, categorySubcategories, entrepreneurs } from "@/lib/nerka-data";
 
 export default function ExplorarPage() {
@@ -17,10 +17,9 @@ export default function ExplorarPage() {
 
 function ExplorarFallback() {
   return (
-    <main className="px-4 py-5 lg:px-8 lg:py-8">
-      <div className="mb-3 h-7 w-48 animate-pulse rounded-lg bg-white" />
-      <div className="h-12 animate-pulse rounded-2xl bg-white" />
-      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <main className="px-5 py-6 lg:px-2 lg:py-8">
+      <div className="mb-6 h-10 w-2/3 animate-pulse rounded-full bg-[var(--niar-surface-soft)]" />
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <LoadingCard />
         <LoadingCard />
         <LoadingCard />
@@ -60,144 +59,156 @@ function ExplorarContent() {
     setTimeout(() => setLoading(false), 250);
   };
 
-  // Hero data: top-rated for visual punch.
-  const top = [...entrepreneurs].sort((a, b) => b.rating - a.rating).slice(0, 3);
-
   return (
-    <main className="px-4 py-5 lg:px-8 lg:py-8">
-      {/* Hero strip — solo en desktop, da feel marketplace */}
-      <section className="mb-5 hidden overflow-hidden rounded-3xl border border-[#ece8f7] bg-gradient-to-br from-[#F8F4FF] to-white lg:block">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 p-6">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Explorar</p>
-            <h1 className="mt-1 text-2xl font-semibold text-[#1f1833]">
-              {filtered.length} emprendedores en tu zona
-            </h1>
-            <p className="mt-1 text-sm text-[#6F6A7C]">
-              Filtrá por rubro, zona o tipo. Tocá una tienda para ver su catálogo.
-            </p>
-          </div>
-          <div className="hidden gap-2 xl:flex">
-            {top.map((e) => (
-              <div key={e.id} className="flex items-center gap-2 rounded-2xl border border-[#ece8f7] bg-white px-3 py-2">
-                <img src={e.avatar} alt="" className="h-8 w-8 rounded-lg object-cover" />
-                <div>
-                  <p className="text-xs font-semibold text-[#2B174F]">{e.name}</p>
-                  <p className="inline-flex items-center gap-1 text-[10px] text-[#6F6A7C]">
-                    <Star size={10} className="fill-[#ffb547] text-[#ffb547]" /> {e.rating}
-                  </p>
-                </div>
-              </div>
-            ))}
+    <main className="px-5 py-6 lg:px-2 lg:py-8">
+      {/* HERO STRIP */}
+      <section className="mb-8">
+        <p className="text-xs font-medium uppercase tracking-wide text-[var(--niar-ink-soft)]">
+          Descubrir
+        </p>
+        <h1 className="font-display mt-2 text-3xl font-semibold text-[var(--niar-ink)] lg:text-[44px]">
+          Explorá lo mejor de tu zona
+        </h1>
+        <p className="mt-2 max-w-xl text-sm text-[var(--niar-ink-mute)]">
+          {filtered.length} {filtered.length === 1 ? "tienda" : "tiendas"} cerca tuyo
+          {active !== "Todos" ? ` · ${active}` : ""}.
+        </p>
+
+        {/* Search compacto */}
+        <div className="mt-5 max-w-2xl rounded-full border border-[var(--niar-border)] bg-[var(--niar-surface)] p-1.5 shadow-[var(--niar-shadow-sm)]">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-1 sm:grid-cols-[minmax(0,1fr)_160px_auto]">
+            <div className="flex min-w-0 items-center gap-2 px-3 py-2">
+              <Search size={17} className="shrink-0 text-[var(--niar-ink-mute)]" />
+              <input
+                placeholder="Buscá tienda, producto o rubro"
+                className="w-full bg-transparent text-sm outline-none placeholder:text-[var(--niar-ink-soft)]"
+              />
+            </div>
+            <button
+              type="button"
+              className="hidden items-center justify-between gap-2 rounded-full px-3 py-2 text-sm text-[var(--niar-ink-mute)] hover:bg-[var(--niar-surface-soft)] sm:flex"
+            >
+              <span className="inline-flex items-center gap-1.5">
+                <MapPin size={14} className="text-[var(--niar-sage-on)]" />
+                <span className="text-[var(--niar-ink)]">Berazategui</span>
+              </span>
+              <ChevronDown size={14} className="text-[var(--niar-ink-soft)]" />
+            </button>
+            <button className="inline-flex items-center gap-1 rounded-full bg-[var(--niar-ink)] px-5 py-2 text-sm font-medium text-white">
+              Buscar
+            </button>
           </div>
         </div>
       </section>
 
-      <h1 className="mb-3 text-xl font-semibold text-[#2B174F] lg:hidden">Explorar emprendedores</h1>
-      <SearchBar placeholder="Buscá por rubro, nombre o servicio" />
-
-      <div className="mt-5 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-6">
-        <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit lg:space-y-5 lg:rounded-2xl lg:border lg:border-[#ece8f7] lg:bg-white lg:p-5">
-          <div>
-            <p className="hidden text-xs font-medium uppercase tracking-wide text-[#8d86a2] lg:mb-2 lg:block">
-              Categorías
-            </p>
-            <CategoryChips items={["Todos", ...categories]} active={active} onSelect={onSelect} />
-          </div>
-
-          {active !== "Todos" ? (
-            <div className="space-y-2">
-              <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Subcategorías</p>
-              <div className="flex flex-wrap gap-2">
-                {categorySubcategories[active as keyof typeof categorySubcategories]?.map((item) => (
-                  <span key={item} className="rounded-full border border-[#ece8f7] bg-white px-3 py-1 text-xs text-[#6F6A7C]">{item}</span>
-                ))}
-              </div>
+      <div className="grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-10">
+        {/* SIDEBAR FILTERS */}
+        <aside className="space-y-7 lg:sticky lg:top-24 lg:h-fit">
+          {/* Section: Categoría */}
+          <FilterGroup title="Categorías">
+            <div className="space-y-1">
+              {["Todos", ...categories.slice(0, 10)].map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => onSelect(cat)}
+                  className={`block w-full rounded-full px-3 py-1.5 text-left text-sm transition ${
+                    active === cat
+                      ? "bg-[var(--niar-sage-mute)] text-[var(--niar-sage-on)]"
+                      : "text-[var(--niar-ink-mute)] hover:bg-[var(--niar-surface-soft)] hover:text-[var(--niar-ink)]"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
+          </FilterGroup>
+
+          {active !== "Todos" &&
+          categorySubcategories[active as keyof typeof categorySubcategories]?.length ? (
+            <FilterGroup title="Subcategorías">
+              <div className="flex flex-wrap gap-2">
+                {categorySubcategories[active as keyof typeof categorySubcategories]?.map(
+                  (item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-[var(--niar-border)] bg-[var(--niar-surface)] px-3 py-1 text-xs text-[var(--niar-ink-mute)]"
+                    >
+                      {item}
+                    </span>
+                  ),
+                )}
+              </div>
+            </FilterGroup>
           ) : null}
 
-          <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Zona</p>
+          <FilterGroup title="Zona">
             <div className="flex flex-wrap gap-2">
               {["En Berazategui", "Zonas cercanas", "Ver todo"].map((item) => (
                 <button
                   key={item}
                   onClick={() => setZone(item)}
-                  className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs lg:border ${
+                  className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs transition ${
                     zone === item
-                      ? "bg-[#F2ECFF] text-[#5B2EFF] border-[#d9cef8]"
-                      : "bg-white text-[#6F6A7C] border-[#ece8f7]"
+                      ? "border-[var(--niar-sage)] bg-[var(--niar-sage-mute)] text-[var(--niar-sage-on)]"
+                      : "border-[var(--niar-border)] bg-[var(--niar-surface)] text-[var(--niar-ink-mute)] hover:border-[var(--niar-sage)]"
                   }`}
                 >
-                  <MapPin size={10} /> {item}
+                  <MapPin size={11} /> {item}
                 </button>
               ))}
             </div>
-          </div>
+          </FilterGroup>
 
-          <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Tipo</p>
+          <FilterGroup title="Tipo">
             <div className="flex gap-2">
               {["Ambos", "Productos", "Servicios"].map((item) => (
                 <button
                   key={item}
                   onClick={() => setType(item)}
-                  className={`rounded-full px-3 py-1.5 text-xs lg:border ${
+                  className={`rounded-full border px-3 py-1.5 text-xs transition ${
                     type === item
-                      ? "bg-[#F2ECFF] text-[#5B2EFF] border-[#d9cef8]"
-                      : "bg-white text-[#6F6A7C] border-[#ece8f7]"
+                      ? "border-[var(--niar-sage)] bg-[var(--niar-sage-mute)] text-[var(--niar-sage-on)]"
+                      : "border-[var(--niar-border)] bg-[var(--niar-surface)] text-[var(--niar-ink-mute)] hover:border-[var(--niar-sage)]"
                   }`}
                 >
                   {item}
                 </button>
               ))}
             </div>
-          </div>
+          </FilterGroup>
 
-          <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Modalidad</p>
+          <FilterGroup title="Modalidad">
             <div className="flex flex-wrap gap-2">
               {["retiro", "envío", "atención a domicilio", "online"].map((item) => (
-                <span key={item} className="rounded-full border border-[#ece8f7] bg-white px-3 py-1 text-xs text-[#6F6A7C]">{item}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-[#8d86a2]">Orden</p>
-            <div className="flex flex-wrap gap-2">
-              {["destacados", "mejor valorados", "más cercanos", "nuevos"].map((item, i) => (
-                <button
+                <span
                   key={item}
-                  type="button"
-                  className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs lg:border ${
-                    i === 0
-                      ? "bg-[#F2ECFF] text-[#5B2EFF] border-[#d9cef8]"
-                      : "bg-white text-[#6F6A7C] border-[#ece8f7]"
-                  }`}
+                  className="rounded-full border border-[var(--niar-border)] bg-[var(--niar-surface)] px-3 py-1 text-xs text-[var(--niar-ink-mute)]"
                 >
-                  {i === 0 ? <Sparkles size={10} /> : null} {item}
-                </button>
+                  {item}
+                </span>
               ))}
             </div>
-          </div>
+          </FilterGroup>
         </aside>
 
-        <section className="mt-5 space-y-3 lg:mt-0">
-          <div className="hidden items-center justify-between lg:flex">
-            <p className="text-sm text-[#6F6A7C]">
-              <strong className="text-[#2B174F]">{filtered.length}</strong>{" "}
-              {filtered.length === 1 ? "tienda" : "tiendas"}
-              {active !== "Todos" ? ` · ${active}` : ""}
+        {/* RESULTS */}
+        <section>
+          <div className="mb-5 flex items-center justify-between">
+            <p className="text-sm text-[var(--niar-ink-mute)]">
+              <strong className="text-[var(--niar-ink)]">{filtered.length}</strong>{" "}
+              {filtered.length === 1 ? "resultado" : "resultados"}
             </p>
-            <div className="flex items-center gap-1 rounded-xl border border-[#ece8f7] bg-white p-1">
-              <button className="rounded-lg bg-[#F2ECFF] p-1.5 text-[#5B2EFF]" aria-label="Vista grilla">
-                <LayoutGrid size={14} />
-              </button>
-            </div>
+            <button
+              type="button"
+              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--niar-border)] bg-[var(--niar-surface)] px-3 py-1.5 text-xs text-[var(--niar-ink-mute)]"
+            >
+              <SlidersHorizontal size={12} /> Más relevantes
+              <ChevronDown size={12} />
+            </button>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {loading ? (
               <>
                 <LoadingCard />
@@ -209,7 +220,7 @@ function ExplorarContent() {
                 <EntrepreneurCard key={entrepreneur.id} entrepreneur={entrepreneur} />
               ))
             ) : (
-              <div className="sm:col-span-2 lg:col-span-2 xl:col-span-3">
+              <div className="sm:col-span-2 xl:col-span-3">
                 <EmptyState
                   title="No encontramos resultados"
                   description="Probá con otra categoría o ampliá la zona."
@@ -220,5 +231,16 @@ function ExplorarContent() {
         </section>
       </div>
     </main>
+  );
+}
+
+function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <p className="mb-3 text-[10px] font-semibold uppercase tracking-wider text-[var(--niar-ink-soft)]">
+        {title}
+      </p>
+      {children}
+    </div>
   );
 }

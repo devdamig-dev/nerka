@@ -1,22 +1,152 @@
 @import "tailwindcss";
 
+/* =========================================================
+   NIAR — design tokens
+   Discovery local premium · sage + warm whites + lila pastel
+   ========================================================= */
+
 :root {
-  --background: #fafafc;
-  --foreground: #171321;
+  /* Surfaces — blanco cálido + grises piedra */
+  --niar-bg: #FBFAF7;
+  --niar-surface: #FFFFFF;
+  --niar-surface-soft: #F5F2EC;
+  --niar-surface-mute: #EFEAE0;
+
+  /* Text — tinta cálida */
+  --niar-ink: #1F1B16;
+  --niar-ink-mute: #6B6457;
+  --niar-ink-soft: #A29B8E;
+  --niar-ink-faint: #C9C2B5;
+
+  /* Borders — piedra muy suave */
+  --niar-border: #ECE6DA;
+  --niar-border-soft: #F2EDE2;
+
+  /* Primary — sage moderno */
+  --niar-sage: #6E9379;
+  --niar-sage-deep: #4F7158;
+  --niar-sage-soft: #E5EDE6;
+  --niar-sage-mute: #F1F5F0;
+  --niar-sage-on: #314838;
+
+  /* Accent — lila pastel sutil */
+  --niar-lila: #C9C0DD;
+  --niar-lila-soft: #F0ECF7;
+  --niar-lila-deep: #6F5F8E;
+
+  /* Functional, armonizados con la paleta */
+  --niar-success: #5E8A5C;
+  --niar-success-soft: #E5EFE3;
+  --niar-warn: #C28B43;
+  --niar-warn-soft: #F8EFE0;
+  --niar-error: #B05650;
+  --niar-error-soft: #F4E4E2;
+
+  /* WhatsApp — convención de marca */
+  --niar-wa: #25D366;
+  --niar-wa-deep: #1FA851;
+
+  /* Sombras — suaves, mínimas */
+  --niar-shadow-sm: 0 1px 2px rgba(31, 27, 22, 0.04);
+  --niar-shadow: 0 4px 14px rgba(31, 27, 22, 0.06);
+  --niar-shadow-lg: 0 12px 32px rgba(31, 27, 22, 0.08);
+
+  /* Compat — aliases legacy */
+  --background: var(--niar-bg);
+  --foreground: var(--niar-ink);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--niar-bg);
+  --color-foreground: var(--niar-ink);
+
+  --color-niar-bg: var(--niar-bg);
+  --color-niar-surface: var(--niar-surface);
+  --color-niar-surface-soft: var(--niar-surface-soft);
+  --color-niar-surface-mute: var(--niar-surface-mute);
+
+  --color-niar-ink: var(--niar-ink);
+  --color-niar-ink-mute: var(--niar-ink-mute);
+  --color-niar-ink-soft: var(--niar-ink-soft);
+  --color-niar-ink-faint: var(--niar-ink-faint);
+
+  --color-niar-border: var(--niar-border);
+  --color-niar-border-soft: var(--niar-border-soft);
+
+  --color-niar-sage: var(--niar-sage);
+  --color-niar-sage-deep: var(--niar-sage-deep);
+  --color-niar-sage-soft: var(--niar-sage-soft);
+  --color-niar-sage-mute: var(--niar-sage-mute);
+  --color-niar-sage-on: var(--niar-sage-on);
+
+  --color-niar-lila: var(--niar-lila);
+  --color-niar-lila-soft: var(--niar-lila-soft);
+  --color-niar-lila-deep: var(--niar-lila-deep);
+
+  --color-niar-success: var(--niar-success);
+  --color-niar-success-soft: var(--niar-success-soft);
+  --color-niar-warn: var(--niar-warn);
+  --color-niar-warn-soft: var(--niar-warn-soft);
+  --color-niar-error: var(--niar-error);
+  --color-niar-error-soft: var(--niar-error-soft);
+
+  --color-niar-wa: var(--niar-wa);
+  --color-niar-wa-deep: var(--niar-wa-deep);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: var(--niar-bg);
+  color: var(--niar-ink);
+  font-family: var(--font-sans), Inter, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tipografía editorial para titulares */
+.font-display {
+  font-family: var(--font-display), "Fraunces", "Source Serif Pro", Georgia, serif;
+  font-feature-settings: "ss01", "ss02";
+  letter-spacing: -0.01em;
+}
+
+/* Utilidades simples — usadas en clases dinámicas */
+.niar-card {
+  background: var(--niar-surface);
+  border: 1px solid var(--niar-border);
+  border-radius: 1.25rem;
+  box-shadow: var(--niar-shadow-sm);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+
+.niar-card:hover {
+  box-shadow: var(--niar-shadow);
+}
+
+.niar-divider {
+  height: 1px;
+  background: var(--niar-border-soft);
+}
+
+/* Scrollbar discreta para el sidebar y horizontales */
+.niar-scroll::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.niar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.niar-scroll::-webkit-scrollbar-thumb {
+  background: var(--niar-border);
+  border-radius: 999px;
 }

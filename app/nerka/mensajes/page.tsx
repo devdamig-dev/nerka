@@ -23,23 +23,26 @@ export default function MensajesPage() {
     : null;
 
   return (
-    <main className="px-4 py-5 lg:px-8 lg:py-8">
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold text-[#2B174F] lg:text-2xl">Mensajes</h1>
-          <p className="text-xs text-[#6F6A7C] lg:text-sm">
-            Conversaciones con emprendedores y pedidos en curso.
-          </p>
-        </div>
-      </div>
+    <main className="px-5 py-8 lg:px-2 lg:py-10">
+      <header className="mb-8">
+        <p className="text-xs font-medium uppercase tracking-wide text-[var(--niar-ink-soft)]">
+          Conversaciones
+        </p>
+        <h1 className="font-display mt-2 text-3xl font-semibold text-[var(--niar-ink)] lg:text-[44px]">
+          Mensajes
+        </h1>
+        <p className="mt-2 text-sm text-[var(--niar-ink-mute)]">
+          Conversaciones con emprendedores y pedidos en curso.
+        </p>
+      </header>
 
-      <div className="space-y-3 lg:grid lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-5 lg:space-y-0">
+      <div className="grid gap-5 lg:grid-cols-[380px_minmax(0,1fr)]">
         {hasAny ? (
           <>
-            <div className="space-y-3 lg:rounded-2xl lg:border lg:border-[#ece8f7] lg:bg-white lg:p-3">
+            <div className="space-y-5 lg:rounded-3xl lg:border lg:border-[var(--niar-border)] lg:bg-[var(--niar-surface)] lg:p-4">
               {drafts.length ? (
                 <div className="space-y-2">
-                  <p className="text-[10px] font-semibold uppercase tracking-wide text-[#9088a3]">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-[var(--niar-ink-soft)]">
                     Tus mensajes enviados
                   </p>
                   {drafts.map((d) => {
@@ -49,16 +52,18 @@ export default function MensajesPage() {
                       <Link
                         key={d.id}
                         href={`/nerka/mensajes/nuevo?to=${e.id}${d.productId ? `&product=${d.productId}` : ""}`}
-                        className="block rounded-2xl border border-[#d9cef8] bg-[#F8F4FF] p-4"
+                        className="block rounded-3xl border border-[var(--niar-lila)] bg-[var(--niar-lila-soft)] p-4 hover:border-[var(--niar-lila-deep)]"
                       >
                         <div className="mb-1 flex items-center justify-between">
-                          <p className="text-sm font-semibold text-[#1f1833]">{e.name}</p>
-                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-[#5B2EFF]">
+                          <p className="text-sm font-semibold text-[var(--niar-ink)]">{e.name}</p>
+                          <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--niar-lila-deep)]">
                             <Send size={11} /> Enviado
                           </span>
                         </div>
-                        <p className="line-clamp-2 text-sm text-[#433d56]">{d.draftText}</p>
-                        <p className="mt-1 text-[10px] text-[#9088a3]">
+                        <p className="line-clamp-2 text-sm text-[var(--niar-ink-mute)]">
+                          {d.draftText}
+                        </p>
+                        <p className="mt-1 text-[10px] text-[var(--niar-ink-soft)]">
                           {new Date(d.createdAt).toLocaleString("es-AR", {
                             dateStyle: "short",
                             timeStyle: "short",
@@ -72,30 +77,36 @@ export default function MensajesPage() {
 
               {conversations.length ? (
                 <div className="space-y-2">
-                  <p className="text-[10px] font-semibold uppercase tracking-wide text-[#9088a3]">
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-[var(--niar-ink-soft)]">
                     Conversaciones
                   </p>
                   {conversations.map((item) => {
-                    const entrepreneur = getEntrepreneurById(item.entrepreneurId) ?? entrepreneurs[0];
+                    const entrepreneur =
+                      getEntrepreneurById(item.entrepreneurId) ?? entrepreneurs[0];
                     return <ConversationCard key={item.id} item={item} entrepreneur={entrepreneur} />;
                   })}
                 </div>
               ) : null}
             </div>
-            <section className="hidden rounded-2xl border border-[#ece8f7] bg-white p-5 lg:block">
-              <p className="text-xs uppercase tracking-wide text-[#8d86a2]">Vista previa</p>
-              <h2 className="mt-2 text-xl font-semibold text-[#2B174F]">
+
+            <section className="hidden rounded-3xl border border-[var(--niar-border)] bg-[var(--niar-surface)] p-7 lg:block">
+              <p className="text-xs font-medium uppercase tracking-wide text-[var(--niar-ink-soft)]">
+                Vista previa
+              </p>
+              <h2 className="font-display mt-2 text-2xl font-semibold text-[var(--niar-ink)]">
                 {selectedEntrepreneur?.name ?? "Tus mensajes"}
               </h2>
-              <p className="text-sm text-[#6F6A7C]">{selectedConversation?.summary ?? "Elegí una conversación para ver el detalle."}</p>
+              <p className="mt-1 text-sm text-[var(--niar-ink-mute)]">
+                {selectedConversation?.summary ?? "Elegí una conversación para ver el detalle."}
+              </p>
               {selectedConversation?.lastMessage ? (
-                <p className="mt-4 rounded-xl bg-[#FAFAFC] p-4 text-sm text-[#433d56]">
+                <p className="mt-5 rounded-2xl bg-[var(--niar-bg)] p-5 text-sm text-[var(--niar-ink)]">
                   {selectedConversation.lastMessage}
                 </p>
               ) : null}
-              <p className="mt-3 text-sm text-[#6F6A7C]">
+              <p className="mt-4 text-sm text-[var(--niar-ink-mute)]">
                 Seleccioná una conversación de la izquierda para responder. Los mensajes nuevos
-                que iniciaste aparecen en violeta.
+                que iniciaste aparecen en lila.
               </p>
             </section>
           </>
@@ -104,7 +115,7 @@ export default function MensajesPage() {
             <EmptyState
               title="Todavía no tenés conversaciones"
               description="Entrá al perfil de un emprendedor y tocá Enviar mensaje para empezar a chatear."
-              cta="Explorar emprendedores"
+              cta="Descubrir tiendas"
               href="/nerka/explorar"
             />
           </div>
