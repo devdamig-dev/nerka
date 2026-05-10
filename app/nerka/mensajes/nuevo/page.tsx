@@ -122,32 +122,32 @@ function NewMessageForm({
       <div className="mb-4 flex items-center gap-2">
         <Link
           href={`/niar/emprendedores/${profile.id}`}
-          className="inline-flex items-center gap-1 rounded-xl border border-[#ece8f7] bg-white px-3 py-1.5 text-xs font-medium text-[#5B2EFF] hover:bg-[#F2ECFF]"
+          className="inline-flex items-center gap-1 rounded-xl border border-[#E6DDD0] bg-white px-3 py-1.5 text-xs font-medium text-[#6E7F63] hover:bg-[#EEF3EA]"
         >
           <ArrowLeft size={13} /> Volver al perfil
         </Link>
       </div>
 
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <section className="overflow-hidden rounded-2xl border border-[#ece8f7] bg-white">
-          <header className="flex items-center gap-3 border-b border-[#f1ecfb] px-4 py-3">
+        <section className="overflow-hidden rounded-2xl border border-[#E6DDD0] bg-white">
+          <header className="flex items-center gap-3 border-b border-[#E9E0D3] px-4 py-3">
             <img src={profile.avatar} alt={profile.name} className="h-10 w-10 rounded-xl object-cover" />
             <div>
-              <p className="text-sm font-semibold text-[#1f1833]">{profile.name}</p>
-              <p className="text-xs text-[#6F6A7C]">{profile.responseTime}</p>
+              <p className="text-sm font-semibold text-[#1f241f]">{profile.name}</p>
+              <p className="text-xs text-[#666C60]">{profile.responseTime}</p>
             </div>
           </header>
 
           {product ? (
-            <div className="border-b border-[#f1ecfb] bg-[#FAFAFC] px-4 py-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-[#9088a3]">
+            <div className="border-b border-[#E9E0D3] bg-[#FBF8F3] px-4 py-3">
+              <p className="text-[10px] font-semibold uppercase tracking-wide text-[#8A8378]">
                 Consulta sobre
               </p>
               <div className="mt-1 flex items-center gap-3">
                 <img src={product.image} alt={product.name} className="h-12 w-12 rounded-lg object-cover" />
                 <div className="min-w-0">
-                  <p className="line-clamp-1 text-sm font-medium text-[#1f1833]">{product.name}</p>
-                  <p className="text-xs text-[#6F6A7C]">
+                  <p className="line-clamp-1 text-sm font-medium text-[#1f241f]">{product.name}</p>
+                  <p className="text-xs text-[#666C60]">
                     {product.price ? `$${product.price.toLocaleString("es-AR")}` : "Precio a consultar"}
                   </p>
                 </div>
@@ -156,13 +156,13 @@ function NewMessageForm({
           ) : null}
 
           <div className="px-4 py-4">
-            <p className="text-xs text-[#6F6A7C]">
+            <p className="text-xs text-[#666C60]">
               Te sugerimos un mensaje. Editalo si querés y enviálo.
             </p>
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="mt-2 min-h-32 w-full rounded-2xl border border-[#ece8f7] bg-white px-4 py-3 text-sm outline-none placeholder:text-[#9b95aa] focus:border-[#d9cef8]"
+              className="mt-2 min-h-32 w-full rounded-2xl border border-[#E6DDD0] bg-white px-4 py-3 text-sm outline-none placeholder:text-[#8A8378] focus:border-[#C8D4BF]"
               placeholder="Escribí tu mensaje..."
             />
 
@@ -177,7 +177,7 @@ function NewMessageForm({
                   key={q}
                   type="button"
                   onClick={() => setText((t) => (t.endsWith(" ") || !t ? `${t}${q}` : `${t} ${q}`))}
-                  className="rounded-full border border-[#ece8f7] bg-white px-3 py-1.5 text-xs text-[#433d56] hover:bg-[#F2ECFF]"
+                  className="rounded-full border border-[#E6DDD0] bg-white px-3 py-1.5 text-xs text-[#4F554B] hover:bg-[#EEF3EA]"
                 >
                   {q}
                 </button>
@@ -189,7 +189,7 @@ function NewMessageForm({
                 type="button"
                 onClick={onSend}
                 disabled={!text.trim() || sent}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#5B2EFF] px-4 py-3 text-sm font-medium text-white disabled:opacity-60"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#6E7F63] px-4 py-3 text-sm font-medium text-white disabled:opacity-60"
               >
                 <Send size={15} /> {sent ? "Mensaje enviado" : "Enviar mensaje interno"}
               </button>
@@ -214,13 +214,13 @@ function NewMessageForm({
         </section>
 
         <aside className="space-y-3">
-          <div className="rounded-2xl border border-[#ece8f7] bg-white p-4">
-            <p className="text-sm font-semibold text-[#2B174F]">Sobre {profile.name}</p>
-            <p className="mt-2 text-xs text-[#6F6A7C]">{profile.about}</p>
-            <div className="mt-3 space-y-1.5 text-xs text-[#433d56]">
+          <div className="rounded-2xl border border-[#E6DDD0] bg-white p-4">
+            <p className="text-sm font-semibold text-[#2F3A2B]">Sobre {profile.name}</p>
+            <p className="mt-2 text-xs text-[#666C60]">{profile.about}</p>
+            <div className="mt-3 space-y-1.5 text-xs text-[#4F554B]">
               <p className="inline-flex items-center gap-1"><Star size={12} className="fill-[#ffb547] text-[#ffb547]" /> {profile.rating} ({profile.reviews} reseñas)</p>
               <p className="inline-flex items-center gap-1"><MapPin size={12} /> {profile.zone}</p>
-              <p className="inline-flex items-center gap-1"><Sparkles size={12} className="text-[#5B2EFF]" /> {profile.responseTime}</p>
+              <p className="inline-flex items-center gap-1"><Sparkles size={12} className="text-[#6E7F63]" /> {profile.responseTime}</p>
             </div>
             <div className="mt-3 flex flex-wrap gap-1.5">
               {profile.badges.map((b) => (
@@ -230,7 +230,7 @@ function NewMessageForm({
           </div>
           <Link
             href={`/niar/emprendedores/${profile.id}`}
-            className="block rounded-2xl border border-[#ece8f7] bg-white p-4 text-sm text-[#5B2EFF] hover:bg-[#F2ECFF]"
+            className="block rounded-2xl border border-[#E6DDD0] bg-white p-4 text-sm text-[#6E7F63] hover:bg-[#EEF3EA]"
           >
             Ver catálogo completo →
           </Link>

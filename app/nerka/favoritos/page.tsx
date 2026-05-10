@@ -13,8 +13,8 @@ export default function FavoritosPage() {
   return (
     <main className="px-4 py-5 lg:px-8 lg:py-8">
       <div className="mb-4">
-        <h1 className="text-xl font-semibold text-[#2B174F] lg:text-2xl">Tus favoritos</h1>
-        <p className="text-xs text-[#6F6A7C] lg:text-sm">
+        <h1 className="text-xl font-semibold text-[#2F3A2B] lg:text-2xl">Tus favoritos</h1>
+        <p className="text-xs text-[#666C60] lg:text-sm">
           Tiendas guardadas para volver fácil cuando quieras consultarlas.
         </p>
       </div>

@@ -597,4 +597,31 @@ export const requestComparisons = {
 export const getEntrepreneurById = (id: string) =>
   entrepreneurs.find((e) => e.id === id);
 
+export const getProductById = (id: string) => {
+  for (const entrepreneur of entrepreneurs) {
+    const product = entrepreneur.catalog.find((item) => item.id === id);
+    if (product) return { product, entrepreneur };
+  }
+  return undefined;
+};
+
+export const getRelatedProducts = (productId: string, limit = 8) => {
+  const current = getProductById(productId);
+  if (!current) return [];
+
+  const sameBusiness = current.entrepreneur.catalog
+    .filter((item) => item.id !== productId)
+    .map((item) => ({ item, entrepreneur: current.entrepreneur, reason: "Más del negocio" }));
+
+  const similar = entrepreneurs
+    .filter((entrepreneur) => entrepreneur.id !== current.entrepreneur.id)
+    .flatMap((entrepreneur) =>
+      entrepreneur.catalog
+        .filter((item) => item.id !== productId && (entrepreneur.category === current.entrepreneur.category || item.type === current.product.type))
+        .map((item) => ({ item, entrepreneur, reason: entrepreneur.category === current.entrepreneur.category ? "Categoría cercana" : "Similar cerca tuyo" })),
+    );
+
+  return [...sameBusiness, ...similar].slice(0, limit);
+};
+
 export const getRequestById = (id: string) => requests.find((r) => r.id === id);

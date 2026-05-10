@@ -14,13 +14,13 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
     <main className="pb-24 lg:px-8 lg:py-8 lg:pb-8">
       <img src={event.image} alt={event.name} className="h-56 w-full object-cover lg:h-72 lg:rounded-3xl" />
       <div className="space-y-3 px-4 py-4 lg:px-0">
-        <h1 className="text-xl font-semibold text-[#2B174F]">{event.name}</h1>
-        <p className="text-sm text-[#6F6A7C]">{event.date}</p>
-        <p className="text-sm text-[#6F6A7C]">{event.location}</p>
-        <p className="text-sm text-[#433d56]">{event.description}</p>
+        <h1 className="text-xl font-semibold text-[#2F3A2B]">{event.name}</h1>
+        <p className="text-sm text-[#666C60]">{event.date}</p>
+        <p className="text-sm text-[#666C60]">{event.location}</p>
+        <p className="text-sm text-[#4F554B]">{event.description}</p>
 
         <section className="pt-2">
-          <h2 className="mb-2 font-semibold text-[#1f1833]">Emprendedores participantes</h2>
+          <h2 className="mb-2 font-semibold text-[#1f241f]">Emprendedores participantes</h2>
           <div className="space-y-2 lg:grid lg:grid-cols-2 lg:gap-3 lg:space-y-0 xl:grid-cols-3">
             {event.participantIds.map((id) => {
               const entrepreneur = getEntrepreneurById(id);
@@ -28,10 +28,10 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
               return (
                 <article key={id} className="flex items-center justify-between rounded-xl bg-white p-3">
                   <div>
-                    <p className="font-medium text-[#1f1833]">{entrepreneur.name}</p>
-                    <p className="text-sm text-[#6F6A7C]">{entrepreneur.category}</p>
+                    <p className="font-medium text-[#1f241f]">{entrepreneur.name}</p>
+                    <p className="text-sm text-[#666C60]">{entrepreneur.category}</p>
                   </div>
-                  <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="rounded-lg bg-[#F2ECFF] px-3 py-1.5 text-sm text-[#5B2EFF]">Ver perfil</Link>
+                  <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="rounded-lg bg-[#EEF3EA] px-3 py-1.5 text-sm text-[#6E7F63]">Ver perfil</Link>
                 </article>
               );
             })}
