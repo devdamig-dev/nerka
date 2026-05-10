@@ -59,7 +59,7 @@ export default function EntrepreneurProfilePage() {
 
   return (
     <main className="mx-auto max-w-[1540px] pb-40 lg:px-10 lg:py-10 lg:pb-10 xl:px-12">
-      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_400px] lg:gap-12">
         <section>
           {/* HERO */}
           <div className="relative overflow-hidden bg-[#1f241f] lg:rounded-[2.75rem] lg:shadow-[0_30px_90px_rgba(79,89,68,0.18)]">
@@ -76,7 +76,7 @@ export default function EntrepreneurProfilePage() {
                   <p className="mt-2 text-base text-white/80">{entrepreneur.category} · {entrepreneur.subcategory} · {entrepreneur.zone}</p>
                 </div>
                 <div className="hidden items-center gap-2 lg:flex">
-                  <button type="button" aria-label={fav ? "Quitar de favoritos" : "Guardar en favoritos"} onClick={() => toggleFavorite(entrepreneur.id)} className={`rounded-2xl p-3 shadow-sm transition ${fav ? "bg-[#FFEAF1] text-[#b8344b]" : "bg-white text-[#1f241f] hover:bg-[#FFEAF1] hover:text-[#b8344b]"}`}>
+                  <button type="button" aria-label={fav ? "Quitar de favoritos" : "Guardar en favoritos"} onClick={() => toggleFavorite(entrepreneur.id)} className={`rounded-2xl p-3 shadow-sm transition ${fav ? "bg-[#FDF1E8] text-[#B45A4F]" : "bg-white text-[#1f241f] hover:bg-[#FDF1E8] hover:text-[#B45A4F]"}`}>
                     <Heart size={17} className={fav ? "fill-current" : ""} />
                   </button>
                   <button
@@ -127,7 +127,7 @@ export default function EntrepreneurProfilePage() {
                     key={item}
                     onClick={() => setTab(item)}
                     className={`rounded-full px-2 py-2.5 text-xs font-semibold ${
-                      tab === item ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#756f89]"
+                      tab === item ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#666C60]"
                     }`}
                   >
                     {item}
@@ -145,7 +145,7 @@ export default function EntrepreneurProfilePage() {
                         title="Productos destacados"
                         subtitle="Selección destacada del negocio"
                       />
-                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                         {featured.map((item) => (
                           <ProductCard
                             key={item.id}
@@ -162,7 +162,7 @@ export default function EntrepreneurProfilePage() {
                   {productList.length ? (
                     <div>
                       <SectionTitle title="Productos" />
-                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                         {productList.map((item) => (
                           <ProductCard
                             key={item.id}

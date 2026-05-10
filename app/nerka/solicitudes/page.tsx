@@ -7,8 +7,8 @@ export default function SolicitudesPage() {
   return (
     <main className="px-4 py-5 lg:px-8 lg:py-8">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-xl font-semibold text-[#2B174F] lg:text-2xl">Mis solicitudes</h1>
-        <Link href="/niar/solicitudes/nueva" className="rounded-xl bg-[#5B2EFF] px-3 py-2 text-sm text-white">Nueva</Link>
+        <h1 className="text-xl font-semibold text-[#2F3A2B] lg:text-2xl">Mis solicitudes</h1>
+        <Link href="/niar/solicitudes/nueva" className="rounded-xl bg-[#6E7F63] px-3 py-2 text-sm text-white">Nueva</Link>
       </div>
 
       <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-4 lg:space-y-0">

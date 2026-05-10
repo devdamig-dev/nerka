@@ -87,7 +87,7 @@ function VisitorHome() {
             {popularProducts.slice(0, 4).map((product, index) => (
               <Link
                 key={product.id}
-                href={`/niar/emprendedores/${product.entrepreneurId}`}
+                href={`/niar/productos/${product.id}`}
                 className={`group overflow-hidden rounded-[1.75rem] bg-white shadow-[0_18px_50px_rgba(79,89,68,0.14)] ring-1 ring-[#E1D8CB] transition hover:-translate-y-1 ${index === 0 ? "sm:col-span-2" : ""}`}
               >
                 <div className="relative">
@@ -125,7 +125,7 @@ function VisitorHome() {
         <SectionTitle title="Productos populares cerca tuyo" subtitle="Cards grandes, precio claro y acceso al catálogo" cta="Ver productos" href="/niar/explorar?type=Productos" />
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
           {popularProducts.slice(0, 8).map((product) => (
-            <Link key={product.id} href={`/niar/emprendedores/${product.entrepreneurId}`} className="group overflow-hidden rounded-[1.75rem] border border-[#E6DDD0] bg-white shadow-[0_14px_35px_rgba(79,89,68,0.08)] transition hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(79,89,68,0.14)]">
+            <Link key={product.id} href={`/niar/productos/${product.id}`} className="group overflow-hidden rounded-[1.75rem] border border-[#E6DDD0] bg-white shadow-[0_14px_35px_rgba(79,89,68,0.08)] transition hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(79,89,68,0.14)]">
               <img src={product.image} alt={product.name} className="h-48 w-full object-cover transition duration-700 group-hover:scale-[1.04] lg:h-64" />
               <div className="p-5">
                 <p className="line-clamp-1 text-sm font-semibold text-[#1f241f]">{product.name}</p>

@@ -219,7 +219,7 @@ export function DesktopSidebar() {
 function DesktopTopbar() {
   const pathname = usePathname();
   const { isEntrepreneur, user, toggleRole } = useRole();
-  const { totalItemsAcrossSellers } = useCart();
+  const { totalItemsAcrossSellers, totalSellersWithItems } = useCart();
 
   const primaryNav = [
     { href: "/niar/explorar", label: "Explorar", icon: Compass },
@@ -276,15 +276,27 @@ function DesktopTopbar() {
           {!isEntrepreneur ? (
             <Link
               href="/niar/carrito"
-              className="relative rounded-full border border-[#DCD2C5] bg-white/76 p-2.5 text-[#1f241f] shadow-sm transition hover:bg-[#F7F2EA]"
+              className={`group inline-flex items-center gap-2 rounded-full border px-3 py-2 text-sm shadow-sm transition ${
+                totalItemsAcrossSellers > 0
+                  ? "border-[#C8D4BF] bg-[#EEF3EA] text-[#1f241f] shadow-[0_14px_34px_rgba(110,127,99,0.18)]"
+                  : "border-[#DCD2C5] bg-white/76 text-[#1f241f] hover:bg-[#F7F2EA]"
+              }`}
               aria-label="Carrito"
             >
-              <ShoppingBag size={18} />
-              {totalItemsAcrossSellers > 0 ? (
-                <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#6E7F63] px-1.5 text-[10px] font-semibold text-white">
-                  {totalItemsAcrossSellers}
+              <span className="relative grid h-8 w-8 place-items-center rounded-full bg-white text-[#5D6F52] shadow-sm">
+                <ShoppingBag size={17} />
+                {totalItemsAcrossSellers > 0 ? (
+                  <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[#6E7F63] px-1.5 text-[10px] font-semibold text-white">
+                    {totalItemsAcrossSellers}
+                  </span>
+                ) : null}
+              </span>
+              <span className="hidden leading-tight xl:block">
+                <span className="block text-[11px] font-semibold uppercase tracking-wide text-[#6E7F63]">Carrito</span>
+                <span className="block text-xs text-[#666C60]">
+                  {totalItemsAcrossSellers > 0 ? `${totalItemsAcrossSellers} items · ${totalSellersWithItems} negocios` : "Armá tu pedido"}
                 </span>
-              ) : null}
+              </span>
             </Link>
           ) : (
             <Link
@@ -371,7 +383,7 @@ export function BadgeTrust({ badge }: { badge: TrustBadge }) {
         : badge === "Top en tu zona"
           ? "bg-[#EEF3EA] text-[#6E7F63]"
           : badge === "Recomendado"
-            ? "bg-[#FFEAF1] text-[#b8344b]"
+            ? "bg-[#FDF1E8] text-[#B45A4F]"
             : "bg-[#EAF3FF] text-[#225ea8]"; // Nuevo en Niar
   return <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${style}`}>{badge}</span>;
 }
