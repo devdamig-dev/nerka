@@ -46,19 +46,20 @@ function VisitorHome() {
 
   return (
     <div className="mx-auto max-w-[1540px] space-y-12 px-4 py-4 lg:space-y-16 lg:px-10 lg:py-10 xl:px-12">
-      <section className="overflow-hidden rounded-[2.5rem] border border-[#E8E0D6] bg-[#F7F2EA] text-[#1f241f] shadow-[0_28px_90px_rgba(88,102,74,0.14)]">
-        <div className="grid gap-10 p-5 lg:grid-cols-[0.9fr_1.1fr] lg:p-12 xl:p-16">
+      <section className="relative overflow-hidden rounded-[2.75rem] border border-[#E8E0D6]/90 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.92),transparent_34%),linear-gradient(135deg,#F7F2EA,#EEF3EA_52%,#FBF8F3)] text-[#1f241f] shadow-[0_34px_110px_rgba(88,102,74,0.16)]">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/48 blur-3xl" />
+        <div className="grid gap-10 p-5 lg:grid-cols-[0.92fr_1.08fr] lg:p-12 xl:p-16">
           <div className="flex flex-col justify-center">
             <p className="inline-flex w-fit items-center gap-1 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-[#6E7F63] ring-1 ring-[#D9CFC1]">
               <Sparkles size={12} /> Descubrimiento local premium
             </p>
             <h1 className="mt-5 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-[#1f241f] lg:text-6xl">
-              Explorá lo mejor de tu zona.
+              Descubrí comercios locales con alma.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-[#5F665A] lg:text-lg">
-              Tiendas, productos y servicios locales seleccionados para descubrir, consultar y comprar de forma simple.
+              Un marketplace visual para encontrar marcas cercanas, productos con historia y servicios confiables sin perder la sensación humana del barrio.
             </p>
-            <div className="mt-8 max-w-2xl rounded-[1.75rem] bg-white/95 p-2 shadow-[0_20px_60px_rgba(79,89,68,0.16)] ring-1 ring-[#E1D8CB]">
+            <div className="mt-8 max-w-2xl rounded-[1.85rem] bg-white/90 p-2 shadow-[0_24px_70px_rgba(79,89,68,0.18)] ring-1 ring-white/80 backdrop-blur">
               <div className="grid gap-2 lg:grid-cols-[1fr_190px_auto]">
                 <label className="flex items-center gap-3 rounded-2xl px-4 py-3 text-[#1f241f]">
                   <Search size={18} className="text-[#6E7F63]" />
@@ -91,8 +92,8 @@ function VisitorHome() {
                 className={`group overflow-hidden rounded-[1.75rem] bg-white shadow-[0_18px_50px_rgba(79,89,68,0.14)] ring-1 ring-[#E1D8CB] transition hover:-translate-y-1 ${index === 0 ? "sm:col-span-2" : ""}`}
               >
                 <div className="relative">
-                  <img src={product.image} alt={product.name} className={`${index === 0 ? "h-64" : "h-40"} w-full object-cover transition duration-500 group-hover:scale-[1.04]`} />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent p-4 text-white">
+                  <img src={product.image} alt={product.name} className={`${index === 0 ? "h-72" : "h-44"} niar-editorial-image w-full object-cover`} />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1f241f]/72 via-[#1f241f]/16 to-transparent p-4 text-white">
                     <p className="text-sm font-semibold">{product.name}</p>
                     <p className="mt-1 text-xs text-white/75">{product.entrepreneurName}</p>
                   </div>
@@ -115,18 +116,18 @@ function VisitorHome() {
       </section>
 
       <section>
-        <SectionTitle title="Comercios destacados" subtitle="Perfiles cuidados, visuales y listos para consultar" cta="Explorar todos" href="/niar/explorar" />
+        <SectionTitle title="Comercios que invitan a entrar" subtitle="Cards editoriales, confianza visible y descubrimiento sin ruido" cta="Explorar todos" href="/niar/explorar" />
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {entrepreneurs.slice(0, 6).map((entrepreneur) => <EntrepreneurCard key={entrepreneur.id} entrepreneur={entrepreneur} />)}
         </div>
       </section>
 
       <section>
-        <SectionTitle title="Productos populares cerca tuyo" subtitle="Cards grandes, precio claro y acceso al catálogo" cta="Ver productos" href="/niar/explorar?type=Productos" />
+        <SectionTitle title="Objetos y servicios para mirar dos veces" subtitle="Selecciones visuales con acceso rápido al detalle" cta="Ver productos" href="/niar/explorar?type=Productos" />
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-4">
           {popularProducts.slice(0, 8).map((product) => (
-            <Link key={product.id} href={`/niar/productos/${product.id}`} className="group overflow-hidden rounded-[1.75rem] border border-[#E6DDD0] bg-white shadow-[0_14px_35px_rgba(79,89,68,0.08)] transition hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(79,89,68,0.14)]">
-              <img src={product.image} alt={product.name} className="h-48 w-full object-cover transition duration-700 group-hover:scale-[1.04] lg:h-64" />
+            <Link key={product.id} href={`/niar/productos/${product.id}`} className="group niar-premium-card">
+              <img src={product.image} alt={product.name} className="niar-editorial-image h-52 w-full object-cover lg:h-72" />
               <div className="p-5">
                 <p className="line-clamp-1 text-sm font-semibold text-[#1f241f]">{product.name}</p>
                 <p className="mt-1 line-clamp-1 text-xs text-[#666C60]">{product.entrepreneurName}</p>

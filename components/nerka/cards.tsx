@@ -12,38 +12,45 @@ export function EntrepreneurCard({ entrepreneur, horizontal = false }: { entrepr
   const featured = entrepreneur.catalog.find((item) => item.featured) ?? entrepreneur.catalog[0];
 
   return (
-    <article className={`group flex flex-col overflow-hidden rounded-[2rem] border border-[#E8E0D6]/90 bg-white/90 shadow-[0_18px_55px_rgba(79,89,68,0.09)] ring-1 ring-white/60 transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_80px_rgba(79,89,68,0.16)] ${horizontal ? "min-w-[300px] lg:min-w-0" : ""}`}>
-      <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="block">
-        <div className="relative h-72 overflow-hidden lg:h-80">
-          <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1f241f]/72 via-[#1f241f]/10 to-transparent" />
-          <div className="absolute left-4 top-4 rounded-full bg-white/88 px-3.5 py-1.5 text-[11px] font-semibold text-[#5F6F55] shadow-sm ring-1 ring-white/70 backdrop-blur">
-            {entrepreneur.category}
+    <article className={`group niar-premium-card flex flex-col ${horizontal ? "min-w-[300px] lg:min-w-0" : ""}`}>
+      <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="block focus-visible:rounded-[2.25rem]">
+        <div className="relative h-80 overflow-hidden sm:h-[22rem] lg:h-[24rem]">
+          <img src={entrepreneur.cover} alt={entrepreneur.name} className="niar-editorial-image h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,36,31,0.08)_0%,rgba(31,36,31,0.06)_42%,rgba(31,36,31,0.78)_100%)]" />
+          <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-4">
+            <span className="rounded-full bg-white/82 px-3.5 py-1.5 text-[11px] font-semibold text-[#53634A] shadow-[0_10px_28px_rgba(31,36,31,0.10)] ring-1 ring-white/70 backdrop-blur-md">
+              {entrepreneur.category}
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-[#1f241f]/46 px-3 py-1.5 text-[11px] font-medium text-white/92 ring-1 ring-white/15 backdrop-blur-md">
+              <Star size={11} className="fill-[#E8C06F] text-[#E8C06F]" /> {entrepreneur.rating}
+            </span>
           </div>
-          <div className="absolute bottom-4 left-4 right-4 flex items-end gap-3">
-            <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-16 w-16 rounded-[1.35rem] border-4 border-white object-cover shadow-[0_14px_30px_rgba(0,0,0,0.18)]" />
-            <div className="min-w-0 pb-1 text-white">
-              <p className="truncate text-xl font-semibold tracking-tight">{entrepreneur.name}</p>
-              <p className="mt-1 inline-flex items-center gap-1 truncate text-xs text-white/82"><MapPin size={12} /> {entrepreneur.zone}</p>
+          <div className="absolute bottom-0 left-0 right-0 p-4 text-white lg:p-5">
+            <div className="mb-3 flex items-center gap-2">
+              <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-12 w-12 rounded-2xl border-2 border-white/88 object-cover shadow-[0_16px_34px_rgba(0,0,0,0.22)]" />
+              <span className="rounded-full bg-white/14 px-3 py-1 text-[11px] font-medium text-white/86 ring-1 ring-white/18 backdrop-blur-md">{entrepreneur.responseTime}</span>
             </div>
+            <p className="truncate text-2xl font-semibold tracking-[-0.035em] lg:text-[1.7rem]">{entrepreneur.name}</p>
+            <p className="mt-1.5 inline-flex max-w-full items-center gap-1 truncate text-sm text-white/82"><MapPin size={13} /> {entrepreneur.zone} · {entrepreneur.subcategory}</p>
           </div>
         </div>
       </Link>
-      <div className="flex flex-1 flex-col gap-4 p-5 lg:p-6">
+      <div className="relative z-10 flex flex-1 flex-col gap-4 p-5 lg:p-6">
         <div className="flex flex-wrap gap-1.5">
           {entrepreneur.badges.slice(0, 2).map((badge) => <BadgeTrust key={badge} badge={badge} />)}
         </div>
-        <p className="line-clamp-2 text-sm leading-6 text-[#666C60] lg:text-[15px]">{entrepreneur.about}</p>
-        <div className="flex items-center justify-between rounded-2xl bg-[#F7F2EA]/80 px-3.5 py-2.5 text-xs text-[#666C60] ring-1 ring-[#E9E0D3]">
-          <span className="inline-flex items-center gap-1"><Star size={12} className="fill-[#C9984A] text-[#C9984A]" /> <strong className="text-[#1f241f]">{entrepreneur.rating}</strong></span>
-          <span>{entrepreneur.responseTime}</span>
-          {featured ? <span className="truncate text-[#6E7F63]">{featured.name}</span> : null}
-        </div>
+        <p className="line-clamp-2 text-sm leading-6 text-[#666C60]">{entrepreneur.about}</p>
+        {featured ? (
+          <div className="flex items-center justify-between gap-3 rounded-[1.35rem] bg-[#F7F2EA]/72 px-3.5 py-3 text-xs text-[#666C60] ring-1 ring-[#E9E0D3]/80">
+            <span className="min-w-0 truncate">Destacado: <strong className="font-semibold text-[#1f241f]">{featured.name}</strong></span>
+            <span className="shrink-0 text-[#6E7F63]">Ver →</span>
+          </div>
+        ) : null}
         <div className="mt-auto grid grid-cols-[1fr_auto] gap-2 pt-1">
-          <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="inline-flex items-center justify-center rounded-2xl bg-[#6E7F63] px-4 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(110,127,99,0.22)] transition hover:bg-[#5D6F52]">
-            Ver tienda
+          <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="niar-primary inline-flex items-center justify-center rounded-2xl px-4 py-3 text-sm font-semibold">
+            Entrar a la tienda
           </Link>
-          <Link href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`} aria-label="Consultar" className="inline-flex items-center justify-center rounded-2xl border border-[#E1D8CB] bg-white px-4 py-3 text-[#6E7F63] transition hover:bg-[#F7F2EA]">
+          <Link href={`/niar/mensajes/nuevo?to=${entrepreneur.id}`} aria-label="Consultar" className="inline-flex items-center justify-center rounded-2xl border border-[#E1D8CB] bg-white/88 px-4 py-3 text-[#6E7F63] shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#C8D4BF] hover:bg-[#F7F2EA]">
             <MessageCircle size={16} />
           </Link>
         </div>

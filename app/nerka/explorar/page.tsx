@@ -65,12 +65,12 @@ function ExplorarContent() {
 
   return (
     <main className="mx-auto max-w-[1540px] px-4 py-5 lg:px-10 lg:py-10 xl:px-12">
-      <section className="mb-8 hidden overflow-hidden rounded-[2.5rem] border border-[#E6DDD0] bg-[#F7F2EA] shadow-[0_24px_80px_rgba(88,102,74,0.10)] lg:block">
+      <section className="mb-8 hidden overflow-hidden rounded-[2.65rem] border border-[#E6DDD0]/80 bg-[linear-gradient(135deg,#F7F2EA,#FBF8F3_54%,#EEF3EA)] shadow-[0_30px_95px_rgba(88,102,74,0.13)] lg:block">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-10 p-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7F8C72]">Explorar</p>
             <h1 className="mt-3 text-4xl font-semibold tracking-[-0.045em] text-[#1f241f] xl:text-5xl">
-              {filtered.length} lugares para descubrir cerca tuyo
+              {filtered.length} comercios para perderse un rato
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-[#666C60]">
               Un recorrido visual por comercios, productos y servicios locales. Menos ruido, más intención de compra.
@@ -78,7 +78,7 @@ function ExplorarContent() {
           </div>
           <div className="hidden gap-3 xl:flex">
             {top.map((e) => (
-              <div key={e.id} className="flex items-center gap-3 rounded-2xl bg-white/85 px-3 py-2 shadow-sm ring-1 ring-[#E1D8CB]">
+              <div key={e.id} className="flex items-center gap-3 rounded-2xl bg-white/82 px-3 py-2 shadow-[0_14px_35px_rgba(79,89,68,0.10)] ring-1 ring-white/80 backdrop-blur transition hover:-translate-y-0.5">
                 <img src={e.avatar} alt="" className="h-10 w-10 rounded-xl object-cover" />
                 <div>
                   <p className="text-xs font-semibold text-[#1f241f]">{e.name}</p>
@@ -95,8 +95,8 @@ function ExplorarContent() {
       <h1 className="mb-3 text-xl font-semibold text-[#1f241f] lg:hidden">Explorar Niar</h1>
       <SearchBar placeholder="¿Qué estás buscando? Producto, servicio o comercio" />
 
-      <div className="mt-6 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-10">
-        <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit lg:space-y-6 lg:rounded-[2rem] lg:border lg:border-[#E6DDD0] lg:bg-white/62 lg:p-5 lg:shadow-[0_18px_55px_rgba(79,89,68,0.06)] lg:backdrop-blur">
+      <div className="mt-6 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-12">
+        <aside className="space-y-4 lg:sticky lg:top-24 lg:h-fit lg:space-y-6 lg:rounded-[2.1rem] lg:border lg:border-[#E6DDD0]/72 lg:bg-white/54 lg:p-5 lg:shadow-[0_18px_55px_rgba(79,89,68,0.06)] lg:backdrop-blur-xl">
           <div>
             <p className="hidden text-xs font-medium uppercase tracking-wide text-[#7F8C72] lg:mb-2 lg:block">
               Categorías
@@ -196,7 +196,7 @@ function ExplorarContent() {
             </div>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          <div className="grid gap-7 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             {loading ? (
               <>
                 <LoadingCard />

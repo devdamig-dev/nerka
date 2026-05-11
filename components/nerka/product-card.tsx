@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { Minus, Plus, ShoppingBag, Sparkles } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { useCart } from "@/lib/cart-context";
@@ -26,38 +27,55 @@ export function ProductCard({
     consultHref ?? `/niar/mensajes/nuevo?to=${profileId}&product=${product.id}`;
   const detailLink = `/niar/productos/${product.id}`;
   const { addItem, getSellerCart, updateQuantity } = useCart();
+  const [justAdded, setJustAdded] = useState(false);
   const cart = getSellerCart(profileId);
   const quantity = cart?.items[product.id]?.quantity ?? 0;
 
   const canAddToCart = product.available && product.type === "product" && typeof product.price === "number";
+  const handleAdd = () => {
+    addItem({ profileId, profileName, contactPhone, product });
+    setJustAdded(true);
+    window.setTimeout(() => setJustAdded(false), 1200);
+  };
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-[2rem] border border-[#E8E0D6]/90 bg-white/92 shadow-[0_16px_46px_rgba(79,89,68,0.08)] ring-1 ring-white/70 transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_72px_rgba(79,89,68,0.15)]">
-      <Link href={detailLink} className="block focus-visible:rounded-[2rem]">
+    <article className={`group niar-premium-card flex flex-col ${justAdded ? "ring-2 ring-[#C8D4BF]" : ""}`}>
+      <Link href={detailLink} className="block focus-visible:rounded-[2.25rem]">
         <div className="relative overflow-hidden">
           <img
             src={product.image}
             alt={product.name}
-            className="h-56 w-full object-cover transition duration-700 group-hover:scale-[1.04] lg:h-72"
+            className="niar-editorial-image h-64 w-full object-cover sm:h-72 lg:h-80"
           />
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#1f241f]/54 to-transparent opacity-70" />
-          {product.featured ? (
-            <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-3.5 py-1.5 text-[11px] font-semibold text-[#6E7F63] shadow-sm ring-1 ring-white/70 backdrop-blur">
-              <Sparkles size={12} /> Destacado
-            </span>
-          ) : null}
-          {!product.available ? (
-            <span className="absolute right-3 top-3 rounded-full bg-[#1f241f]/78 px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur">
-              No disponible
-            </span>
-          ) : null}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,36,31,0.02)_0%,rgba(31,36,31,0.10)_45%,rgba(31,36,31,0.62)_100%)]" />
+          <div className="absolute left-3 right-3 top-3 flex items-start justify-between gap-2">
+            {product.featured ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-white/86 px-3.5 py-1.5 text-[11px] font-semibold text-[#6E7F63] shadow-sm ring-1 ring-white/70 backdrop-blur-md">
+                <Sparkles size={12} /> Selección
+              </span>
+            ) : <span />}
+            {!product.available ? (
+              <span className="rounded-full bg-[#1f241f]/72 px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur-md">
+                No disponible
+              </span>
+            ) : null}
+          </div>
+          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-white">
+            <span className="rounded-full bg-white/14 px-3 py-1 text-[11px] font-medium text-white/86 ring-1 ring-white/18 backdrop-blur-md">{product.type === "service" ? "Servicio" : "Producto"}</span>
+            {product.price ? <span className="rounded-full bg-[#1f241f]/42 px-3 py-1.5 text-sm font-semibold backdrop-blur-md">{formatPrice(product.price)}</span> : null}
+          </div>
         </div>
       </Link>
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      <div className="relative z-10 flex flex-1 flex-col gap-3 p-5">
+        {justAdded ? (
+          <div className="niar-float-in rounded-2xl bg-[#E7F9EE] px-3 py-2 text-xs font-semibold text-[#197a43] ring-1 ring-[#BFE8CE]">
+            Agregado al pedido · podés ajustar cantidades
+          </div>
+        ) : null}
         <Link href={detailLink} className="group/title block">
-          <p className="line-clamp-2 text-lg font-semibold tracking-[-0.02em] text-[#1f241f] group-hover/title:text-[#5D6F52]">{product.name}</p>
+          <p className="line-clamp-2 text-xl font-semibold tracking-[-0.035em] text-[#1f241f] transition group-hover/title:text-[#5D6F52]">{product.name}</p>
           <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-[#666C60]">{product.description}</p>
-          <span className="mt-2 inline-flex text-xs font-semibold text-[#6E7F63]">Ver detalle y relacionados</span>
+          <span className="mt-2 inline-flex text-xs font-semibold text-[#6E7F63] transition group-hover/title:translate-x-1">Ver detalle y relacionados →</span>
         </Link>
         <div className="mt-auto flex items-end justify-between gap-2 pt-1">
           <div>
@@ -80,7 +98,7 @@ export function ProductCard({
                 <button
                   type="button"
                   onClick={() => updateQuantity(profileId, product.id, quantity - 1)}
-                  className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm"
+                  className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm transition hover:-translate-y-0.5"
                   aria-label="Quitar uno"
                 >
                   <Minus size={14} />
@@ -91,7 +109,7 @@ export function ProductCard({
                 <button
                   type="button"
                   onClick={() => updateQuantity(profileId, product.id, quantity + 1)}
-                  className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm"
+                  className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm transition hover:-translate-y-0.5"
                   aria-label="Agregar uno"
                 >
                   <Plus size={14} />
@@ -100,8 +118,8 @@ export function ProductCard({
             ) : (
               <button
                 type="button"
-                onClick={() => addItem({ profileId, profileName, contactPhone, product })}
-                className="niar-primary inline-flex items-center gap-1 rounded-2xl px-4 py-2.5 text-xs font-semibold"
+                onClick={handleAdd}
+                className="niar-primary inline-flex items-center gap-1 rounded-2xl px-4 py-2.5 text-xs font-semibold active:scale-[0.98]"
               >
                 <ShoppingBag size={14} /> Agregar
               </button>
