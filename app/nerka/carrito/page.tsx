@@ -33,16 +33,17 @@ export default function CarritoPage() {
 
   return (
     <main className="niar-page pb-32 lg:pb-12">
-      <section className="mb-8 overflow-hidden rounded-[2.5rem] bg-[#1f241f] p-6 text-white shadow-[0_30px_90px_rgba(79,89,68,0.16)] lg:p-9">
+      <section className="relative mb-8 overflow-hidden rounded-[2.65rem] bg-[#1f241f] p-6 text-white shadow-[0_34px_105px_rgba(79,89,68,0.18)] lg:p-9">
+        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#EEF3EA]/12 blur-3xl" />
         <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold ring-1 ring-white/15"><ShoppingBag size={13} /> Carrito activo</p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-[-0.05em] lg:text-6xl">Tu pedido va tomando forma</h1>
+            <h1 className="mt-4 text-4xl font-semibold tracking-[-0.055em] lg:text-6xl">Tu selección ya se siente real</h1>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-white/72 lg:text-base">
               {grandItems} {grandItems === 1 ? "producto" : "productos"} de {sellerCarts.length} {sellerCarts.length === 1 ? "negocio" : "negocios"}. Niar mantiene la compra simple: confirmás detalles directo con cada comercio.
             </p>
           </div>
-          <div className="rounded-[1.75rem] bg-white/10 p-5 ring-1 ring-white/15">
+          <div className="rounded-[1.85rem] bg-white/12 p-5 ring-1 ring-white/18 backdrop-blur">
             <p className="text-xs uppercase tracking-wide text-white/56">Total estimado</p>
             <p className="mt-1 text-3xl font-semibold tracking-[-0.03em]">{formatPrice(grandTotal)}</p>
             <p className="mt-2 text-xs text-white/60">Sin pagos online ni logística agregada.</p>
@@ -50,7 +51,7 @@ export default function CarritoPage() {
         </div>
       </section>
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+      <div className="grid gap-7 xl:grid-cols-[minmax(0,1fr)_360px]">
         <div className="space-y-5">
           {sellerCarts.map((cart) => {
             const total = sellerCartTotal(cart);
@@ -59,8 +60,8 @@ export default function CarritoPage() {
             const sent = sentInternal[cart.profileId];
 
             return (
-              <section key={cart.profileId} className="overflow-hidden rounded-[2rem] border border-[#E6DDD0] bg-white/92 shadow-[0_18px_55px_rgba(79,89,68,0.09)]">
-                <header className="flex items-center justify-between gap-2 border-b border-[#E9E0D3] bg-[#F7F2EA]/72 px-5 py-4">
+              <section key={cart.profileId} className="niar-float-in overflow-hidden rounded-[2.15rem] border border-[#E6DDD0]/82 bg-white/92 shadow-[0_22px_66px_rgba(79,89,68,0.10)] ring-1 ring-white/70">
+                <header className="flex items-center justify-between gap-2 border-b border-[#E9E0D3] bg-[#F7F2EA]/78 px-5 py-4">
                   <div>
                     <p className="text-xs uppercase tracking-wide text-[#8A8378]">Pedido a</p>
                     <Link href={`/niar/emprendedores/${cart.profileId}`} className="inline-flex items-center gap-1 text-base font-semibold text-[#1f241f] hover:text-[#5D6F52]">
@@ -76,7 +77,7 @@ export default function CarritoPage() {
                   {items.map((line) => (
                     <li key={line.productId} className="flex gap-4 px-5 py-4">
                       <Link href={`/niar/productos/${line.productId}`} className="shrink-0">
-                        <img src={line.image} alt={line.name} className="h-20 w-20 rounded-[1.25rem] object-cover shadow-sm lg:h-24 lg:w-24" />
+                        <img src={line.image} alt={line.name} className="h-20 w-20 rounded-[1.35rem] object-cover shadow-[0_14px_32px_rgba(79,89,68,0.12)] lg:h-24 lg:w-24" />
                       </Link>
                       <div className="flex flex-1 flex-col gap-2">
                         <div className="flex items-start justify-between gap-2">
@@ -92,9 +93,9 @@ export default function CarritoPage() {
                         </div>
                         <div className="mt-auto flex items-center justify-between gap-2">
                           <div className="flex items-center gap-1 rounded-xl bg-[#EEF3EA] p-1 ring-1 ring-[#C8D4BF]">
-                            <button type="button" onClick={() => updateQuantity(cart.profileId, line.productId, line.quantity - 1)} className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm" aria-label="Quitar uno"><Minus size={13} /></button>
+                            <button type="button" onClick={() => updateQuantity(cart.profileId, line.productId, line.quantity - 1)} className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm transition hover:-translate-y-0.5" aria-label="Quitar uno"><Minus size={13} /></button>
                             <span className="min-w-6 text-center text-sm font-semibold text-[#1f241f]">{line.quantity}</span>
-                            <button type="button" onClick={() => updateQuantity(cart.profileId, line.productId, line.quantity + 1)} className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm" aria-label="Agregar uno"><Plus size={13} /></button>
+                            <button type="button" onClick={() => updateQuantity(cart.profileId, line.productId, line.quantity + 1)} className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm transition hover:-translate-y-0.5" aria-label="Agregar uno"><Plus size={13} /></button>
                           </div>
                           <p className="text-sm font-semibold text-[#1f241f]">{line.price ? formatPrice(line.price * line.quantity) : "—"}</p>
                         </div>
@@ -103,7 +104,7 @@ export default function CarritoPage() {
                   ))}
                 </ul>
 
-                <div className="space-y-3 border-t border-[#E9E0D3] bg-[#FBF8F3] px-5 py-4">
+                <div className="space-y-3 border-t border-[#E9E0D3] bg-[linear-gradient(180deg,#FBF8F3,#F7F2EA)] px-5 py-4">
                   <label className="block text-xs font-medium text-[#1f241f]">
                     Nota para {cart.profileName} <span className="text-[#8A8378]">(opcional)</span>
                     <textarea value={note} onChange={(e) => setNotes((p) => ({ ...p, [cart.profileId]: e.target.value }))} className="mt-1 min-h-16 w-full rounded-xl border border-[#E6DDD0] bg-white px-3 py-2 text-sm outline-none placeholder:text-[#8A8378]" placeholder="Ej: necesito el pedido para el sábado, retiro yo." />
@@ -115,7 +116,7 @@ export default function CarritoPage() {
                   </div>
 
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                    <a href={buildWhatsAppLink(cart, { note })} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-3 py-2.5 text-sm font-medium text-white">
+                    <a href={buildWhatsAppLink(cart, { note })} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-3 py-2.5 text-sm font-medium text-white shadow-[0_14px_32px_rgba(37,211,102,0.20)] transition hover:-translate-y-0.5">
                       <Send size={15} /> Pedir por WhatsApp
                     </a>
                     <button type="button" onClick={() => setSentInternal((p) => ({ ...p, [cart.profileId]: true }))} className="niar-secondary inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium">
@@ -134,10 +135,11 @@ export default function CarritoPage() {
         </div>
 
         <aside className="hidden xl:block">
-          <div className="sticky top-28 space-y-4 rounded-[2rem] border border-[#C8D4BF] bg-[#EEF3EA]/85 p-5 shadow-[0_18px_55px_rgba(79,89,68,0.11)]">
+          <div className="sticky top-28 space-y-4 rounded-[2.15rem] border border-[#C8D4BF]/85 bg-[#EEF3EA]/82 p-5 shadow-[0_24px_70px_rgba(79,89,68,0.13)] backdrop-blur">
             <p className="text-lg font-semibold text-[#1f241f]">Progreso del pedido</p>
+            <div className="h-2 overflow-hidden rounded-full bg-white/70"><div className="h-full w-1/3 rounded-full bg-[#6E7F63]" /></div>
             {["Elegiste productos", "Confirmás con el negocio", "Coordinan pago y entrega"].map((step, index) => (
-              <div key={step} className="flex gap-3 rounded-2xl bg-white/76 p-3">
+              <div key={step} className="flex gap-3 rounded-2xl bg-white/78 p-3 shadow-sm ring-1 ring-white/70">
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-[#6E7F63] text-white"><CheckCircle2 size={16} /></span>
                 <div>
                   <p className="text-sm font-semibold text-[#1f241f]">{step}</p>

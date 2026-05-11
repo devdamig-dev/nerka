@@ -80,6 +80,75 @@ a {
     box-shadow: var(--shadow-soft);
   }
 
+  .niar-premium-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2.25rem;
+    border: 1px solid rgba(232, 224, 214, 0.82);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 253, 248, 0.9));
+    box-shadow: 0 18px 48px rgba(79, 89, 68, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 520ms cubic-bezier(0.22, 1, 0.36, 1), border-color 520ms ease;
+  }
+
+  .niar-premium-card::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 26% 8%, rgba(255, 255, 255, 0.42), transparent 30%), linear-gradient(180deg, transparent 64%, rgba(110, 127, 99, 0.05));
+    opacity: 0;
+    transition: opacity 520ms ease;
+  }
+
+  .niar-premium-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(200, 212, 191, 0.9);
+    box-shadow: 0 30px 86px rgba(79, 89, 68, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  }
+
+  .niar-premium-card:hover::after {
+    opacity: 1;
+  }
+
+  .niar-editorial-image {
+    transform: scale(1.002);
+    transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1), filter 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .group:hover .niar-editorial-image {
+    transform: scale(1.055);
+    filter: saturate(1.04) contrast(1.03);
+  }
+
+  .niar-float-in {
+    animation: niarFloatIn 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes niarFloatIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.985);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important;
+    }
+  }
+
   .niar-primary {
     background: var(--primary);
     color: white;

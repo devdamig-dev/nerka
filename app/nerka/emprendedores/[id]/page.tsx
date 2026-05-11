@@ -62,17 +62,19 @@ export default function EntrepreneurProfilePage() {
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_400px] lg:gap-12">
         <section>
           {/* HERO */}
-          <div className="relative overflow-hidden bg-[#1f241f] lg:rounded-[2.75rem] lg:shadow-[0_30px_90px_rgba(79,89,68,0.18)]">
-            <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-96 w-full object-cover lg:h-[560px] xl:h-[640px]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1f241f] via-[#1f241f]/28 to-transparent" />
+          <div className="relative overflow-hidden bg-[#1f241f] lg:rounded-[2.85rem] lg:shadow-[0_36px_110px_rgba(79,89,68,0.22)]">
+            <img src={entrepreneur.cover} alt={entrepreneur.name} className="h-[27rem] w-full object-cover lg:h-[590px] xl:h-[660px]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,36,31,0.08)_0%,rgba(31,36,31,0.16)_42%,rgba(31,36,31,0.88)_100%)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_74%_20%,rgba(255,255,255,0.18),transparent_28%)]" />
             <div className="absolute bottom-0 left-0 right-0 p-5 text-white lg:p-10">
               <div className="flex items-end gap-4">
-                <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-20 w-20 rounded-[1.5rem] border-4 border-white object-cover shadow-lg lg:h-28 lg:w-28" />
+                <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-20 w-20 rounded-[1.6rem] border-4 border-white/92 object-cover shadow-[0_18px_42px_rgba(0,0,0,0.25)] lg:h-28 lg:w-28" />
                 <div className="min-w-0 flex-1">
                   <div className="mb-2 flex flex-wrap gap-1.5">
                     {entrepreneur.badges.map((badge) => <BadgeTrust key={badge} badge={badge} />)}
                   </div>
-                  <h1 className="truncate text-4xl font-semibold tracking-[-0.05em] lg:text-7xl">{entrepreneur.name}</h1>
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/58">Mini marca local</p>
+                  <h1 className="truncate text-4xl font-semibold tracking-[-0.055em] lg:text-7xl">{entrepreneur.name}</h1>
                   <p className="mt-2 text-base text-white/80">{entrepreneur.category} · {entrepreneur.subcategory} · {entrepreneur.zone}</p>
                 </div>
                 <div className="hidden items-center gap-2 lg:flex">
@@ -104,7 +106,7 @@ export default function EntrepreneurProfilePage() {
           </div>
 
           <div className="px-4 pb-4 lg:px-0">
-            <div className="mt-8 grid gap-8 rounded-[2.25rem] border border-[#E6DDD0] bg-white/88 p-6 shadow-[0_22px_60px_rgba(79,89,68,0.09)] ring-1 ring-white/60 lg:grid-cols-[1fr_auto] lg:p-8">
+            <div className="mt-8 grid gap-8 rounded-[2.35rem] border border-[#E6DDD0]/82 bg-white/82 p-6 shadow-[0_24px_72px_rgba(79,89,68,0.11)] ring-1 ring-white/70 backdrop-blur lg:grid-cols-[1fr_auto] lg:p-8">
               <div>
                 <p className="max-w-3xl text-base leading-7 text-[#555C51]">{entrepreneur.about}</p>
                 <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#555C51]">
@@ -142,8 +144,8 @@ export default function EntrepreneurProfilePage() {
                   {featured.length ? (
                     <div>
                       <SectionTitle
-                        title="Productos destacados"
-                        subtitle="Selección destacada del negocio"
+                        title="Selección de la casa"
+                        subtitle="Lo más representativo para entender la marca de un vistazo"
                       />
                       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                         {featured.map((item) => (
@@ -161,7 +163,7 @@ export default function EntrepreneurProfilePage() {
 
                   {productList.length ? (
                     <div>
-                      <SectionTitle title="Productos" />
+                      <SectionTitle title="Catálogo visual" subtitle="Productos con foco en imagen, nombre y decisión rápida" />
                       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
                         {productList.map((item) => (
                           <ProductCard
@@ -206,13 +208,13 @@ export default function EntrepreneurProfilePage() {
               ) : null}
 
               {tab === "Galería" ? (
-                <div className="grid grid-cols-3 gap-2 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                   {entrepreneurs.slice(0, 8).map((e) => (
                     <img
                       key={e.id}
                       src={e.cover}
                       alt="Trabajo"
-                      className="h-24 w-full rounded-xl object-cover lg:h-32"
+                      className="h-36 w-full rounded-[1.35rem] object-cover shadow-[0_16px_40px_rgba(79,89,68,0.10)] transition hover:-translate-y-1 lg:h-44"
                     />
                   ))}
                 </div>
@@ -263,8 +265,9 @@ export default function EntrepreneurProfilePage() {
 
         {/* DESKTOP SIDE PANEL */}
         <aside className="hidden lg:block">
-          <div className="sticky top-28 space-y-4 rounded-[2rem] border border-[#E6DDD0] bg-white/90 p-5 shadow-[0_22px_60px_rgba(79,89,68,0.09)] ring-1 ring-white/60">
-            <p className="text-base font-semibold text-[#1f241f]">Tu pedido</p>
+          <div className="sticky top-28 space-y-4 rounded-[2.15rem] border border-[#E6DDD0]/82 bg-white/86 p-5 shadow-[0_26px_76px_rgba(79,89,68,0.12)] ring-1 ring-white/70 backdrop-blur">
+            <p className="text-base font-semibold text-[#1f241f]">Mini pedido</p>
+            <p className="text-xs leading-5 text-[#666C60]">Una vista liviana para sentir progreso mientras explorás.</p>
             {cart && cartCount > 0 ? (
               <>
                 <ul className="space-y-2">
