@@ -403,13 +403,14 @@ export function StatusPill({ status }: { status: RequestStatus | ConversationSta
 
 export function SectionTitle({ title, subtitle, cta, href }: { title: string; subtitle?: string; cta?: string; href?: string }) {
   return (
-    <div className="mb-3 flex items-end justify-between gap-3">
+    <div className="mb-5 flex items-end justify-between gap-4 lg:mb-7">
       <div>
-        <h2 className="text-base font-semibold text-[#1f241f] lg:text-lg">{title}</h2>
-        {subtitle ? <p className="mt-0.5 text-xs text-[#666C60] lg:text-sm">{subtitle}</p> : null}
+        <p className="mb-2 hidden text-[11px] font-semibold uppercase tracking-[0.18em] text-[#7F8C72] lg:block">Selección NIAR</p>
+        <h2 className="max-w-3xl text-2xl font-semibold tracking-[-0.045em] text-[#1f241f] lg:text-4xl">{title}</h2>
+        {subtitle ? <p className="mt-2 max-w-2xl text-sm leading-6 text-[#666C60] lg:text-base">{subtitle}</p> : null}
       </div>
       {cta && href ? (
-        <Link href={href} className="shrink-0 text-xs font-medium text-[#6E7F63]">
+        <Link href={href} className="shrink-0 rounded-full bg-white/78 px-4 py-2 text-xs font-semibold text-[#6E7F63] shadow-sm ring-1 ring-[#E6DDD0] transition hover:-translate-y-0.5 hover:bg-[#EEF3EA]">
           {cta}
         </Link>
       ) : null}

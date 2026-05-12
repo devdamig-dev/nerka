@@ -8,13 +8,13 @@ type Event = (typeof events)[number];
 type Request = (typeof requests)[number];
 type Conversation = (typeof conversations)[number];
 
-export function EntrepreneurCard({ entrepreneur, horizontal = false }: { entrepreneur: Entrepreneur; horizontal?: boolean }) {
+export function EntrepreneurCard({ entrepreneur, horizontal = false, emphasis = false }: { entrepreneur: Entrepreneur; horizontal?: boolean; emphasis?: boolean }) {
   const featured = entrepreneur.catalog.find((item) => item.featured) ?? entrepreneur.catalog[0];
 
   return (
-    <article className={`group niar-premium-card flex flex-col ${horizontal ? "min-w-[300px] lg:min-w-0" : ""}`}>
+    <article className={`group niar-premium-card flex flex-col ${horizontal ? "min-w-[300px] lg:min-w-0" : ""} ${emphasis ? "lg:col-span-2 xl:row-span-2" : ""}`}>
       <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="block focus-visible:rounded-[2.25rem]">
-        <div className="relative h-80 overflow-hidden sm:h-[22rem] lg:h-[24rem]">
+        <div className={`relative overflow-hidden ${emphasis ? "h-[28rem] sm:h-[34rem] lg:h-[38rem]" : "h-80 sm:h-[22rem] lg:h-[24rem]"}`}>
           <img src={entrepreneur.cover} alt={entrepreneur.name} className="niar-editorial-image h-full w-full object-cover" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,36,31,0.08)_0%,rgba(31,36,31,0.06)_42%,rgba(31,36,31,0.78)_100%)]" />
           <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-4">
@@ -30,7 +30,7 @@ export function EntrepreneurCard({ entrepreneur, horizontal = false }: { entrepr
               <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-12 w-12 rounded-2xl border-2 border-white/88 object-cover shadow-[0_16px_34px_rgba(0,0,0,0.22)]" />
               <span className="rounded-full bg-white/14 px-3 py-1 text-[11px] font-medium text-white/86 ring-1 ring-white/18 backdrop-blur-md">{entrepreneur.responseTime}</span>
             </div>
-            <p className="truncate text-2xl font-semibold tracking-[-0.035em] lg:text-[1.7rem]">{entrepreneur.name}</p>
+            <p className={`truncate font-semibold tracking-[-0.045em] ${emphasis ? "text-4xl lg:text-5xl" : "text-2xl lg:text-[1.7rem]"}`}>{entrepreneur.name}</p>
             <p className="mt-1.5 inline-flex max-w-full items-center gap-1 truncate text-sm text-white/82"><MapPin size={13} /> {entrepreneur.zone} · {entrepreneur.subcategory}</p>
           </div>
         </div>
