@@ -73,7 +73,7 @@ function ExplorarContent() {
               {filtered.length} comercios para perderse un rato
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-[#666C60]">
-              Un recorrido visual por comercios, productos y servicios locales. Menos ruido, más intención de compra.
+              Un recorrido visual por comercios, productos y servicios locales, con protagonistas claros y ritmo editorial para descubrir sin sensación de dashboard.
             </p>
           </div>
           <div className="hidden gap-3 xl:flex">
@@ -204,8 +204,8 @@ function ExplorarContent() {
                 <LoadingCard />
               </>
             ) : filtered.length ? (
-              filtered.map((entrepreneur) => (
-                <EntrepreneurCard key={entrepreneur.id} entrepreneur={entrepreneur} />
+              filtered.map((entrepreneur, index) => (
+                <EntrepreneurCard key={entrepreneur.id} entrepreneur={entrepreneur} emphasis={index === 0} />
               ))
             ) : (
               <div className="sm:col-span-2 lg:col-span-2 xl:col-span-3">

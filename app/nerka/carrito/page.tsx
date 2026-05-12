@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, Minus, Plus, Send, ShoppingBag, Trash2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Compass, Minus, Plus, Send, ShoppingBag, Trash2 } from "lucide-react";
 import { EmptyState } from "@/components/nerka/ui";
 import { useCart, sellerCartItemCount, sellerCartTotal } from "@/lib/cart-context";
 import { buildWhatsAppLink, formatPrice } from "@/lib/orders";
@@ -44,9 +44,12 @@ export default function CarritoPage() {
             </p>
           </div>
           <div className="rounded-[1.85rem] bg-white/12 p-5 ring-1 ring-white/18 backdrop-blur">
-            <p className="text-xs uppercase tracking-wide text-white/56">Total estimado</p>
+            <p className="text-xs uppercase tracking-wide text-white/56">Mini resumen</p>
             <p className="mt-1 text-3xl font-semibold tracking-[-0.03em]">{formatPrice(grandTotal)}</p>
             <p className="mt-2 text-xs text-white/60">Sin pagos online ni logística agregada.</p>
+            <Link href="/niar/explorar" className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#1f241f] transition hover:-translate-y-0.5">
+              Seguir explorando <ArrowRight size={13} />
+            </Link>
           </div>
         </div>
       </section>
@@ -137,6 +140,7 @@ export default function CarritoPage() {
         <aside className="hidden xl:block">
           <div className="sticky top-28 space-y-4 rounded-[2.15rem] border border-[#C8D4BF]/85 bg-[#EEF3EA]/82 p-5 shadow-[0_24px_70px_rgba(79,89,68,0.13)] backdrop-blur">
             <p className="text-lg font-semibold text-[#1f241f]">Progreso del pedido</p>
+            <p className="text-xs leading-5 text-[#666C60]">Una compra simple, directa y con continuidad visual para volver al descubrimiento cuando quieras.</p>
             <div className="h-2 overflow-hidden rounded-full bg-white/70"><div className="h-full w-1/3 rounded-full bg-[#6E7F63]" /></div>
             {["Elegiste productos", "Confirmás con el negocio", "Coordinan pago y entrega"].map((step, index) => (
               <div key={step} className="flex gap-3 rounded-2xl bg-white/78 p-3 shadow-sm ring-1 ring-white/70">
@@ -147,6 +151,9 @@ export default function CarritoPage() {
                 </div>
               </div>
             ))}
+            <Link href="/niar/explorar" className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#1f241f] px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5">
+              <Compass size={15} /> Seguir explorando
+            </Link>
           </div>
         </aside>
       </div>
