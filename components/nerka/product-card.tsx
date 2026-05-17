@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type MouseEvent, useState } from "react";
-import { Minus, Plus, ShoppingBag, Sparkles } from "lucide-react";
+import { Flame, Minus, Plus, ShoppingBag, Sparkles, TrendingUp } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { useCart } from "@/lib/cart-context";
 import { formatPrice } from "@/lib/orders";
@@ -34,6 +34,7 @@ export function ProductCard({
   const quantity = cart?.items[product.id]?.quantity ?? 0;
 
   const canAddToCart = product.available && product.type === "product" && typeof product.price === "number";
+  const activitySignal = product.featured ? "Tendencia esta semana" : product.type === "service" ? "Responde rápido" : "Más vistos";
   const stopCardNavigation = (event: MouseEvent) => {
     event.stopPropagation();
   };
@@ -56,7 +57,10 @@ export function ProductCard({
       role="link"
       tabIndex={0}
       onKeyDown={(event) => {
-        if (event.key === "Enter") router.push(detailLink);
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          router.push(detailLink);
+        }
       }}
       aria-label={`Ver detalle de ${product.name}`}
     >
@@ -70,7 +74,7 @@ export function ProductCard({
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,36,31,0.02)_0%,rgba(31,36,31,0.10)_45%,rgba(31,36,31,0.62)_100%)]" />
           <div className="absolute left-3 right-3 top-3 flex items-start justify-between gap-2">
             {product.featured ? (
-              <span className="inline-flex items-center gap-1 rounded-full bg-white/86 px-3.5 py-1.5 text-[11px] font-semibold text-[#6E7F63] shadow-sm ring-1 ring-white/70 backdrop-blur-md">
+              <span className="inline-flex items-center gap-1 rounded-full bg-white/92 px-3.5 py-1.5 text-[11px] font-bold text-[#2F3A2B] shadow-sm ring-1 ring-white/80 backdrop-blur-md">
                 <Sparkles size={12} /> Selección
               </span>
             ) : <span />}
@@ -81,21 +85,24 @@ export function ProductCard({
             ) : null}
           </div>
           <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-white">
-            <span className="rounded-full bg-white/14 px-3 py-1 text-[11px] font-medium text-white/86 ring-1 ring-white/18 backdrop-blur-md">{product.type === "service" ? "Servicio" : "Producto"}</span>
-            {product.price ? <span className="rounded-full bg-[#1f241f]/42 px-3 py-1.5 text-sm font-semibold backdrop-blur-md">{formatPrice(product.price)}</span> : null}
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full bg-white/18 px-3 py-1 text-[11px] font-semibold text-white ring-1 ring-white/22 backdrop-blur-md">{product.type === "service" ? "Servicio" : "Producto"}</span>
+              <span className="niar-activity-pill">{product.featured ? <Flame size={11} /> : <TrendingUp size={11} />} {activitySignal}</span>
+            </div>
+            {product.price ? <span className="rounded-full bg-[#1f241f]/62 px-3 py-1.5 text-sm font-semibold text-white backdrop-blur-md">{formatPrice(product.price)}</span> : null}
           </div>
         </div>
       </Link>
       <div className="relative z-10 flex flex-1 flex-col gap-3 p-5">
         {justAdded ? (
-          <div className="niar-float-in rounded-2xl bg-[#E7F9EE] px-3 py-2 text-xs font-semibold text-[#197a43] ring-1 ring-[#BFE8CE]">
-            Agregado al pedido · podés ajustar cantidades
+          <div className="niar-float-in rounded-2xl bg-[#E7F9EE] px-3 py-2 text-xs font-semibold text-[#0F5C32] ring-1 ring-[#9EDBB8] shadow-[0_12px_28px_rgba(25,122,67,0.12)]">
+            Agregado al pedido · tu selección queda guardada
           </div>
         ) : null}
         <Link href={detailLink} onClick={stopCardNavigation} className="group/title block">
           <p className="line-clamp-2 text-xl font-semibold tracking-[-0.035em] text-[#1f241f] transition group-hover/title:text-[#5D6F52]">{product.name}</p>
-          <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-[#666C60]">{product.description}</p>
-          <span className="mt-2 inline-flex text-xs font-semibold text-[#6E7F63] transition group-hover/title:translate-x-1">Ver detalle y relacionados →</span>
+          <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-[#555C51]">{product.description}</p>
+          <span className="mt-2 inline-flex text-xs font-bold text-[#2F3A2B] transition group-hover/title:translate-x-1">Ver detalle y relacionados →</span>
         </Link>
         <div className="mt-auto flex items-end justify-between gap-2 pt-1">
           <div>
@@ -118,7 +125,7 @@ export function ProductCard({
                 <button
                   type="button"
                   onClick={(event) => { event.stopPropagation(); updateQuantity(profileId, product.id, quantity - 1); }}
-                  className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm transition hover:-translate-y-0.5"
+                  className="rounded-lg bg-white p-1.5 text-[#2F3A2B] shadow-sm transition hover:-translate-y-0.5"
                   aria-label="Quitar uno"
                 >
                   <Minus size={14} />
@@ -129,7 +136,7 @@ export function ProductCard({
                 <button
                   type="button"
                   onClick={(event) => { event.stopPropagation(); updateQuantity(profileId, product.id, quantity + 1); }}
-                  className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm transition hover:-translate-y-0.5"
+                  className="rounded-lg bg-white p-1.5 text-[#2F3A2B] shadow-sm transition hover:-translate-y-0.5"
                   aria-label="Agregar uno"
                 >
                   <Plus size={14} />

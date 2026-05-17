@@ -5,6 +5,8 @@ import {
   ArrowRight,
   BarChart3,
   Crown,
+  Eye,
+  Flame,
   ImagePlus,
   MapPin,
   MessageCircle,
@@ -13,6 +15,7 @@ import {
   Send,
   Sparkles,
   Store,
+  TrendingUp,
 } from "lucide-react";
 import { EntrepreneurCard } from "@/components/nerka/cards";
 import {
@@ -59,7 +62,7 @@ function VisitorHome() {
             <h1 className="mt-5 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-[#1f241f] lg:text-6xl">
               Explorá lo mejor cerca tuyo.
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-[#5F665A] lg:text-lg">
+            <p className="mt-5 max-w-xl text-base leading-7 text-[#4F554B] lg:text-lg">
               Una experiencia visual para encontrar marcas cercanas, productos con historia y servicios confiables con la calidez del barrio y la curaduría de una marca premium.
             </p>
             <div className="mt-8 max-w-2xl rounded-[1.85rem] bg-white/90 p-2 shadow-[0_24px_70px_rgba(79,89,68,0.18)] ring-1 ring-white/80 backdrop-blur">
@@ -74,14 +77,14 @@ function VisitorHome() {
                     {zones.map((zone) => <option key={zone}>{zone}</option>)}
                   </select>
                 </label>
-                <Link href="/niar/explorar" className="inline-flex items-center justify-center rounded-2xl bg-[#6E7F63] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#5D6F52]">
+                <Link href="/niar/explorar" className="niar-primary inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-semibold">
                   Explorar
                 </Link>
               </div>
             </div>
             <div className="mt-5 flex flex-wrap gap-2">
               {["Gastronomía", "Moda", "Belleza", "Servicios", "Hogar", "Regalería"].map((item) => (
-                <Link key={item} href="/niar/explorar" className="rounded-full bg-white/55 px-3 py-1.5 text-xs font-medium text-[#5F665A] ring-1 ring-[#DDD3C4] transition hover:bg-white">
+                <Link key={item} href="/niar/explorar" className="rounded-full bg-white/74 px-3 py-1.5 text-xs font-semibold text-[#2F3A2B] ring-1 ring-[#D7CDBE] transition hover:-translate-y-0.5 hover:bg-white">
                   {item}
                 </Link>
               ))}
@@ -98,13 +101,30 @@ function VisitorHome() {
                   <img src={product.image} alt={product.name} className={`${index === 0 ? "h-72" : "h-44"} niar-editorial-image w-full object-cover`} />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1f241f]/72 via-[#1f241f]/16 to-transparent p-4 text-white">
                     <p className={`${index === 0 ? "text-2xl" : "text-sm"} font-semibold tracking-[-0.03em]`}>{product.name}</p>
-                    <p className="mt-1 text-xs text-white/75">{product.entrepreneurName} · selección local</p>
+                    <p className="mt-1 text-xs font-medium text-white/90">{product.entrepreneurName} · {index === 0 ? "Tendencia esta semana" : "Más visto cerca tuyo"}</p>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="grid gap-3 rounded-[2rem] border border-[#DCD2C5] bg-white/80 p-4 shadow-[0_18px_55px_rgba(79,89,68,0.08)] backdrop-blur lg:grid-cols-4 lg:p-5">
+        {[
+          { label: "Nuevo en tu zona", value: "12 altas esta semana", icon: Sparkles },
+          { label: "Más guardados", value: "Gastronomía y hogar", icon: TrendingUp },
+          { label: "Responde rápido", value: "Promedio menor a 2 h", icon: MessageCircle },
+          { label: "Destacado hoy", value: "Selección NIAR", icon: Flame },
+        ].map(({ label, value, icon: Icon }) => (
+          <Link key={label} href="/niar/explorar" className="group flex items-center gap-3 rounded-[1.35rem] bg-[#FBF8F3] p-3 ring-1 ring-[#E6DDD0] transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_16px_38px_rgba(79,89,68,0.10)]">
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-[#2F3A2B] text-white shadow-[0_12px_26px_rgba(47,58,43,0.18)]"><Icon size={16} /></span>
+            <span>
+              <span className="block text-sm font-semibold text-[#1f241f]">{label}</span>
+              <span className="block text-xs text-[#4F554B]">{value}</span>
+            </span>
+          </Link>
+        ))}
       </section>
 
       <section className="niar-editorial-panel p-5 lg:p-8 xl:p-10">
@@ -120,9 +140,9 @@ function VisitorHome() {
             <img src={editorialLead.cover} alt={editorialLead.name} className="niar-editorial-image absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,36,31,0.04),rgba(31,36,31,0.78))]" />
             <div className="absolute inset-x-0 bottom-0 p-6 text-white lg:p-8">
-              <span className="rounded-full bg-white/16 px-3 py-1 text-xs font-medium ring-1 ring-white/20 backdrop-blur">Historia destacada</span>
+              <span className="rounded-full bg-white/18 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/24 backdrop-blur">Historia destacada · Abierto ahora</span>
               <h3 className="mt-4 max-w-2xl text-4xl font-semibold tracking-[-0.05em] lg:text-6xl">{editorialLead.name}</h3>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-white/78 lg:text-base">{editorialLead.about}</p>
+              <p className="mt-3 max-w-xl text-sm leading-6 text-white/90 lg:text-base">{editorialLead.about}</p>
             </div>
           </Link>
           <div className="grid gap-4">
@@ -131,7 +151,7 @@ function VisitorHome() {
                 <img src={brand.cover} alt={brand.name} className="niar-editorial-image absolute inset-0 h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,36,31,0.02),rgba(31,36,31,0.68))]" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                  <p className="text-xs font-medium text-white/72">{brand.category} · {brand.zone}</p>
+                  <p className="text-xs font-semibold text-white/88">{brand.category} · {brand.zone} · Recomendado cerca tuyo</p>
                   <h3 className="mt-1 text-2xl font-semibold tracking-[-0.04em]">{brand.name}</h3>
                 </div>
               </Link>
@@ -169,8 +189,11 @@ function VisitorHome() {
               <img src={product.image} alt={product.name} className={`niar-editorial-image w-full object-cover ${index === 0 ? "h-80 lg:h-[34rem]" : "h-52 lg:h-72"}`} />
               <div className="p-5">
                 <p className={`${index === 0 ? "text-2xl lg:text-4xl" : "text-sm"} line-clamp-2 font-semibold tracking-[-0.04em] text-[#1f241f]`}>{product.name}</p>
-                <p className="mt-1 line-clamp-1 text-xs text-[#666C60]">{product.entrepreneurName}</p>
-                <p className="mt-2 text-base font-semibold text-[#6E7F63]">{formatPrice(product.price)}</p>
+                <p className="mt-1 line-clamp-1 text-xs text-[#4F554B]">{product.entrepreneurName}</p>
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  <p className="text-base font-semibold text-[#2F3A2B]">{formatPrice(product.price)}</p>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-[#EEF3EA] px-2 py-1 text-[10px] font-bold text-[#2F3A2B]"><Eye size={10} /> Más visto</span>
+                </div>
               </div>
             </Link>
           ))}
@@ -188,12 +211,12 @@ function VisitorHome() {
 
       <section className="grid gap-4 rounded-[1.75rem] border border-[#E6DDD0] bg-white/85 p-6 lg:grid-cols-[1fr_auto] lg:items-center lg:p-8">
         <div>
-          <p className="inline-flex items-center gap-1 rounded-full bg-[#EEF3EA] px-2.5 py-1 text-xs font-semibold text-[#6E7F63]"><Store size={12} /> Para comercios</p>
+          <p className="inline-flex items-center gap-1 rounded-full bg-[#2F3A2B] px-2.5 py-1 text-xs font-semibold text-white"><Store size={12} /> Para comercios</p>
           <h2 className="mt-3 text-2xl font-semibold text-[#1f241f]">Vendé con un catálogo simple y profesional</h2>
           <p className="mt-2 max-w-2xl text-sm text-[#666C60]">Publicá hasta 25 productos en el plan Catálogo o sumá carrito, destacados y promociones con Vender.</p>
         </div>
         <div className="flex flex-col gap-2 lg:items-end">
-          <button type="button" onClick={toggleRole} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#6E7F63] px-5 py-3 text-sm font-semibold text-white">Activar perfil <ArrowRight size={15} /></button>
+          <button type="button" onClick={toggleRole} className="niar-primary inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold">Activar perfil <ArrowRight size={15} /></button>
           <Link href="/niar/planes" className="text-center text-sm font-semibold text-[#6E7F63]">Ver planes</Link>
         </div>
       </section>

@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { LayoutGrid, MapPin, Sparkles, Star } from "lucide-react";
+import { Eye, LayoutGrid, MapPin, MessageCircle, Sparkles, Star, TrendingUp } from "lucide-react";
 import { EntrepreneurCard } from "@/components/nerka/cards";
 import { CategoryChips, EmptyState, LoadingCard, SearchBar } from "@/components/nerka/ui";
 import { categories, categorySubcategories, entrepreneurs } from "@/lib/nerka-data";
@@ -69,13 +69,25 @@ function ExplorarContent() {
       <section className="mb-8 hidden overflow-hidden rounded-[2.65rem] border border-[#E6DDD0]/80 bg-[linear-gradient(135deg,#F7F2EA,#FBF8F3_54%,#EEF3EA)] shadow-[0_30px_95px_rgba(88,102,74,0.13)] lg:block">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-10 p-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7F8C72]">Explorar</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#5D6F52]">Explorar</p>
             <h1 className="mt-3 text-4xl font-semibold tracking-[-0.045em] text-[#1f241f] xl:text-5xl">
               {filtered.length} comercios para perderse un rato
             </h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-[#666C60]">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-[#4F554B]">
               Un recorrido visual por comercios, productos y servicios locales, con protagonistas claros y ritmo editorial para descubrir sin sensación de dashboard.
             </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {[
+                { label: "Nuevo en tu zona", icon: Sparkles },
+                { label: "Más guardados", icon: TrendingUp },
+                { label: "Responde rápido", icon: MessageCircle },
+                { label: "Más vistos", icon: Eye },
+              ].map(({ label, icon: Icon }) => (
+                <span key={label} className="inline-flex items-center gap-1 rounded-full bg-white/84 px-3 py-1.5 text-xs font-semibold text-[#2F3A2B] ring-1 ring-[#DCD2C5]">
+                  <Icon size={12} /> {label}
+                </span>
+              ))}
+            </div>
           </div>
           <div className="hidden gap-3 xl:flex">
             {top.map((e) => (
@@ -110,7 +122,7 @@ function ExplorarContent() {
               <p className="text-xs font-medium uppercase tracking-wide text-[#7F8C72]">Subcategorías</p>
               <div className="flex flex-wrap gap-2">
                 {categorySubcategories[active as keyof typeof categorySubcategories]?.map((item) => (
-                  <span key={item} className="rounded-full border border-[#E6DDD0] bg-white px-3 py-1 text-xs text-[#666C60]">{item}</span>
+                  <span key={item} className="rounded-full border border-[#DCD2C5] bg-white px-3 py-1 text-xs font-medium text-[#4F554B]">{item}</span>
                 ))}
               </div>
             </div>
@@ -125,8 +137,8 @@ function ExplorarContent() {
                   onClick={() => setZone(item)}
                   className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs lg:border ${
                     zone === item
-                      ? "bg-[#EEF3EA] text-[#5F6F55] border-[#C8D4BF]"
-                      : "bg-white text-[#666C60] border-[#E6DDD0]"
+                      ? "bg-[#2F3A2B] text-white border-[#2F3A2B] shadow-sm"
+                      : "bg-white text-[#4F554B] border-[#DCD2C5] hover:bg-[#F7F2EA]"
                   }`}
                 >
                   <MapPin size={10} /> {item}
@@ -144,8 +156,8 @@ function ExplorarContent() {
                   onClick={() => setType(item)}
                   className={`rounded-full px-3 py-1.5 text-xs lg:border ${
                     type === item
-                      ? "bg-[#EEF3EA] text-[#5F6F55] border-[#C8D4BF]"
-                      : "bg-white text-[#666C60] border-[#E6DDD0]"
+                      ? "bg-[#2F3A2B] text-white border-[#2F3A2B] shadow-sm"
+                      : "bg-white text-[#4F554B] border-[#DCD2C5] hover:bg-[#F7F2EA]"
                   }`}
                 >
                   {item}
@@ -158,7 +170,7 @@ function ExplorarContent() {
             <p className="text-xs font-medium uppercase tracking-wide text-[#7F8C72]">Modalidad</p>
             <div className="flex flex-wrap gap-2">
               {["retiro", "envío", "atención a domicilio", "online"].map((item) => (
-                <span key={item} className="rounded-full border border-[#E6DDD0] bg-white px-3 py-1 text-xs text-[#666C60]">{item}</span>
+                <span key={item} className="rounded-full border border-[#DCD2C5] bg-white px-3 py-1 text-xs font-medium text-[#4F554B]">{item}</span>
               ))}
             </div>
           </div>
@@ -172,8 +184,8 @@ function ExplorarContent() {
                   type="button"
                   className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs lg:border ${
                     i === 0
-                      ? "bg-[#EEF3EA] text-[#5F6F55] border-[#C8D4BF]"
-                      : "bg-white text-[#666C60] border-[#E6DDD0]"
+                      ? "bg-[#2F3A2B] text-white border-[#2F3A2B] shadow-sm"
+                      : "bg-white text-[#4F554B] border-[#DCD2C5] hover:bg-[#F7F2EA]"
                   }`}
                 >
                   {i === 0 ? <Sparkles size={10} /> : null} {item}
@@ -212,7 +224,9 @@ function ExplorarContent() {
               <div className="sm:col-span-2 lg:col-span-2 xl:col-span-3">
                 <EmptyState
                   title="No encontramos resultados"
-                  description="Probá con otra categoría o ampliá la zona."
+                  description="Probá otra categoría, ampliá la zona o volvé a los destacados para seguir descubriendo opciones activas cerca tuyo."
+                  cta="Volver a destacados"
+                  href="/niar/explorar"
                 />
               </div>
             )}

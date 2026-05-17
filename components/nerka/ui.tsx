@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  ArrowRight,
   BarChart3,
   Compass,
   Crown,
@@ -123,7 +124,7 @@ export function DesktopSidebar() {
         <button
           type="button"
           onClick={toggleRole}
-          className="mt-4 flex w-full items-center justify-between gap-2 rounded-2xl border border-[#E6DDD0] bg-[#FBF8F3] px-3 py-2 text-left text-xs"
+          className="mt-4 flex w-full items-center justify-between gap-2 rounded-2xl border border-[#D7CDBE] bg-[#FBF8F3] px-3 py-2 text-left text-xs shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
           title="Cambiar de rol"
         >
           <div>
@@ -134,7 +135,7 @@ export function DesktopSidebar() {
               {isEntrepreneur ? "Comercio" : "Exploración pública"}
             </p>
           </div>
-          <span className="rounded-lg bg-white px-2 py-1 text-[10px] font-medium text-[#6E7F63] shadow-sm">
+          <span className="rounded-lg bg-[#2F3A2B] px-2 py-1 text-[10px] font-semibold text-white shadow-sm">
             cambiar
           </span>
         </button>
@@ -147,7 +148,7 @@ export function DesktopSidebar() {
                 key={href}
                 href={href}
                 className={`flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm ${
-                  active ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#4F554B] hover:bg-[#F7F2EA]"
+                  active ? "bg-[#2F3A2B] text-white shadow-sm" : "text-[#3F473B] hover:bg-[#F7F2EA] hover:text-[#1f241f]"
                 }`}
               >
                 <span className="flex items-center gap-3">
@@ -171,7 +172,7 @@ export function DesktopSidebar() {
                   key={`${href}-${label}`}
                   href={href}
                   className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm ${
-                    active ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#777064] hover:bg-[#F7F2EA]"
+                    active ? "bg-[#2F3A2B] text-white shadow-sm" : "text-[#4F554B] hover:bg-[#F7F2EA] hover:text-[#1f241f]"
                   }`}
                 >
                   <Icon size={16} />
@@ -253,8 +254,8 @@ function DesktopTopbar() {
                 href={href}
                 className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium transition xl:px-4 ${
                   active
-                    ? "bg-[#EEF3EA] text-[#53634A] shadow-sm"
-                    : "text-[#555C51] hover:bg-[#F7F2EA] hover:text-[#1f241f]"
+                    ? "bg-[#2F3A2B] text-white shadow-sm"
+                    : "text-[#3F473B] hover:bg-[#F7F2EA] hover:text-[#1f241f]"
                 }`}
               >
                 <Icon size={14} />
@@ -268,7 +269,7 @@ function DesktopTopbar() {
           <button
             type="button"
             onClick={toggleRole}
-            className="rounded-full border border-[#DCD2C5] bg-white/76 px-4 py-2 text-xs font-semibold text-[#5F6F55] shadow-sm transition hover:bg-[#EEF3EA]"
+            className="rounded-full border border-[#C8D4BF] bg-white/88 px-4 py-2 text-xs font-semibold text-[#2F3A2B] shadow-sm transition hover:-translate-y-0.5 hover:bg-[#EEF3EA]"
             title="Cambiar de rol"
           >
             {isEntrepreneur ? "Ver como visitante" : "Tengo un negocio"}
@@ -319,14 +320,14 @@ export function NiarBottomNav() {
   const navItems = isEntrepreneur ? entrepreneurNav : visitorNav;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t border-[#E6DDD0] bg-white/95 px-2 py-3 backdrop-blur lg:hidden">
+    <nav className="fixed bottom-0 left-0 right-0 z-30 flex items-center justify-around border-t border-[#DCD2C5] bg-white/96 px-2 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 shadow-[0_-18px_55px_rgba(79,89,68,0.12)] backdrop-blur-xl lg:hidden">
       {navItems.map(({ href, label, icon: Icon, showCartBadge }) => {
         const active = pathname === href || (href !== "/niar" && pathname.startsWith(href));
         return (
-          <Link key={href} href={href} className="flex flex-col items-center gap-1 px-2">
+          <Link key={href} href={href} className="flex min-h-14 min-w-14 flex-col items-center justify-center gap-1 rounded-2xl px-2 transition active:scale-[0.97]">
             <span
               className={`relative rounded-xl p-2 ${
-                active ? "bg-[#EEF3EA] text-[#6E7F63]" : "text-[#8A8378]"
+                active ? "bg-[#2F3A2B] text-white shadow-[0_10px_24px_rgba(47,58,43,0.20)]" : "text-[#5F665A]"
               }`}
             >
               <Icon size={18} />
@@ -336,7 +337,7 @@ export function NiarBottomNav() {
                 </span>
               ) : null}
             </span>
-            <span className={`text-[11px] ${active ? "text-[#1f241f]" : "text-[#8A8378]"}`}>{label}</span>
+            <span className={`text-[11px] font-medium ${active ? "text-[#1f241f]" : "text-[#5F665A]"}`}>{label}</span>
           </Link>
         );
       })}
@@ -346,7 +347,7 @@ export function NiarBottomNav() {
 
 export function SearchBar({ placeholder = "¿Qué estás buscando hoy?" }: { placeholder?: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-2xl border border-[#E6DDD0] bg-white px-4 py-3 shadow-sm lg:px-5 lg:py-4">
+    <div className="flex items-center gap-2 rounded-2xl border border-[#D7CDBE] bg-white px-4 py-3 shadow-[0_14px_38px_rgba(79,89,68,0.08)] transition focus-within:border-[#6E7F63] focus-within:shadow-[0_0_0_4px_rgba(110,127,99,0.14)] lg:px-5 lg:py-4">
       <Search size={18} className="text-[#666C60]" />
       <input
         className="w-full bg-transparent text-sm text-[#1f241f] outline-none placeholder:text-[#A39A8D]"
@@ -363,9 +364,8 @@ export function CategoryChips({ items, active, onSelect }: { items: string[]; ac
         <button
           key={item}
           onClick={() => onSelect?.(item)}
-          className={`rounded-full px-4 py-2 text-sm whitespace-nowrap ${
-            (active ? active === item : i === 0) ? "bg-[#6E7F63] text-white" : "bg-white text-[#4F554B]"
-          }`}
+          data-active={(active ? active === item : i === 0) || undefined}
+          className="niar-soft-control rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap"
         >
           {item}
         </button>
@@ -377,28 +377,28 @@ export function CategoryChips({ items, active, onSelect }: { items: string[]; ac
 export function BadgeTrust({ badge }: { badge: TrustBadge }) {
   const style =
     badge === "Verificado"
-      ? "bg-[#E7F9EE] text-[#197a43]"
+      ? "bg-[#E7F9EE] text-[#0F5C32] ring-[#BFE8CE]"
       : badge === "Responde rápido"
-        ? "bg-[#FFF4E8] text-[#9b5a00]"
+        ? "bg-[#FFF4E8] text-[#7A4300] ring-[#F0D2A8]"
         : badge === "Top en tu zona"
-          ? "bg-[#EEF3EA] text-[#6E7F63]"
+          ? "bg-[#EEF3EA] text-[#2F3A2B] ring-[#C8D4BF]"
           : badge === "Recomendado"
-            ? "bg-[#FDF1E8] text-[#B45A4F]"
-            : "bg-[#EEF3EA] text-[#5F6F55]"; // Nuevo en NIAR
-  return <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${style}`}>{badge}</span>;
+            ? "bg-[#FDF1E8] text-[#8F382F] ring-[#F0C8BA]"
+            : "bg-[#EEF3EA] text-[#2F3A2B] ring-[#C8D4BF]"; // Nuevo en NIAR
+  return <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${style}`}>{badge}</span>;
 }
 
 export function StatusPill({ status }: { status: RequestStatus | ConversationStatus }) {
   const color =
     status === "Recibiendo propuestas" || status === "En conversación"
-      ? "bg-[#EEF3EA] text-[#5F6F55]"
+      ? "bg-[#EEF3EA] text-[#2F3A2B] ring-[#C8D4BF]"
       : status === "En evaluación" || status === "Presupuesto enviado"
-        ? "bg-[#FFF4E8] text-[#9b5a00]"
+        ? "bg-[#FFF4E8] text-[#7A4300] ring-[#F0D2A8]"
         : status === "Esperando respuesta"
-          ? "bg-[#EEF3EA] text-[#6E7F63]"
-          : "bg-[#E7F9EE] text-[#197a43]";
+          ? "bg-[#EEF3EA] text-[#2F3A2B] ring-[#C8D4BF]"
+          : "bg-[#E7F9EE] text-[#0F5C32] ring-[#BFE8CE]";
 
-  return <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${color}`}>{status}</span>;
+  return <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${color}`}>{status}</span>;
 }
 
 export function SectionTitle({ title, subtitle, cta, href }: { title: string; subtitle?: string; cta?: string; href?: string }) {
@@ -410,7 +410,7 @@ export function SectionTitle({ title, subtitle, cta, href }: { title: string; su
         {subtitle ? <p className="mt-2 max-w-2xl text-sm leading-6 text-[#666C60] lg:text-base">{subtitle}</p> : null}
       </div>
       {cta && href ? (
-        <Link href={href} className="shrink-0 rounded-full bg-white/78 px-4 py-2 text-xs font-semibold text-[#6E7F63] shadow-sm ring-1 ring-[#E6DDD0] transition hover:-translate-y-0.5 hover:bg-[#EEF3EA]">
+        <Link href={href} className="shrink-0 rounded-full bg-white/88 px-4 py-2 text-xs font-semibold text-[#2F3A2B] shadow-sm ring-1 ring-[#DCD2C5] transition hover:-translate-y-0.5 hover:bg-[#EEF3EA]">
           {cta}
         </Link>
       ) : null}
@@ -420,15 +420,20 @@ export function SectionTitle({ title, subtitle, cta, href }: { title: string; su
 
 export function EmptyState({ title, description, cta, href, icon }: { title: string; description: string; cta?: string; href?: string; icon?: ReactNode }) {
   return (
-    <div className="rounded-2xl border border-dashed border-[#DCD2C5] bg-white p-6 text-center">
-      <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF3EA] text-[#6E7F63]">
-        {icon ?? <Inbox size={20} />}
+    <div className="relative overflow-hidden rounded-[2.35rem] border border-[#DCD2C5] bg-[radial-gradient(circle_at_18%_8%,rgba(238,243,234,0.95),transparent_34%),linear-gradient(135deg,#FFFFFF,#FBF8F3)] p-7 text-center shadow-[0_24px_74px_rgba(79,89,68,0.11)] lg:p-10">
+      <div className="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-[#C9984A]/10 blur-3xl" />
+      <div className="niar-empty-illustration mx-auto mb-6 inline-flex h-16 w-16 items-center justify-center rounded-[1.35rem] bg-[#2F3A2B] text-white shadow-[0_18px_42px_rgba(47,58,43,0.22)]">
+        {icon ?? <Inbox size={24} />}
       </div>
-      <p className="font-medium text-[#1f241f]">{title}</p>
-      <p className="mx-auto mt-1 max-w-sm text-sm text-[#666C60]">{description}</p>
+      <p className="text-xl font-semibold tracking-[-0.035em] text-[#1f241f] lg:text-2xl">{title}</p>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#4F554B]">{description}</p>
+      <div className="mx-auto mt-5 flex max-w-sm flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-[#4F554B]">
+        <span className="rounded-full bg-[#EEF3EA] px-3 py-1 ring-1 ring-[#C8D4BF]">Nuevo en tu zona</span>
+        <span className="rounded-full bg-white px-3 py-1 ring-1 ring-[#E6DDD0]">Más guardados</span>
+      </div>
       {cta && href ? (
-        <Link href={href} className="mt-4 inline-flex rounded-xl bg-[#6E7F63] px-4 py-2 text-sm font-medium text-white">
-          {cta}
+        <Link href={href} className="niar-primary mt-6 inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold">
+          {cta} <ArrowRight size={14} />
         </Link>
       ) : null}
     </div>
