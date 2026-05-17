@@ -97,7 +97,7 @@ function VisitorAccount() {
                 ))}
               </div>
             ) : (
-              <div className="rounded-2xl border border-dashed border-[#ddd5f1] bg-white p-5 text-center text-sm text-[#666C60]">
+              <div className="rounded-2xl border border-dashed border-[#DCD2C5] bg-white p-5 text-center text-sm text-[#666C60]">
                 Tocá el corazón en cualquier perfil para guardarlo acá.
               </div>
             )}
@@ -173,7 +173,7 @@ function EntrepreneurDashboard() {
         <p className="text-xs uppercase tracking-wide opacity-80">Mi negocio</p>
         <h1 className="mt-1 text-2xl font-semibold lg:text-3xl">{profile.name}</h1>
         <p className="mt-1 text-sm opacity-90">
-          Gestioná tu catálogo, pedidos, mensajes y tu plan en Niar.
+          Gestioná tu catálogo, pedidos, mensajes y tu plan en NIAR.
         </p>
         <div className="mt-4 grid gap-2 sm:grid-cols-3">
           <Link

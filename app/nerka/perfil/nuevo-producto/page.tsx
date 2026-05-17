@@ -39,7 +39,7 @@ export default function NuevoProductoPage() {
           e.preventDefault();
           setSubmitted(true);
           // mock — log y vuelta al catálogo.
-                  console.log("[Niar] Producto mock creado", { name, desc, price, type, unit, available });
+                  console.log("[NIAR] Producto mock creado", { name, desc, price, type, unit, available });
           setTimeout(() => router.push("/niar/perfil/catalogo"), 800);
         }}
         className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]"

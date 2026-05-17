@@ -20,7 +20,7 @@ export default function PlanesPage() {
               Convertí tu perfil en una tienda local que se descubre y vende.
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-white/72 lg:text-base">
-              Niar se enfoca en catálogo, descubrimiento local, WhatsApp y pedidos simples. Sin pagos, logística ni checkout complejo: foco en consulta, catálogo y venta conversacional.
+              NIAR se enfoca en catálogo, descubrimiento local, WhatsApp y pedidos simples. Sin pagos, logística ni checkout complejo: foco en consulta, catálogo y venta conversacional.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/niar/perfil" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-[#1f241f]">
@@ -87,6 +87,17 @@ export default function PlanesPage() {
               ))}
             </ul>
 
+            {plan.excludedFeatures?.length ? (
+              <div className="mt-5 rounded-2xl border border-[#E6DDD0] bg-[#FBF8F3] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#8A8378]">No incluye</p>
+                <ul className="mt-2 space-y-1.5 text-sm text-[#666C60]">
+                  {plan.excludedFeatures.map((feature) => (
+                    <li key={feature}>— {feature}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
             <Link
               href={plan.cta.href ?? "/niar/perfil"}
               className={`mt-auto inline-flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold ${
@@ -106,7 +117,7 @@ export default function PlanesPage() {
               <Building2 size={12} /> Secundario
             </p>
             <h2 className="mt-3 text-2xl font-semibold text-[#1f241f]">{communityPlan.name}</h2>
-            <p className="mt-2 text-sm text-[#666C60]">{communityPlan.tagline}. Pensado para ordenar una red comercial sin convertir a Niar en una plataforma institucional.</p>
+            <p className="mt-2 text-sm text-[#666C60]">{communityPlan.tagline}. Pensado para ordenar una red comercial sin convertir a NIAR en una plataforma institucional.</p>
             <Link href={communityPlan.cta.href} className="mt-5 inline-flex rounded-2xl border border-[#C8D4BF] px-4 py-3 text-sm font-semibold text-[#6E7F63]">
               {communityPlan.cta.label}
             </Link>
@@ -125,11 +136,11 @@ export default function PlanesPage() {
       <section className="mt-8 grid gap-4 rounded-[1.75rem] border border-[#E6DDD0] bg-white p-6 lg:grid-cols-2 lg:p-8">
         <div>
           <h2 className="text-lg font-semibold text-[#1f241f]">Reglas simples</h2>
-          <p className="mt-1 text-sm text-[#666C60]">Niar prioriza ventas conversacionales y operación liviana.</p>
+          <p className="mt-1 text-sm text-[#666C60]">NIAR prioriza ventas conversacionales y operación liviana.</p>
         </div>
         <div className="space-y-3 text-sm">
           {[
-            { q: "¿Niar procesa pagos?", a: "No. La operación se coordina por WhatsApp o mensajería interna." },
+            { q: "¿NIAR procesa pagos?", a: "No. La operación se coordina por WhatsApp o mensajería interna." },
             { q: "¿Incluye logística?", a: "No. Cada comercio define retiro, envío, atención a domicilio u online." },
             { q: "¿Qué plan conviene?", a: "Catálogo sirve para estar presente. Vender es el plan recomendado si querés carrito simple, prioridad y promociones." },
           ].map((item) => (
@@ -138,7 +149,7 @@ export default function PlanesPage() {
               <p className="mt-2 text-[#666C60]">{item.a}</p>
             </details>
           ))}
-          <a href="https://wa.me/5491112340000?text=Hola%20Niar%2C%20quiero%20consultar%20por%20planes" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3 font-semibold text-white">
+          <a href="https://wa.me/5491112340000?text=Hola%20NIAR%2C%20quiero%20consultar%20por%20planes" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl bg-[#25D366] px-4 py-3 font-semibold text-white">
             <MessageCircle size={15} /> Consultar por WhatsApp
           </a>
         </div>

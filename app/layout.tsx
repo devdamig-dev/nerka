@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Niar · Lo local, más cerca",
+  title: "NIAR · Lo local, más cerca",
   description: "Descubrí emprendedores, comercios y servicios de tu zona en una vidriera digital local.",
 };
 

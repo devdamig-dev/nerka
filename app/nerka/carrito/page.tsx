@@ -40,7 +40,7 @@ export default function CarritoPage() {
             <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold ring-1 ring-white/15"><ShoppingBag size={13} /> Carrito activo</p>
             <h1 className="mt-4 text-4xl font-semibold tracking-[-0.055em] lg:text-6xl">Tu selección ya se siente real</h1>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-white/72 lg:text-base">
-              {grandItems} {grandItems === 1 ? "producto" : "productos"} de {sellerCarts.length} {sellerCarts.length === 1 ? "negocio" : "negocios"}. Niar mantiene la compra simple: confirmás detalles directo con cada comercio.
+              {grandItems} {grandItems === 1 ? "producto" : "productos"} de {sellerCarts.length} {sellerCarts.length === 1 ? "negocio" : "negocios"}. NIAR mantiene la compra simple: confirmás detalles directo con cada comercio.
             </p>
           </div>
           <div className="rounded-[1.85rem] bg-white/12 p-5 ring-1 ring-white/18 backdrop-blur">
@@ -147,7 +147,7 @@ export default function CarritoPage() {
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-[#6E7F63] text-white"><CheckCircle2 size={16} /></span>
                 <div>
                   <p className="text-sm font-semibold text-[#1f241f]">{step}</p>
-                  <p className="text-xs text-[#666C60]">Paso {index + 1} simple, sin pagos ni logística dentro de Niar.</p>
+                  <p className="text-xs text-[#666C60]">Paso {index + 1} simple, sin pagos ni logística dentro de NIAR.</p>
                 </div>
               </div>
             ))}
@@ -158,7 +158,7 @@ export default function CarritoPage() {
         </aside>
       </div>
 
-      <p className="mt-6 text-center text-xs text-[#8A8378]">Niar no procesa pagos online. El precio y la entrega se confirman directo con cada emprendedor.</p>
+      <p className="mt-6 text-center text-xs text-[#8A8378]">NIAR no procesa pagos online. El precio y la entrega se confirman directo con cada emprendedor.</p>
     </main>
   );
 }

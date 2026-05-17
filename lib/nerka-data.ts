@@ -212,7 +212,7 @@ export const entrepreneurs = [
     coverage: "Zona Sur",
     cover: "https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=1200&auto=format&fit=crop",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=240&auto=format&fit=crop",
-    badges: ["Responde rápido", "Nuevo en Niar"] as TrustBadge[],
+    badges: ["Responde rápido", "Nuevo en NIAR"] as TrustBadge[],
     about: "Piezas decorativas y asesoría para ambientar tu casa o local.",
     offers: ["Velas y aromas", "Textiles", "Asesoría"],
     responseTime: "Responde en el día",
