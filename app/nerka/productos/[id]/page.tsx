@@ -68,11 +68,11 @@ export default function ProductDetailPage() {
             <img src={product.image} alt={product.name} className="h-[430px] w-full object-cover lg:h-[680px]" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1f241f]/72 via-transparent to-transparent" />
             <div className="absolute left-5 top-5 flex flex-wrap gap-2">
-              <span className="rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-[#5D6F52] ring-1 ring-white/70 backdrop-blur">{entrepreneur.category}</span>
-              {product.featured ? <span className="rounded-full bg-[#EEF3EA]/95 px-3.5 py-1.5 text-xs font-semibold text-[#5D6F52] ring-1 ring-[#C8D4BF]">Destacado</span> : null}
+              <span className="rounded-full bg-white/92 px-3.5 py-1.5 text-xs font-bold text-[#2F3A2B] ring-1 ring-white/80 backdrop-blur">{entrepreneur.category}</span>
+              {product.featured ? <span className="rounded-full bg-[#1f241f]/72 px-3.5 py-1.5 text-xs font-semibold text-white ring-1 ring-white/20 backdrop-blur">Tendencia esta semana</span> : null}
             </div>
             <div className="absolute bottom-6 left-6 right-6 text-white">
-              <p className="inline-flex items-center gap-1 text-sm text-white/82"><MapPin size={14} /> {entrepreneur.zone}</p>
+              <p className="inline-flex items-center gap-1 text-sm font-medium text-white/92"><MapPin size={14} /> {entrepreneur.zone} · Abierto ahora</p>
               <h1 className="mt-2 max-w-4xl text-4xl font-semibold tracking-[-0.05em] lg:text-6xl">{product.name}</h1>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default function ProductDetailPage() {
           <div className="niar-card space-y-6 p-5 lg:p-7">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold text-[#6E7F63]">{entrepreneur.subcategory}</p>
+                <p className="text-sm font-semibold text-[#2F3A2B]">{entrepreneur.subcategory}</p>
                 <h2 className="mt-1 text-3xl font-semibold tracking-[-0.04em] text-[#1f241f]">{product.name}</h2>
                 <Link href={`/niar/emprendedores/${entrepreneur.id}`} className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-[#4F554B]">
                   <img src={entrepreneur.avatar} alt={entrepreneur.name} className="h-8 w-8 rounded-full object-cover" />
@@ -114,7 +114,7 @@ export default function ProductDetailPage() {
               ) : (
                 <p className="text-xl font-semibold text-[#1f241f]">Precio a coordinar</p>
               )}
-              <p className="mt-1 text-sm text-[#666C60]">{product.unit ? `por ${product.unit}` : "Se confirma disponibilidad con el negocio"}</p>
+              <p className="mt-1 text-sm text-[#4F554B]">{product.unit ? `por ${product.unit}` : "Se confirma disponibilidad con el negocio"}</p>
             </div>
 
             <div className="grid gap-3 text-sm text-[#555C51] sm:grid-cols-2">
@@ -139,9 +139,9 @@ export default function ProductDetailPage() {
               {canAddToCart ? (
                 quantity > 0 ? (
                   <div className="flex items-center justify-between rounded-2xl bg-[#EEF3EA] p-2 ring-1 ring-[#C8D4BF] sm:col-span-2">
-                    <button type="button" onClick={() => updateQuantity(entrepreneur.id, product.id, quantity - 1)} className="rounded-xl bg-white p-2 text-[#6E7F63] shadow-sm" aria-label="Quitar uno"><Minus size={16} /></button>
+                    <button type="button" onClick={() => updateQuantity(entrepreneur.id, product.id, quantity - 1)} className="rounded-xl bg-white p-2 text-[#2F3A2B] shadow-sm transition hover:-translate-y-0.5" aria-label="Quitar uno"><Minus size={16} /></button>
                     <span className="text-sm font-semibold text-[#1f241f]">{quantity} en tu carrito</span>
-                    <button type="button" onClick={() => updateQuantity(entrepreneur.id, product.id, quantity + 1)} className="rounded-xl bg-white p-2 text-[#6E7F63] shadow-sm" aria-label="Agregar uno"><Plus size={16} /></button>
+                    <button type="button" onClick={() => updateQuantity(entrepreneur.id, product.id, quantity + 1)} className="rounded-xl bg-white p-2 text-[#2F3A2B] shadow-sm transition hover:-translate-y-0.5" aria-label="Agregar uno"><Plus size={16} /></button>
                   </div>
                 ) : (
                   <button type="button" onClick={() => addItem({ profileId: entrepreneur.id, profileName: entrepreneur.name, contactPhone: entrepreneur.contactPhone, product })} className="niar-primary inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold sm:col-span-2">
@@ -155,10 +155,10 @@ export default function ProductDetailPage() {
               <Link href={`/niar/mensajes/nuevo?to=${entrepreneur.id}&product=${product.id}`} className="niar-secondary inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold">
                 <MessageCircle size={16} /> Consultar
               </Link>
-              <button type="button" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#E6DDD0] bg-white px-4 py-3 text-sm font-semibold text-[#4F554B]">
+              <button type="button" className="niar-secondary inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold">
                 <Bookmark size={16} /> Guardar
               </button>
-              <button type="button" onClick={() => navigator?.clipboard?.writeText(window.location.href)} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#E6DDD0] bg-white px-4 py-3 text-sm font-semibold text-[#4F554B]">
+              <button type="button" onClick={() => navigator?.clipboard?.writeText(window.location.href)} className="niar-secondary inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold">
                 <Share2 size={16} /> Compartir
               </button>
             </div>
@@ -228,8 +228,8 @@ export default function ProductDetailPage() {
 
 function InfoPill({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
   return (
-    <div className="rounded-2xl border border-[#E6DDD0] bg-white p-3">
-      <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#6E7F63]">{icon}{title}</p>
+    <div className="rounded-2xl border border-[#DCD2C5] bg-white p-3 shadow-sm">
+      <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2F3A2B]">{icon}{title}</p>
       <p className="mt-1 text-sm text-[#555C51]">{text}</p>
     </div>
   );
