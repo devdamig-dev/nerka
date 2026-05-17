@@ -340,7 +340,7 @@ function EntrepreneurHome() {
             <Crown size={12} /> Plan recomendado · Vender
           </p>
           <h2 className="mt-2 text-lg font-semibold text-[#1f241f] lg:text-xl">
-            Potenciá tu negocio en Niar
+            Potenciá tu negocio en NIAR
           </h2>
           <p className="mt-1 text-sm text-[#666C60]">
             Más visibilidad, carrito simple, promociones y métricas comerciales para convertir mejor.

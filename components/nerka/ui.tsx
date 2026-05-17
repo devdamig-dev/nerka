@@ -46,7 +46,7 @@ export function NiarHeader() {
           <Menu size={18} />
         </button>
         <div className="text-center">
-          <p className="text-xl font-semibold tracking-tight text-[#1f241f]">Niar</p>
+          <p className="text-xl font-semibold tracking-tight text-[#1f241f]">NIAR</p>
           <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#666C60]">
             <MapPin size={12} /> Berazategui
           </p>
@@ -113,7 +113,7 @@ export function DesktopSidebar() {
       {/* BRAND */}
       <div className="rounded-3xl border border-[#E6DDD0] bg-white p-4">
         <Link href="/niar" className="block">
-          <p className="text-2xl font-semibold tracking-tight text-[#1f241f]">Niar</p>
+          <p className="text-2xl font-semibold tracking-tight text-[#1f241f]">NIAR</p>
           <p className="mt-1 inline-flex items-center gap-1 text-xs text-[#666C60]">
             <MapPin size={12} /> {user.zone ?? "Berazategui"}
           </p>
@@ -234,12 +234,12 @@ function DesktopTopbar() {
   return (
     <header className="sticky top-0 z-40 hidden border-b border-[#E6DDD0]/80 bg-[#FBF8F3]/88 px-6 py-3 backdrop-blur-xl lg:block">
       <div className="mx-auto flex max-w-[1540px] items-center justify-between gap-6">
-        <Link href="/niar" className="group flex shrink-0 items-center gap-3" aria-label="Ir al inicio de Niar">
+        <Link href="/niar" className="group flex shrink-0 items-center gap-3" aria-label="Ir al inicio de NIAR">
           <span className="grid h-11 w-11 place-items-center rounded-2xl bg-[#1f241f] text-sm font-semibold tracking-[-0.03em] text-[#FBF8F3] shadow-[0_16px_35px_rgba(31,36,31,0.16)] transition group-hover:-translate-y-0.5">
             N
           </span>
           <span>
-            <span className="block text-xl font-semibold tracking-[-0.04em] text-[#1f241f]">Niar</span>
+            <span className="block text-xl font-semibold tracking-[-0.04em] text-[#1f241f]">NIAR</span>
             <span className="mt-0.5 flex items-center gap-1 text-xs text-[#6D7468]"><MapPin size={12} /> {user.zone ?? "Berazategui"}</span>
           </span>
         </Link>
@@ -384,14 +384,14 @@ export function BadgeTrust({ badge }: { badge: TrustBadge }) {
           ? "bg-[#EEF3EA] text-[#6E7F63]"
           : badge === "Recomendado"
             ? "bg-[#FDF1E8] text-[#B45A4F]"
-            : "bg-[#EAF3FF] text-[#225ea8]"; // Nuevo en Niar
+            : "bg-[#EEF3EA] text-[#5F6F55]"; // Nuevo en NIAR
   return <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${style}`}>{badge}</span>;
 }
 
 export function StatusPill({ status }: { status: RequestStatus | ConversationStatus }) {
   const color =
     status === "Recibiendo propuestas" || status === "En conversación"
-      ? "bg-[#EAF3FF] text-[#225ea8]"
+      ? "bg-[#EEF3EA] text-[#5F6F55]"
       : status === "En evaluación" || status === "Presupuesto enviado"
         ? "bg-[#FFF4E8] text-[#9b5a00]"
         : status === "Esperando respuesta"
@@ -420,7 +420,7 @@ export function SectionTitle({ title, subtitle, cta, href }: { title: string; su
 
 export function EmptyState({ title, description, cta, href, icon }: { title: string; description: string; cta?: string; href?: string; icon?: ReactNode }) {
   return (
-    <div className="rounded-2xl border border-dashed border-[#ddd5f1] bg-white p-6 text-center">
+    <div className="rounded-2xl border border-dashed border-[#DCD2C5] bg-white p-6 text-center">
       <div className="mx-auto mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF3EA] text-[#6E7F63]">
         {icon ?? <Inbox size={20} />}
       </div>
@@ -440,7 +440,7 @@ export function QuickActionCard({ title, description, href, tone, icon }: { titl
     <Link href={href} className={`block rounded-2xl p-4 transition hover:shadow-sm ${tone}`}>
       <div className="mb-3 inline-flex rounded-xl bg-white/80 p-2 text-[#1f241f]">{icon}</div>
       <p className="text-sm font-semibold text-[#1f241f]">{title}</p>
-      <p className="mt-1 text-xs text-[#50486b]">{description}</p>
+      <p className="mt-1 text-xs text-[#666C60]">{description}</p>
     </Link>
   );
 }

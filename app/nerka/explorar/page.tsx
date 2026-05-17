@@ -32,8 +32,9 @@ function ExplorarFallback() {
 function ExplorarContent() {
   const searchParams = useSearchParams();
   const initialType = searchParams.get("type") ?? "Ambos";
+  const initialCategory = searchParams.get("category") ?? "Todos";
   const [loading, setLoading] = useState(false);
-  const [active, setActive] = useState<string>("Todos");
+  const [active, setActive] = useState<string>(initialCategory);
   const [zone, setZone] = useState("Ver todo");
   const [type, setType] = useState(initialType);
 
@@ -92,7 +93,7 @@ function ExplorarContent() {
         </div>
       </section>
 
-      <h1 className="mb-3 text-xl font-semibold text-[#1f241f] lg:hidden">Explorar Niar</h1>
+      <h1 className="mb-3 text-xl font-semibold text-[#1f241f] lg:hidden">Explorar NIAR</h1>
       <SearchBar placeholder="¿Qué estás buscando? Producto, servicio o comercio" />
 
       <div className="mt-6 lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-12">

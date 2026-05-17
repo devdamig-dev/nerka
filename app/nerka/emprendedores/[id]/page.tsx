@@ -43,7 +43,7 @@ export default function EntrepreneurProfilePage() {
         <EmptyState
           title="Perfil no encontrado"
           description="Este perfil comercial no existe o ya no está disponible."
-          cta="Explorar Niar"
+          cta="Explorar NIAR"
           href="/niar/explorar"
         />
       </main>
@@ -88,7 +88,7 @@ export default function EntrepreneurProfilePage() {
                       const url = typeof window !== "undefined" ? window.location.href : "";
                       if (typeof navigator !== "undefined" && "share" in navigator) {
                         try {
-                          await (navigator as Navigator & { share: (data: ShareData) => Promise<void> }).share({ title: entrepreneur.name, text: `Mirá la tienda de ${entrepreneur.name} en Niar`, url });
+                          await (navigator as Navigator & { share: (data: ShareData) => Promise<void> }).share({ title: entrepreneur.name, text: `Mirá la tienda de ${entrepreneur.name} en NIAR`, url });
                           return;
                         } catch {
                           // fall through to copy

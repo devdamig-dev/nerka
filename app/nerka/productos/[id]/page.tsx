@@ -28,7 +28,7 @@ import { formatPrice } from "@/lib/orders";
 export default function ProductDetailPage() {
   const params = useParams<{ id: string }>();
   const match = getProductById(params.id);
-  const related = getRelatedProducts(params.id, 9);
+  const related = getRelatedProducts(params.id, 12);
   const { addItem, getSellerCart, updateQuantity } = useCart();
 
   if (!match) {
@@ -50,6 +50,8 @@ export default function ProductDetailPage() {
   const canAddToCart = product.available && product.type === "product" && typeof product.price === "number";
   const gallery = [product.image, entrepreneur.cover, entrepreneur.avatar];
   const sameBusiness = entrepreneur.catalog.filter((item) => item.id !== product.id).slice(0, 3);
+  const productRelated = related.filter(({ entrepreneur: owner, reason }) => owner.id !== entrepreneur.id && reason === "Categoría cercana").slice(0, 4);
+  const similarNearby = related.filter(({ entrepreneur: owner, reason }) => owner.id !== entrepreneur.id && reason === "Similar cerca tuyo").slice(0, 4);
   const whatsAppLink = `https://wa.me/${entrepreneur.contactPhone.replace(/\D/g, "")}?text=${encodeURIComponent(
     `Hola ${entrepreneur.name}, vi ${product.name} en NIAR y quería consultar disponibilidad.`,
   )}`;
@@ -193,11 +195,25 @@ export default function ProductDetailPage() {
         </section>
       ) : null}
 
-      {related.length ? (
+      {productRelated.length ? (
         <section className="mt-12">
-          <SectionTitle title="Relacionados y similares cerca tuyo" subtitle="Selección simple por categoría, tipo de producto y cercanía comercial" />
+          <SectionTitle title="Productos relacionados" subtitle={`Más opciones de ${entrepreneur.category.toLowerCase()} para comparar antes de consultar`} />
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {related.map(({ item, entrepreneur: owner, reason }) => (
+            {productRelated.map(({ item, entrepreneur: owner, reason }) => (
+              <div key={`${owner.id}-${item.id}`} className="space-y-2">
+                <span className="niar-badge">{reason}</span>
+                <ProductCard product={item} profileId={owner.id} profileName={owner.name} contactPhone={owner.contactPhone} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {similarNearby.length ? (
+        <section className="mt-12">
+          <SectionTitle title="Similares cerca tuyo" subtitle="Alternativas locales por tipo de producto o servicio, pensadas para seguir descubriendo sin salir de NIAR" />
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+            {similarNearby.map(({ item, entrepreneur: owner, reason }) => (
               <div key={`${owner.id}-${item.id}`} className="space-y-2">
                 <span className="niar-badge">{reason}</span>
                 <ProductCard product={item} profileId={owner.id} profileName={owner.name} contactPhone={owner.contactPhone} />

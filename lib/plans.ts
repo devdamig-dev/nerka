@@ -16,6 +16,13 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       "Métricas básicas",
       "Link compartible",
     ],
+    excludedFeatures: [
+      "Carrito",
+      "Pedidos",
+      "Mensajería interna",
+      "Destacados",
+      "Prioridad",
+    ],
     cta: { label: "Empezar con Catálogo", href: "/niar/perfil" },
   },
   {
@@ -30,9 +37,10 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       "Hasta 100 productos",
       "Carrito simple",
       "Pedido por WhatsApp",
-      "Productos destacados y prioridad",
+      "Productos destacados",
+      "Prioridad en resultados",
       "Badge responde rápido",
-      "Promociones",
+      "Promociones/ofertas",
       "Métricas comerciales",
       "Variantes de productos",
     ],
@@ -51,7 +59,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
       "Multiusuario",
       "Plantillas de presupuesto",
       "Respuestas rápidas",
-      "Estados: consulta, presupuesto enviado, confirmado y entregado",
+      "Estados de pedido: consulta, presupuesto enviado, confirmado y entregado",
       "Analytics avanzados",
       "Branding personalizado",
       "Prioridad máxima",
@@ -61,15 +69,15 @@ export const subscriptionPlans: SubscriptionPlan[] = [
 ];
 
 export const communityPlan = {
-  name: "Niar para comunidades",
-  tagline: "Redes comerciales locales para cámaras, municipios y comunidades",
+  name: "NIAR para comunidades",
+  tagline: "Redes comerciales locales para comunidades, cámaras y municipios",
   features: [
     "Mapa público de comercios y emprendedores",
     "Categorías, zonas y destacados locales",
     "Perfiles verificados y campañas comerciales",
     "Métricas agregadas de actividad y consultas",
   ],
-  cta: { label: "Consultar por comunidades", href: "/instituciones" },
+  cta: { label: "Ver NIAR para comunidades", href: "/instituciones" },
 };
 
 export const institutionPlan = communityPlan;

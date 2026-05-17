@@ -35,14 +35,14 @@ export default function LandingPage() {
       <header className="sticky top-0 z-30 border-b border-[#E6DDD0] bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
           <Link href="/" className="text-2xl font-semibold tracking-tight text-[#2F3A2B]">
-            Niar
+            NIAR
           </Link>
           <nav className="hidden items-center gap-5 text-sm text-[#4F554B] lg:flex">
             <Link href="/niar/explorar" className="hover:text-[#6E7F63]">Explorar</Link>
             <Link href="#comercios" className="hover:text-[#6E7F63]">Comercios</Link>
             <Link href="#servicios" className="hover:text-[#6E7F63]">Servicios</Link>
-            <Link href="/niar/perfil" className="hover:text-[#6E7F63]">Vender en Niar</Link>
-            <Link href="/instituciones" className="hover:text-[#6E7F63]">Para municipios/cámaras</Link>
+            <Link href="/niar/perfil" className="hover:text-[#6E7F63]">Activar perfil</Link>
+            <Link href="/instituciones" className="hover:text-[#6E7F63]">NIAR para comunidades</Link>
             <Link href="/niar/planes" className="hover:text-[#6E7F63]">Planes</Link>
           </nav>
           <Link
@@ -65,7 +65,7 @@ export default function LandingPage() {
               Encontrá emprendedores, comercios y servicios cerca tuyo.
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-[#666C60] lg:text-lg">
-              Niar reúne la oferta local de tu zona en una vidriera digital simple, ordenada y conectada por WhatsApp.
+              NIAR reúne la oferta local de tu zona en una vidriera digital simple, ordenada y conectada por WhatsApp.
             </p>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-[#666C60] lg:text-base">
               Descubrí emprendedores, comercios y servicios de tu zona. Explorá catálogos, contactá por WhatsApp y comprá directo a quienes están cerca tuyo.
@@ -94,7 +94,7 @@ export default function LandingPage() {
                 Sumar mi negocio
               </Link>
               <Link href="/instituciones" className="inline-flex items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold text-[#4F554B] hover:bg-white">
-                Quiero implementarlo en mi zona
+                NIAR para comunidades
               </Link>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function LandingPage() {
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {categories.slice(0, 12).map((category) => (
-            <Link key={category} href="/niar/explorar" className="rounded-3xl border border-[#E6DDD0] bg-white p-4 text-sm font-semibold text-[#2F3A2B] transition hover:border-[#C8D4BF] hover:bg-[#EEF3EA]">
+            <Link key={category} href={`/niar/explorar?category=${encodeURIComponent(category)}`} className="rounded-3xl border border-[#E6DDD0] bg-white p-4 text-sm font-semibold text-[#2F3A2B] transition hover:border-[#C8D4BF] hover:bg-[#EEF3EA]">
               <Store className="mb-3 text-[#6E7F63]" size={19} /> {category}
             </Link>
           ))}
@@ -162,7 +162,7 @@ export default function LandingPage() {
         <SectionHeading eyebrow="Productos" title="Productos populares cerca tuyo" cta="Ver productos" href="/niar/explorar?type=Productos" />
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {featuredProducts.map((product) => (
-            <Link key={product.id} href={`/niar/emprendedores/${product.entrepreneurId}`} className="overflow-hidden rounded-3xl border border-[#E6DDD0] bg-white shadow-sm transition hover:shadow-md">
+            <Link key={product.id} href={`/niar/productos/${product.id}`} className="overflow-hidden rounded-3xl border border-[#E6DDD0] bg-white shadow-sm transition hover:shadow-md">
               <img src={product.image} alt={product.name} className="h-36 w-full object-cover" />
               <div className="p-4">
                 <p className="line-clamp-1 font-semibold text-[#1f241f]">{product.name}</p>
@@ -195,24 +195,22 @@ export default function LandingPage() {
         <div className="grid gap-4 lg:grid-cols-3">
           <HowCard icon={<ShoppingBag size={20} />} title="Para compradores" items={["Buscan por rubro, producto o zona", "Ven catálogos públicos", "Consultan y compran directo por WhatsApp"]} />
           <HowCard icon={<Store size={20} />} title="Para emprendedores" items={["Activan perfil y catálogo", "Muestran zona, horarios y modalidades", "Reciben consultas sin fricción"]} />
-          <HowCard icon={<Building2 size={20} />} title="Para municipios y cámaras" items={["Ordenan la base comercial", "Impulsan campañas locales", "Miden visitas, consultas y actividad"]} />
+          <HowCard icon={<Building2 size={20} />} title="Comunidades" items={["Ordenan la base comercial", "Impulsan campañas locales", "Miden visitas, consultas y actividad"]} />
         </div>
       </section>
 
-      <section className="bg-[#2F3A2B] py-14 text-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+      <section className="mx-auto max-w-7xl px-5 pb-4">
+        <div className="rounded-[1.75rem] border border-[#E6DDD0] bg-white/70 p-5 text-[#4F554B] shadow-sm lg:flex lg:items-center lg:justify-between lg:gap-8">
           <div>
-            <p className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><Users size={12} /> Infraestructura comercial local</p>
-            <h2 className="mt-4 text-3xl font-semibold lg:text-4xl">Una red comercial local para municipios, cámaras y comunidades</h2>
-            <p className="mt-4 max-w-2xl text-white/80">
-              Niar permite ordenar perfiles, catálogos, rubros, zonas, consultas y actividad comercial en una vidriera digital pública lista para escalar por barrios, localidades o corredores.
+            <p className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#7F8C72]"><Users size={12} /> Sección secundaria</p>
+            <h2 className="mt-2 text-xl font-semibold text-[#1f241f]">NIAR para comunidades</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#666C60]">
+              Una alternativa discreta para ordenar perfiles, rubros y actividad comercial local cuando una comunidad lo necesita.
             </p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {["Perfiles verificados", "Categorías y zonas", "Campañas y destacados", "Métricas de actividad"].map((item) => (
-              <div key={item} className="rounded-2xl bg-white/10 p-4 text-sm font-semibold"><CheckCircle2 className="mb-2" size={18} /> {item}</div>
-            ))}
-          </div>
+          <Link href="/instituciones" className="mt-4 inline-flex rounded-2xl border border-[#C8D4BF] px-4 py-3 text-sm font-semibold text-[#6E7F63] lg:mt-0">
+            Ver NIAR para comunidades
+          </Link>
         </div>
       </section>
 
@@ -220,18 +218,18 @@ export default function LandingPage() {
         <h2 className="text-3xl font-semibold text-[#1f241f] lg:text-5xl">Activá la vidriera digital de tu zona.</h2>
         <p className="mx-auto mt-4 max-w-2xl text-[#666C60]">Sumá comercios, servicios y emprendedores a una red local ordenada, visible y conectada por WhatsApp.</p>
         <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link href="/instituciones" className="rounded-xl bg-[#6E7F63] px-5 py-3 text-sm font-semibold text-white">Solicitar demo</Link>
-          <Link href="/niar/perfil" className="rounded-xl border border-[#C8D4BF] bg-white px-5 py-3 text-sm font-semibold text-[#6E7F63]">Sumar mi negocio</Link>
+          <Link href="/niar/perfil" className="rounded-xl bg-[#6E7F63] px-5 py-3 text-sm font-semibold text-white">Sumar mi negocio</Link>
+          <Link href="/instituciones" className="rounded-xl border border-[#C8D4BF] bg-white px-5 py-3 text-sm font-semibold text-[#6E7F63]">NIAR para comunidades</Link>
         </div>
       </section>
 
       <footer className="border-t border-[#E6DDD0] bg-white py-6">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 text-sm text-[#666C60] md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} Niar — Lo local, más cerca.</p>
+          <p>© {new Date().getFullYear()} NIAR — Lo local, más cerca.</p>
           <div className="flex flex-wrap gap-4">
             <Link href="/niar/explorar" className="hover:text-[#6E7F63]">Explorar</Link>
-            <Link href="/niar/perfil" className="hover:text-[#6E7F63]">Vender en Niar</Link>
-            <Link href="/instituciones" className="hover:text-[#6E7F63]">Municipios y cámaras</Link>
+            <Link href="/niar/perfil" className="hover:text-[#6E7F63]">Activar perfil</Link>
+            <Link href="/instituciones" className="hover:text-[#6E7F63]">NIAR para comunidades</Link>
             <Link href="/niar/planes" className="hover:text-[#6E7F63]">Planes</Link>
           </div>
         </div>

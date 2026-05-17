@@ -9,7 +9,7 @@ import type { Conversation, Message } from "./types";
 export const NEW_CONVERSATION_PREFIX = "new-";
 
 export function suggestProfileGreeting(profileName: string) {
-  return `Hola ${profileName}, vi tu perfil en Niar y quería consultarte.`;
+  return `Hola ${profileName}, vi tu perfil en NIAR y quería consultarte.`;
 }
 
 export function suggestProductGreeting(profileName: string, productName: string) {

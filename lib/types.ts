@@ -2,7 +2,7 @@ export type TrustBadge =
   | "Verificado"
   | "Responde rápido"
   | "Top en tu zona"
-  | "Nuevo en Niar"
+  | "Nuevo en NIAR"
   | "Recomendado";
 
 export type ConversationStatus =
@@ -152,6 +152,7 @@ export type SubscriptionPlan = {
   status: PlanStatus;
   highlight?: boolean;
   features: string[];
+  excludedFeatures?: string[];
   cta: { label: string; href?: string };
 };
 

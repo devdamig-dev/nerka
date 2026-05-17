@@ -34,7 +34,7 @@ export default function InstitucionesPage() {
     <main className="min-h-screen bg-[#FBF8F3] text-[#1f241f]">
       <header className="border-b border-[#E6DDD0] bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <Link href="/" className="text-2xl font-semibold tracking-tight text-[#2F3A2B]">Niar</Link>
+          <Link href="/" className="text-2xl font-semibold tracking-tight text-[#2F3A2B]">NIAR</Link>
           <nav className="hidden items-center gap-5 text-sm text-[#4F554B] md:flex">
             <Link href="/niar/explorar" className="hover:text-[#6E7F63]">Explorar</Link>
             <Link href="/niar/planes" className="hover:text-[#6E7F63]">Planes</Link>
@@ -53,7 +53,7 @@ export default function InstitucionesPage() {
               Impulsá el comercio local con una vidriera digital propia.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-[#666C60] lg:text-lg">
-              Niar ayuda a municipios, cámaras y comunidades a ordenar, visibilizar y medir su ecosistema de emprendedores, comercios y prestadores.
+              NIAR ayuda a municipios, cámaras y comunidades a ordenar, visibilizar y medir su ecosistema de emprendedores, comercios y prestadores.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/niar/planes#instituciones" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#6E7F63] px-5 py-3 text-sm font-semibold text-white">
@@ -125,7 +125,7 @@ export default function InstitucionesPage() {
         <div className="rounded-[2rem] bg-[#2F3A2B] p-8 text-white lg:p-12">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
-              <p className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><ShieldCheck size={12} /> Niar institucional</p>
+              <p className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold"><ShieldCheck size={12} /> NIAR institucional</p>
               <h2 className="mt-4 text-3xl font-semibold">Activá la vidriera digital de tu zona.</h2>
               <p className="mt-3 max-w-2xl text-white/75">Solicitá una demo para evaluar alcance, carga inicial, campañas y métricas de la red local.</p>
             </div>

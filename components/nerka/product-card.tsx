@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { type MouseEvent, useState } from "react";
 import { Minus, Plus, ShoppingBag, Sparkles } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { useCart } from "@/lib/cart-context";
@@ -12,7 +13,7 @@ type ProductCardProps = {
   profileId: string;
   profileName: string;
   contactPhone: string;
-  /** Si se omite, se arma con /nerka/mensajes/nuevo?to=&product=. */
+  /** Si se omite, se arma con /niar/mensajes/nuevo?to=&product=. */
   consultHref?: string;
 };
 
@@ -26,21 +27,40 @@ export function ProductCard({
   const consultLink =
     consultHref ?? `/niar/mensajes/nuevo?to=${profileId}&product=${product.id}`;
   const detailLink = `/niar/productos/${product.id}`;
+  const router = useRouter();
   const { addItem, getSellerCart, updateQuantity } = useCart();
   const [justAdded, setJustAdded] = useState(false);
   const cart = getSellerCart(profileId);
   const quantity = cart?.items[product.id]?.quantity ?? 0;
 
   const canAddToCart = product.available && product.type === "product" && typeof product.price === "number";
-  const handleAdd = () => {
+  const stopCardNavigation = (event: MouseEvent) => {
+    event.stopPropagation();
+  };
+
+  const handleCardNavigation = () => {
+    router.push(detailLink);
+  };
+
+  const handleAdd = (event?: MouseEvent) => {
+    event?.stopPropagation();
     addItem({ profileId, profileName, contactPhone, product });
     setJustAdded(true);
     window.setTimeout(() => setJustAdded(false), 1200);
   };
 
   return (
-    <article className={`group niar-premium-card flex flex-col ${justAdded ? "ring-2 ring-[#C8D4BF]" : ""}`}>
-      <Link href={detailLink} className="block focus-visible:rounded-[2.25rem]">
+    <article
+      onClick={handleCardNavigation}
+      className={`group niar-premium-card flex cursor-pointer flex-col ${justAdded ? "ring-2 ring-[#C8D4BF]" : ""}`}
+      role="link"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "Enter") router.push(detailLink);
+      }}
+      aria-label={`Ver detalle de ${product.name}`}
+    >
+      <Link href={detailLink} onClick={stopCardNavigation} className="block focus-visible:rounded-[2.25rem]">
         <div className="relative overflow-hidden">
           <img
             src={product.image}
@@ -72,7 +92,7 @@ export function ProductCard({
             Agregado al pedido · podés ajustar cantidades
           </div>
         ) : null}
-        <Link href={detailLink} className="group/title block">
+        <Link href={detailLink} onClick={stopCardNavigation} className="group/title block">
           <p className="line-clamp-2 text-xl font-semibold tracking-[-0.035em] text-[#1f241f] transition group-hover/title:text-[#5D6F52]">{product.name}</p>
           <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-[#666C60]">{product.description}</p>
           <span className="mt-2 inline-flex text-xs font-semibold text-[#6E7F63] transition group-hover/title:translate-x-1">Ver detalle y relacionados →</span>
@@ -97,7 +117,7 @@ export function ProductCard({
               <div className="flex items-center gap-2 rounded-xl bg-[#EEF3EA] p-1 ring-1 ring-[#C8D4BF]">
                 <button
                   type="button"
-                  onClick={() => updateQuantity(profileId, product.id, quantity - 1)}
+                  onClick={(event) => { event.stopPropagation(); updateQuantity(profileId, product.id, quantity - 1); }}
                   className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm transition hover:-translate-y-0.5"
                   aria-label="Quitar uno"
                 >
@@ -108,7 +128,7 @@ export function ProductCard({
                 </span>
                 <button
                   type="button"
-                  onClick={() => updateQuantity(profileId, product.id, quantity + 1)}
+                  onClick={(event) => { event.stopPropagation(); updateQuantity(profileId, product.id, quantity + 1); }}
                   className="rounded-lg bg-white p-1.5 text-[#6E7F63] shadow-sm transition hover:-translate-y-0.5"
                   aria-label="Agregar uno"
                 >
@@ -127,6 +147,7 @@ export function ProductCard({
           ) : product.available ? (
             <Link
               href={consultLink}
+              onClick={stopCardNavigation}
               className="niar-secondary inline-flex rounded-2xl px-4 py-2.5 text-xs font-semibold"
             >
               Consultar
